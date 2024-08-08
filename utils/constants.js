@@ -1,0 +1,1 @@
+export const mainUrl = 'https://telebe360.elxanhuseynli.com/'

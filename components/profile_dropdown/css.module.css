@@ -1,0 +1,106 @@
+.drop {
+    /* Add these properties to ensure it has no unintended size or position */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    /* Optionally, you can set the width and height to 0 if it shouldn't take space */
+    width: 0;
+    height: 0;
+}
+.a{
+    color:black;
+}
+
+
+.dropdownbtn{
+    margin-right:1vw;
+}
+.ppbutton{
+   width:100px;
+}
+.ppbutton1{
+    margin:0;
+    margin-right: 20px;
+    
+    padding:0;
+}
+.dropdownp{
+    font-weight: 600; font-size:17px;  width:9vw;
+}
+.chevron{
+    width:1.2vw;
+    height:1.2vw; justify-self:flex-end;display:none
+}
+.dropdown_li{
+    border-radius:0vw; height:3vw !important;
+}
+.dropdown_li:hover .dropdownbtn{
+    filter: invert(25%) sepia(100%) saturate(2000%) hue-rotate(270deg) brightness(100%) contrast(100%);
+   
+}
+.dropdown_li:hover .dropdownp{
+    color:#8F00FF;
+}
+.dropdown_li:hover .chevron{
+    display:block;
+}
+#logout_li:hover #logoutbtn{
+    filter: invert(25%) sepia(100%) saturate(2000%) hue-rotate(340deg) brightness(100%) contrast(100%);
+
+
+}
+#logout_li:hover #logoutp{
+    color:red;
+}
+#logout_li:hover #logoutchevron{
+    filter: invert(25%) sepia(100%) saturate(2000%) hue-rotate(340deg) brightness(100%) contrast(100%);
+
+}
+@media only screen and (max-width: 800px) {
+    .drop {
+        /* Ensure there's no unwanted size or margin in mobile view */
+        width: 0;
+        height: 0;
+        margin: 0;
+        padding: 0;
+    }
+    /* Check other properties that might affect the layout */
+}
+
+@media only screen and (max-width: 800px){
+    .ppbutton{
+        margin:0;
+        width: 12vw;
+        padding:0;
+    }
+    
+    .ppbutton1{
+        margin:0;
+        padding:0;left:0vw;
+    }
+    .dropdownp{
+        font-weight: 600; font-size:20px;  width:9vw;
+    }
+   
+    .dropdown_li{
+        border-radius:1vw; height:10vw !important; width:60vw;
+    }
+    
+    .bulanik{
+      
+    }
+    .dropdownbtn{
+       width:5vw;
+    }
+    .bulanik{
+    
+  
+        backdrop-filter: blur(1px);
+     
+    }
+}
+@media only screen and (min-width: 800px){
+        .dropdown_li{
+            width:14vw;
+        }
+}

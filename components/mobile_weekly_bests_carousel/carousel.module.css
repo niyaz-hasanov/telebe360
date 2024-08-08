@@ -1,0 +1,100 @@
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,100;0,9..40,200;0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;0,9..40,800;0,9..40,900;0,9..40,1000;1,9..40,100;1,9..40,200;1,9..40,300;1,9..40,400;1,9..40,500;1,9..40,600;1,9..40,700;1,9..40,800;1,9..40,900;1,9..40,1000&display=swap');
+
+.carousel{
+    width:105vw;
+    height:100%;
+    margin-bottom:10vw;
+}
+.card_div{
+   border-radius:3vw;
+    width:55vw;
+    height:43vw;   
+    background:white;
+    box-shadow: rgba(0, 0, 0, 0.16) 0px 10px 36px 0px, rgba(0, 0, 0, 0.06) 0px 0px 0px 1px;
+    position:relative;
+}
+.mobcardiv{
+
+}
+.bookmark{
+    width:6vw;
+    height:6vw;
+    position:absolute;right:-20vw;
+    top:3vw;
+}
+.card_pp img{
+   width:100%;
+ 
+}
+.card_pp{
+    width:13vw;    height:13vw;
+    display:flex;
+    align-items: center;
+    justify-content: center;
+    z-index:1;
+    overflow:hidden;
+      position:absolute;
+      top:3vw;left:3vw;
+    border-radius:50vw;
+    border:0.4vw solid black;
+}
+.card_bottom{
+    display:flex;
+    flex-direction:column;
+   position:absolute;
+   bottom:3vw;     font-family: 'DM Sans', sans-serif; 
+}
+.card_text_div{
+    display:flex;
+    flex-direction: column;     font-family: 'DM Sans', sans-serif; 
+    align-items: left;margin-bottom:3vw;
+    
+}
+.card_text_div h2{
+    margin:0;
+    margin-left:3vw;
+    display:flex;
+    font-size:4vw;
+    align-items:start;
+}
+.card_text_div p{
+    width:70%;
+    margin:0;margin-left:3vw;
+    font-size:2.5vw;font-weight: 500;
+    text-align:left;
+    display:flex;
+    align-items:start;
+}
+.card_button_div{
+    display:flex;
+    justify-content:space-between;
+    width:100%;
+}
+.card_button_div button{
+    font-size:3vw;     font-family: 'DM Sans', sans-serif; font-weight: 600;
+    margin-left:3vw;
+}
+#but1{
+    background:#E3E2E3;
+    color:black;
+   border-radius:1vw;border:transparent;
+   padding:1vw;
+   width:13vw;
+   margin-right:0vw;
+}
+#but2{
+    background:#FC6766;
+    color:white;
+   border-radius:1vw;border:transparent;
+   padding:1vw;
+  width:15vw;
+}
+#but3{
+    background:#E3E2E3;
+    color:#B179F4;
+   border-radius:1vw;border:transparent;
+   padding:1vw;
+width:10vw;
+margin-left:9vw;
+   
+}

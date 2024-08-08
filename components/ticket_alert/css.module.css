@@ -1,0 +1,52 @@
+.submit_button{
+    color:white;
+    background:#8F00FF;
+    border-radius:1vw;
+    border:none;
+    padding:0.6vw 3vw 0.6vw 3vw;
+    transform: translateY(0.3vw);
+    margin-right:2vw;
+    font-size:1.2vw;
+}
+.submit_button:hover{
+    cursor: pointer;
+}
+
+
+@media only screen and (max-width: 800px){
+.submit_button{
+    font-size:6vw;
+    border-radius:4vw;
+    padding:2vw 5vw 2vw 5vw;
+}
+}
+/* styles/Alert.module.css */
+/* css.module.css */
+.myPopup {
+    background-color: #f9f9f9;
+    border: 1px solid #ccc;
+    padding:25px 50px 25px 50px;
+    width:50%;
+    border-radius:20px;
+  }
+  
+  .myTitle {
+    color: black;
+  }
+  
+  .myContent {
+    font-size: 18px;
+  }
+  
+  .myConfirmButton {
+    background-color: #4caf50;
+    color: white;
+    width:90px;
+  }
+  
+  .myCancelButton {
+    background: white;
+    color: white;
+  }
+  
+  
