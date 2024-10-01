@@ -1,149 +1,107 @@
-"use client";
-import React, { useState, useEffect } from 'react';
-import { FaEye, FaEyeSlash } from 'react-icons/fa';
-import Image from 'next/image';
+import React from 'react';
+import css from './home.module.css'; 
+import { useState } from 'react';
+import Image from 'next/image'
+import Carousel from "../components/desk_carousel/carousel"
+import MobileCarousel from '../components/mobile_carousel/carousel'
 import Head from 'next/head';
+import MobileWeeklyBests from '../components/mobile_weekly_bests_carousel/carousel'
+import DeskWeeklyBests from '../components/desk_weekly_bests/carousel'
+import DeskAddCarousel2 from '../components/desk_carousel_2/carousel'
+import MobAddCarousel2 from '../components/mobile_carousel_2/carousel'
+import Footer from '../components/footer/index'
 import Link from 'next/link';
-import { motion, AnimatePresence } from 'framer-motion';
-import css from '../pages/login/login.module.css'
-import Slider from '../components/login_slider/index'
-
-export default function Login() {
-  const [passwordVisible, setPasswordVisible] = useState(false);
-  const [formData, setFormData] = useState({ email: '', password: '', rememberMe: false });
-  const [activeDiv, setActiveDiv] = useState(1);
-
-  useEffect(() => {
-    const savedEmail = localStorage.getItem('email');
-    const savedPassword = localStorage.getItem('password');
-    const savedRememberMe = localStorage.getItem('rememberMe') === 'true';
-
-    if (savedEmail && savedPassword && savedRememberMe) {
-      setFormData({ email: savedEmail, password: savedPassword, rememberMe: savedRememberMe });
-    }
-  }, []);
-
-  const togglePasswordVisibility = () => {
-    setPasswordVisible(!passwordVisible);
-  };
-
-  const handleChange = (e) => {
-    const { name, value, type, checked } = e.target;
-    setFormData({ ...formData, [name]: type === 'checkbox' ? checked : value });
-  };
-
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    console.log(formData);
-
-    if (formData.rememberMe) {
-      localStorage.setItem('email', formData.email);
-      localStorage.setItem('password', formData.password);
-      localStorage.setItem('rememberMe', formData.rememberMe);
-    } else {
-      localStorage.removeItem('email');
-      localStorage.removeItem('password');
-      localStorage.removeItem('rememberMe');
-    }
-  };
-
-  return (
-    <div className={css.body}>
-      <style jsx global>{`
-        body {
-          background-image: url('/loginback.svg');
-          
-          background-size: cover;
-          background-repeat: no-repeat;
-          background-position: center center;
-          background-attachment: fixed;
-          display: flex;
-          align-items: center;
-          justify-content: center;
-          padding-top: 5vw;
-        }
+export default function Home (){
+    return(
+        <>
+     <div className={css.body}>
+         <style jsx global>{`
+            body {
+              margin: 0;
+              background:#F2F3F2;
+            }
       `}</style>
-      <Head>
-        <title>Tələbə360°-a daxil olun</title>
+<Head>
+        <title>Tələbə360°</title>
         <link rel="icon" href="/home/360minilogo.svg" />
       </Head>
+    
 
-      <AnimatePresence>
-        {activeDiv === 1 && (
-          <motion.div
-            key="login_slider"
-            initial={{ opacity: 0, x: 100 }}
-            animate={{ opacity: 1, x: 0 }}
-            exit={{ opacity: 0, x: -100 }}
-            transition={{ duration: 0.4 }}
-            className={css.login_slider}
-          >
-            <div className={css.slider_div}>
-              <Slider />
-            </div>
-            <button className={css.nextbut} onClick={() => setActiveDiv(2)}>➜ Növbəti</button>
-          </motion.div>
-        )}
-        {activeDiv === 2 && (
-          <motion.div
-            key="login_form"
-            initial={{ opacity: 0, x: -100 }}
-            animate={{ opacity: 1, x: 0 }}
-            exit={{ opacity: 0, x: 100 }}
-            transition={{ duration: 0.4 }}
-            className={css.loginForm}
-          >
-            <form onSubmit={handleSubmit} className={css.loginFormDiv}>
-              <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center' }}>
-                <h2 className={css.daxiltxt}>Başlayın</h2>
-                <p className={css.login_top_txt}>Hələ hesabınız yoxdur? <a href='/register'>Qeydiyyatdan keçin</a></p>
-              </div>
-              <div>
-                <input
-                  type="text"
-                  id="email"
-                  name="email"
-                  value={formData.email}
-                  onChange={handleChange}
-                  placeholder="Emailiniz"
-                  className={css.emailinput}
-                />
-              </div>
-              <div className={css.pass_div}>
-                <img src='/key.svg' className={css.keyicon} />
-                <input
-                  type={passwordVisible ? 'text' : 'password'}
-                  id="password"
-                  name="password"
-                  value={formData.password}
-                  onChange={handleChange}
-                  placeholder="Şifrəniz"
-                  className={css.pass}
-                ></input>
-                <span onClick={togglePasswordVisibility}>
-                  {passwordVisible ? <img src='eye.svg' className={css.eye} /> : <FaEye className={css.eye} />}
-                </span>
-              </div>
-              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginTop: '2vw' }}>
-                <label className={css.rememberMe}>
-                  <input
-                    type="checkbox"
-                    name="rememberMe"
-                    className={css.checkbox}
-                    checked={formData.rememberMe}
-                    onChange={handleChange}
-                  />
-                  Məni xatırla
-                </label>
-                <a className={css.logintxt} href='/'><i>Şifrəmi unutdum </i></a>
-              </div>
-              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginTop: '2vw' }}>
-                <Link href='/home'><button className={css.daxilol} type="submit">➜ Daxil ol</button></Link>
-              </div>
-            </form>
-          </motion.div>
-        )}
-      </AnimatePresence>
-    </div>
-  );
+ 
+
+     
+     </div>
+     <div className={css.main_container}>
+      <div className={css.banner}>
+        <Carousel/>
+      </div>
+      <div className={css.mobilebanner}>
+        <MobileCarousel/>
+      </div>
+      
+      <div className={css.categories_div}>
+        <p>Kategoriyalar</p>
+       <ul className={css.categories_ul}>
+        <li className={css.categories_li}>
+          <div  className={css.category_li}>
+        <Image
+         src={'/home/Fashion.svg'}
+         width={0}
+         height={0}
+         className={css.category_div}
+      /></div>
+      <p className={css.category_p}> Fashion</p>
+        </li>
+        <li className={css.categories_li}>
+          <div  className={css.category_li}>
+        <Image
+         src={'/home/Food.svg'}
+         width={0}
+         height={0}
+         className={css.category_div}
+      /></div>
+      <p className={css.category_p}>Food</p>
+        </li>
+        <li className={css.categories_li}>
+          <div  className={css.category_li}>
+        <Image
+         src={'/home/Fitness.svg'}
+         width={0}
+         height={0}
+         className={css.category_div}
+      /></div>
+      <p className={css.category_p}>Fitness</p>
+        </li>
+        <li className={css.categories_li}>
+          <div  className={css.category_li}>
+        <Image
+         src={'/home/Technology.svg'}
+         width={0}
+         height={0}
+         className={css.category_div}
+      /></div>
+      <p className={css.category_p}>Technology</p>
+        </li>
+        <li className={css.categories_li}>
+          <div  className={css.category_li}>
+        <Image
+         src={'/home/Travel.svg'}
+         width={0}
+         height={0}
+         className={css.category_div}
+      /></div>
+      <p className={css.category_p}>Travel</p>
+        </li>
+        
+       </ul>
+      </div>
+
+    
+      <div className={css.add2desk}><DeskAddCarousel2/></div>
+      <div className={css.add2mob}><MobAddCarousel2/></div>
+     </div>
+  <Footer/>
+  
+     </>
+    )
 }

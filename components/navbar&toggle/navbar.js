@@ -21,6 +21,8 @@ import Feedback from '../feedback_modal/modal';
 import { Feed } from '@mui/icons-material';
 import Profile from '../profile_dropdown/dropdown';
 import Notification from '../notification_modal/index';
+import Cookies from 'js-cookie';
+import { useEffect,useState } from 'react';
 
 const drawerWidth = 200;
 
@@ -94,7 +96,7 @@ const AppBar = styled(MuiAppBar, {
   }),
   [theme.breakpoints.down('sm')]: {
     marginLeft: 0,
-    width: '100%',
+   
     display: open ? 'none' : 'block',
   },
 }));
@@ -105,7 +107,7 @@ const Drawer = styled(MuiDrawer, { shouldForwardProp: (prop) => prop !== 'open' 
     flexShrink: 0,
     whiteSpace: 'nowrap',
     boxSizing: 'border-box',
-    position: 'relative',
+  
     ...(open && {
       ...openedMixin(theme),
       '& .MuiDrawer-paper': openedMixin(theme),
@@ -126,12 +128,12 @@ const ChevronDiv = styled(Box, {
   boxShadow: 'rgba(0, 0, 0, 0.24) 0px 3px 8px',
   background: 'white',
   borderRadius: '50%',
-  padding: '0.4vw 0vw 0.4vw 2vw',
+  
   display: 'flex',
-  zIndex: 1199,
+ 
   alignItems: 'center',
   justifyContent: 'center',
-  marginTop: '22%',
+ 
   transition: theme.transitions.create(['left'], {
     easing: theme.transitions.easing.sharp,
     duration: theme.transitions.duration.enteringScreen,
@@ -147,13 +149,23 @@ const ChevronDiv = styled(Box, {
 export default function MiniDrawer() {
   const theme = useTheme();
   const [open, setOpen] = React.useState(false);
+  const [authenticated, setAuthenticated] = useState(false);
+ 
 
+  useEffect(() => {
+    const token = Cookies.get('access_token');
+    setAuthenticated(!!token);
+  }, []);
   const handleDrawerOpen = () => {
     setOpen(true);
   };
 
   const handleDrawerClose = () => {
     setOpen(false);
+  };
+
+  const handleLoginClick = () => {
+  window.location.href = '/login'
   };
 
   return (
@@ -170,19 +182,28 @@ export default function MiniDrawer() {
             <Image src='/Burger.svg' className={css.hamburger} width='0' height='0' />
           </IconButton>
 
-          <div className={css.nav_div_left}>
-            <span className={css.mobile_fav}><img src='/Booking.svg' /></span>
+          {/* <div className={css.nav_div_left}>
+           
             <div className={css.search}> <input type='search' placeholder='Axtarış üçün toxunun' className={css.search_input} /> <img src='search.svg' type='submit' className={css.search_icon} /></div>
-          </div>
+          </div> */}
           <div className={css.nav_div_right}>
+          <span className={css.mobile_fav}><img src='/Booking.svg' /></span>
             <span className={css.feedback}> <Feedback /></span>
             <span className={css.favourites_div}> <img src='/home/bookmark.svg' /> Favourites</span>
-            <div className={css.noti_and_ticket}>
+            <span className={css.noti_and_ticket}>
               <Link href='/tickets'><img src='/tiicket.svg' className={css.ticket_logo} /></Link>
               <Notification />
-            </div>
-            <span className={css.profile}>
-              <Profile /></span>
+            </span>
+            <div>           
+            {authenticated ? (
+                <Profile />
+              ) : (
+                <button onClick={handleLoginClick} className={css.loginButton}>
+                  Login
+                </button>
+              )}
+               </div>
+
           </div>
         </Toolbar>
       </AppBar>
@@ -194,9 +215,11 @@ export default function MiniDrawer() {
       />
       <Box>
         <Drawer sx={{}} variant="permanent" open={open} className={css.sidebar}>
+          
           <span className={`${css.logo} ${open ? css.logoOpen : css.logoClosed}`}>
             <Image className={css.sidebar_360img} width={0} height={0} src='/wide360logo.svg' />
           </span>
+          
           <div><Categories className={css.category} /></div>
           <div className={css.sidebar_bottom_div}>
             <Link href='/settings'><img src='/settings.svg' className={css.bottom_div_img} /></Link>

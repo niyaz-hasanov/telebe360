@@ -4,10 +4,8 @@ import List from '@mui/material/List';
 import Link from 'next/link';
 import CircularProgress from '@mui/material/CircularProgress';
 import axios from 'axios';
-import { mainUrl } from './constants'
+import { APIURL , MAINURL } from './constants'
 import css from './categories.module.css'
-
-const apiUrl = mainUrl + 'api/categories';
 
 
 
@@ -18,7 +16,7 @@ const Categories = () => {
   useEffect(() => {
     const fetchCategories = async () => {
       try {
-        const response = await axios.get(apiUrl);
+        const response = await axios.get(`${APIURL}categories`);
         setCategories(response.data);
         setLoading(false);
       } catch (error) {
@@ -37,7 +35,7 @@ const Categories = () => {
       ) : (
         <div className={css.sidebar_list}>
           <div >
-             <Link href='' passHref>
+             <Link href='/telebe360+' passHref>
               <div className={css.sidebar_item}>
                 <div className={css.sidebar_item_image_div}>
                   <img src='/home/crown.svg' alt='360logo' className={css.sidebar_item_icon}/>
@@ -47,7 +45,7 @@ const Categories = () => {
                </Link>
             </div>
             <div >
-             <Link href='/home' passHref>
+             <Link href='/' passHref>
               <div className={css.sidebar_item}>
                 <div className={css.sidebar_item_image_div}>
                   <img src='/home/offers.svg' alt='allofferslogo' className={css.sidebar_item_icon}/>
@@ -60,9 +58,9 @@ const Categories = () => {
             <div key={category.id}  >
              <Link href={`/categories/${category.slug}`} passHref>
               <div className={css.sidebar_item}>
-                <div className={css.sidebar_item_image_div}>
-                  <img src={`${mainUrl}storage/images/icons/${category.icon}`} alt={category.name} className={css.sidebar_item_icon}/>
-                </div>
+             
+                  <img src={`${MAINURL}uploads/${category.icon_path}`} alt={category.name} className={css.sidebar_item_icon}/>
+                
                 <p className={css.sidebar_item_text}> {category.name} </p>
               </div>
                </Link>

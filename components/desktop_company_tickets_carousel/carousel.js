@@ -8,7 +8,6 @@ import Image from 'next/image';
 import { MAINURL } from '../../utils/constants';
 import PropTypes from 'prop-types';
 
-// Süre hesaplama fonksiyonu
 const calculateTimeLeft = (end_time) => {
   const now = new Date();
   const endTime = new Date(end_time);
@@ -18,66 +17,100 @@ const calculateTimeLeft = (end_time) => {
     return "Bitib"; // Eğer süre geçmişse
   }
 
-  // Gün, saat, dakika ve saniye hesaplama
   const days = Math.floor(difference / (1000 * 60 * 60 * 24));
   const hours = Math.floor((difference / (1000 * 60 * 60)) % 24);
   const minutes = Math.floor((difference / 1000 / 60) % 60);
   const seconds = Math.floor((difference / 1000) % 60);
 
-  // Gün varsa göster, yoksa saat, dakika, saniye göster
   if (days > 0) {
     return `${days} gün`;
   } else if (hours > 0 || minutes > 0 || seconds > 0) {
     return `${hours} : ${minutes} : ${seconds} `;
   }
 
-  return "Bitib"; // Varsayılan olarak "Süre doldu" göster
+  return "Bitib"; 
 };
 
-const Slider = ({ tickets }) => {
-  // Eğer tickets dizisi boşsa, bir mesaj göster
-  if (tickets.length === 0) {
+const Slider = ({ ticket }) => {
+  if (ticket.length === 0) {
     return <div>No tickets available.</div>;
   }
 
   return (
     <Carousel
-    renderArrowPrev={(onClickHandler, hasPrev, label) =>
-      hasPrev && (
-          <button type="button" onClick={onClickHandler} title={label} style={{position:'absolute',top:'18vw',left:'5vw',zIndex:'1',background:'#ffffff2a',border:'none',borderRadius:'50vw' ,width:'8vw',display:'flex',justifyContent:'center',alignItems:'center',height:'8vw',color:'white',fontSize:'5vw'}}>
-              <FaChevronLeft/>
+      renderArrowPrev={(onClickHandler, hasPrev, label) =>
+        hasPrev && (
+          <button
+            type="button"
+            onClick={onClickHandler}
+            title={label}
+            style={{
+              position: 'absolute',
+              top: '8vw',
+              left: '2vw',
+              zIndex: '1',
+              background: '#DADADA',
+              border: 'none',
+              borderRadius: '50vw',
+              width: '2.5vw',
+              display: 'flex',
+              justifyContent: 'center',
+              alignItems: 'center',
+              height: '2.5vw',
+              color: 'white',
+              fontSize: '1.5vw',
+            }}>
+            <FaChevronLeft />
           </button>
-      )
-  }
-  renderArrowNext={(onClickHandler, hasNext, label) =>
-      hasNext && (
-          <button type="button" onClick={onClickHandler} title={label} style={{position:'absolute',top:'18vw',right:'5vw',zIndex:'1',background:'#ffffff2a',border:'none',borderRadius:'50vw' ,width:'8vw',display:'flex',justifyContent:'center',alignItems:'center',height:'8vw',color:'white',fontSize:'5vw'}}>
-          <FaChevronRight/>
+        )
+      }
+      renderArrowNext={(onClickHandler, hasNext, label) =>
+        hasNext && (
+          <button
+            type="button"
+            onClick={onClickHandler}
+            title={label}
+            style={{
+              position: 'absolute',
+              top: '8vw',
+              right: '3vw',
+              zIndex: '1',
+              background: '#DADADA',
+              border: 'none',
+              borderRadius: '50vw',
+              width: '2.5vw',
+              display: 'flex',
+              justifyContent: 'center',
+              alignItems: 'center',
+              height: '2.5vw',
+              color: 'white',
+              fontSize: '1.5vw',
+            }}>
+            <FaChevronRight />
           </button>
-      )
-  }
-  useKeyboardArrows={true}
-  swipeable={true}
-  showStatus={false}
-  showThumbs={false}
-  autoPlay={false}
-  infiniteLoop={false}
-  showArrows={false}
-  emulateTouch={true}
-  swipeScrollTolerance={100}
-  thumbWidth={100}
-  interval={5000}
-  transitionTime={1500}
-  showIndicators={false}
-  centerMode={true}
-  centerSlidePercentage={57}
-  selectedItem={0}
-  stopOnHover={false}
-  dynamicHeight={false}
-  className={css.carousel}
-    
+        )
+      }
+      useKeyboardArrows={true}
+      swipeable={true}
+      showStatus={false}
+      showThumbs={false}
+      autoPlay={false}
+      infiniteLoop={false}
+      showArrows={true}
+      emulateTouch={true}
+      swipeScrollTolerance={100}
+      thumbWidth={0}
+      interval={5000}
+      transitionTime={1500}
+      showIndicators={false}
+      centerMode={true}
+      centerSlidePercentage={29}
+      selectedItem={0}
+      stopOnHover={false}
+      dynamicHeight={false}
+      className={css.carousel}
     >
-      {tickets.map(ticket => (
+      {ticket.map(ticket => (
         <div key={ticket.id} className={css.mobcardiv}>
           <Link style={{color:'black'}} key={ticket.id} href={`/tickets/${ticket.id}`}>
             <div className={css.card_div}>

@@ -26,7 +26,7 @@ export default function Home() {
 
         <div className={css.main}>
          <div className={css.main_title}>  <h3>Settings</h3> 
-       <Link href='/home'>  <Image
+       <Link href='/'>  <Image
                       src={'/X.svg'}
                       width={0}
                       height={0}

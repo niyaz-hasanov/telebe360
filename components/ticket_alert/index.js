@@ -29,7 +29,7 @@ const Index = () => {
 
   return (
     <button onClick={handleClick} className={styles.submit_button}>
-      Show Alert
+      Əldə et
     </button>
   );
 };

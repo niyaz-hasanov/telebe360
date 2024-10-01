@@ -1,18 +1,18 @@
+"use client";
 import React, { useState, useEffect } from 'react';
 import { FaEye, FaEyeSlash } from 'react-icons/fa';
 import Image from 'next/image';
 import Head from 'next/head';
 import Link from 'next/link';
 import { motion, AnimatePresence } from 'framer-motion';
-import css from './login.module.css';
+import css from './css.module.css';
 import Slider from '../../components/login_slider/index';
-import axios from 'axios';
+import Cookies from 'js-cookie'; // Cookie için kütüphane ekle
 
 export default function Login() {
   const [passwordVisible, setPasswordVisible] = useState(false);
   const [formData, setFormData] = useState({ email: '', password: '', rememberMe: false });
   const [activeDiv, setActiveDiv] = useState(1);
-  const [token, setToken] = useState('');
 
   useEffect(() => {
     const savedEmail = localStorage.getItem('email');
@@ -23,12 +23,6 @@ export default function Login() {
       setFormData({ email: savedEmail, password: savedPassword, rememberMe: savedRememberMe });
     }
   }, []);
-
-  useEffect(() => {
-    if (token) {
-      localStorage.setItem('token', token);
-    }
-  }, [token]);
 
   const togglePasswordVisibility = () => {
     setPasswordVisible(!passwordVisible);
@@ -41,34 +35,33 @@ export default function Login() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+  
     try {
-      const response = await axios.post('https://telebe360.elxanhuseynli.com/api/login-user', {
-        email: formData.email,
-        password: formData.password,
+      const response = await fetch('/api/login', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ email: formData.email, password: formData.password }),
       });
-
-      console.log(response.data);
-
-      if (formData.rememberMe) {
-        localStorage.setItem('email', formData.email);
-        localStorage.setItem('password', formData.password);
-        localStorage.setItem('rememberMe', formData.rememberMe);
+  
+      const data = await response.json();
+      
+      console.log('Response data:', data); // Yanıtı kontrol et
+  
+      if (response.ok) {
+        // Erişim token'ını saklayın
+        Cookies.set('access_token', data.access_token);
+        console.log('Refresh Token:', data.refresh_token); 
+        window.location.href = '/';
+        // Refresh token'ı doğrudan istemci tarafında kullanamıyoruz, sunucuda saklanıyor
       } else {
-        localStorage.removeItem('email');
-        localStorage.removeItem('password');
-        localStorage.removeItem('rememberMe');
+        alert(data.message); // Hata mesajı
       }
-
-      setToken(response.data.token);
-
-      // Redirect or do something else after successful login
-      // Example redirect:
-      // router.push('/dashboard');
     } catch (error) {
-      console.error('Login error:', error);
+      alert('Giriş prosesində hata');
     }
   };
-
   return (
     <div className={css.body}>
       <style jsx global>{`
@@ -148,7 +141,7 @@ export default function Login() {
               <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginTop: '2vw' }}>
                 <label className={css.rememberMe}>
                   <input
-                    type="checkbox" 
+                    type="checkbox"
                     name="rememberMe"
                     className={css.checkbox}
                     checked={formData.rememberMe}
@@ -156,16 +149,15 @@ export default function Login() {
                   />
                   Məni xatırla
                 </label>
-                <a className={css.logintxt} href='#'><i>Şifrəmi unutdum </i></a>
+                <a className={css.logintxt} href='/'><i>Şifrəmi unutdum </i></a>
               </div>
               <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginTop: '2vw' }}>
-             <button className={css.daxilol} type="submit">  <a href='/home' style={{color:'white'}}>➜ Daxil ol</a> </button>
+                <button className={css.daxilol} type="submit">➜ Daxil ol</button>
               </div>
             </form>
           </motion.div>
         )}
       </AnimatePresence>
-     
     </div>
   );
 }

@@ -3,15 +3,16 @@
 }
 
 .chevron_div {
-   margin-left:-2vw;
+   margin-left:-19px;
   box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
   background: white;
   border-radius: 50%;
-  padding: 0.4vw 0vw 0.4vw 2vw;
+  padding: 4px 0vw 4px 20px;
   display: flex;
   z-index: 1199;
   align-items: center;
-  justify-content: center;
+  justify-content: flex-end;
+  margin-top:300px;
   
 }
 .bottom_div_img{
@@ -20,9 +21,10 @@
 .chevron_icon {
   border: 2px solid #8F00FF;
   border-radius: 50%;
+
   padding: 1px;
   color: #8F00FF;
-  z-index: 99999999999999999999999;
+  z-index: 9999999999999999999934324343999;
 }
 
 .sidebar_bottom_div {
@@ -89,7 +91,7 @@
 }
 .nav_div_left{
   display: flex;
-   margin-left:-30vw;
+  
 }
 .ticket_logo{
   width:40px;
@@ -118,13 +120,41 @@
 .mobile_fav{
   display:none;
 }
+.loginButton{
+  background: rgb(143,0,255);
+  background: linear-gradient(137deg, rgba(143,0,255,1) 30%, rgba(189,0,255,1) 100%);
+  color:white;
+  border:none;
+  border-radius:9px;
+  font-weight:500;
+  padding:5px 15px 5px 15px;
+  border:1px solid rgba(255, 255, 255, 0);transition:0.5s;
+  font-size:16px;
+  
+}
+.loginButton:hover{
+  color:#8F00FF;
+  background: linear-gradient(137deg, rgba(0,0,0,0) 30%, rgba(0,0,0,0) 100%);transition:0.5s;
+  border: 1px solid #8F00FF;
+  font-weight:500;
+}
 
 @media only screen and (max-width: 800px) {
+  .appbar{
+    width:105%;
+  }
+  .nav_div_right{
+    position:relative;
+    align-items: center;
+   
+  
+  }
   .hide_chevron {
     display: none;
   }
   .navbar{
     display:flex; flex-direction: row;
+    
     transform: translateX(0px);
   }
 .favourites_div{
@@ -153,7 +183,7 @@
     display:none;
   }
   .navbar{
-    justify-content: flex-start;
+    justify-content: space-between;
   }
   
   .mobile_fav{
@@ -166,17 +196,22 @@
   }
   .ticket_logo{
     width:10vw;
-    margin-left:5px;
+  
     margin-right:5px;
   }
   .chevron_div{
-    margin-top:90vw;
-    margin-left:-16vw;
-    width:25vw;
-    height:18vw;
+    
+    margin-left:-100px;
+    width:22vw;
+    margin-top:350px;
+    padding:1px 1px 1px 1px;
+     display:flex;
+     align-items: center;
+     justify-content: flex-end;
+    height:14vw;
   }
   .chevron_icon{
-        margin-right:-13vw;
+      
   }
   .sidebar {}
 }
@@ -184,24 +219,32 @@
 .nav_div_left{
   display: flex;
   margin-left:0px;
+  
   align-items: center;
 }
 
+
 @media (max-width: 600px) {
+  .chevron_div{
+    margin-left:-45px;
+    
+  }
   .chevron_div.closed {
     display: none;
   }
   .layer{
     display:block;
   }
+  .appbar{
+    width:110%;
+  }
   .profile{
-    margin-left:2vw;
+ 
   }
 }
+ 
 @media only screen and (min-width: 800px){
-   .search{
-    margin-left:-400px;
-   }
+   
 }
 @media only screen and (min-width: 2340px){
   .logoClosed{

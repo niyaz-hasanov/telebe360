@@ -5,7 +5,7 @@ import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import Modal from '@mui/material/Modal';
 import Link from 'next/link'
-
+import Cookies from 'js-cookie';
 import css from '../navbar&toggle/navbar.module.css'
 import modalcss from './modal.module.css'
 const style = {
@@ -40,7 +40,11 @@ export default function BasicModal() {
   const [open, setOpen] = React.useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
-
+  function signOut() {
+    Cookies.remove('access_token'); // Çerezi temizle
+    // Gerekirse diğer çerezleri de temizle
+    window.location.href = "/login"; // Yönlendirme
+}
   return (
     <div className={modalcss.logoutdiv}>
       <button className={modalcss.logoutbut} onClick={handleOpen}><img src='/logout.svg' /></button>
@@ -56,7 +60,7 @@ export default function BasicModal() {
            Çıxış etmək istədiyinizə əminsiniz mi?
           </Typography>
           <div className={modalcss.butdiv}>
-            <Link href='/'><button className={modalcss.but} id={modalcss.but1}>Çıxış</button></Link>
+           < button onClick={signOut} className={modalcss.but} id={modalcss.but1}>Çıxış</button>
             <button className={modalcss.but} onClick={handleClose} id={modalcss.but2}>Ləğv et</button>
           </div>
         </Box>

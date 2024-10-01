@@ -24,7 +24,7 @@ const index = () => {
 
       <div className={css.notification_top_div}>
         <h2 className={css.notification_h2}> Bildirişlər</h2>
-        <Link href='/home'> <img src='/X.svg' className={css.X}/></Link>
+        <Link href='/'> <img src='/X.svg' className={css.X}/></Link>
       </div>
       <div className={css.information_div}>
         <img className={css.alarm_img} src='/alertalt.svg' />

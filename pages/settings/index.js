@@ -24,7 +24,7 @@ export default function Home() {
         <div className={css.main}>
           <div className={css.top_div}>
             <h3>Settings</h3>
-            <Link href='/home'><img src='/X.svg' /></Link>
+            <Link href='/'><img src='/X.svg' /></Link>
           </div>
           <div className={css.mainul}>
             <ul className={css.proful}>
