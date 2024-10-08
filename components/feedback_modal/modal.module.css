@@ -25,6 +25,9 @@ font-size:16px;
       
     backdrop-filter: blur(1px); 
 }
+.feedback2{
+    display:none;
+}
 
 .logoutbut{ margin:0;padding:0;
     margin-top:0.3vw;
@@ -61,5 +64,41 @@ font-size:16px;
 
 }
 @media only screen and (max-width: 800px){
- 
+ .feedback{
+    display:none;
+ }
+ .textarea{
+    font-size:4vw;
+    width:75vw;
+ }
+ .textarea_p{
+    font-size:5vw;
+ }
+
+ .but{
+    font-size:4vw;
+    border-radius:10px;
+    padding:10px;
+ }
+ .ratingo{
+    font-size:10vw;
+ }
+ .feedback2{
+    display:block;
+    background: rgb(143,0,255);
+    background: linear-gradient(137deg, rgba(143,0,255,1) 30%, rgba(189,0,255,1) 100%);
+    color:white;
+    border:none;
+    border-radius:9px;
+    padding:5px 15px 5px 15px;
+    border:1px solid rgba(255, 255, 255, 0);
+    transition:0.5s;
+    font-size:16px;
+ }
+ .feedback2:hover{
+    color:#8F00FF;
+    background: linear-gradient(137deg, rgba(0,0,0,0) 30%, rgba(0,0,0,0) 100%);
+    border: 1px solid #8F00FF;
+    font-weight:500;transition:0.5s;
+  }
 }

@@ -1,14 +1,11 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { styled, useTheme } from '@mui/material/styles';
 import Box from '@mui/material/Box';
 import MuiDrawer from '@mui/material/Drawer';
 import MuiAppBar from '@mui/material/AppBar';
 import Toolbar from '@mui/material/Toolbar';
 import CssBaseline from '@mui/material/CssBaseline';
-import Typography from '@mui/material/Typography';
-import Divider from '@mui/material/Divider';
 import IconButton from '@mui/material/IconButton';
-import MenuIcon from '@mui/icons-material/Menu';
 import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
 import ChevronRightIcon from '@mui/icons-material/ChevronRight';
 import css from './navbar.module.css';
@@ -18,11 +15,9 @@ import Logout from '../logout_modal/modal';
 import Link from 'next/link';
 import Image from 'next/image';
 import Feedback from '../feedback_modal/modal';
-import { Feed } from '@mui/icons-material';
 import Profile from '../profile_dropdown/dropdown';
 import Notification from '../notification_modal/index';
 import Cookies from 'js-cookie';
-import { useEffect,useState } from 'react';
 
 const drawerWidth = 200;
 
@@ -36,7 +31,6 @@ const openedMixin = (theme) => ({
   display: 'flex',
   borderRight: 'none',
   boxShadow: 'none',
- 
   paddingLeft: '0.6vw',
   justifyContent: 'space-around',
   borderTopRightRadius: '20px',
@@ -66,18 +60,10 @@ const closedMixin = (theme) => ({
   borderBottomRightRadius: '20px',
 });
 
-const DrawerHeader = styled('div')(({ theme }) => ({
-  display: 'flex',
-  alignItems: 'center',
-  justifyContent: 'flex-end',
-  padding: theme.spacing(0, 1),
-  ...theme.mixins.toolbar,
-}));
-
 const AppBar = styled(MuiAppBar, {
   shouldForwardProp: (prop) => prop !== 'open',
 })(({ theme, open }) => ({
-  zIndex: theme.zIndex.drawer,
+  zIndex: theme.zIndex.drawer + 1, // Backdrop arkasında kalması için
   transition: theme.transitions.create(['width', 'margin'], {
     easing: theme.transitions.easing.sharp,
     duration: theme.transitions.duration.leavingScreen,
@@ -96,7 +82,6 @@ const AppBar = styled(MuiAppBar, {
   }),
   [theme.breakpoints.down('sm')]: {
     marginLeft: 0,
-   
     display: open ? 'none' : 'block',
   },
 }));
@@ -107,7 +92,6 @@ const Drawer = styled(MuiDrawer, { shouldForwardProp: (prop) => prop !== 'open' 
     flexShrink: 0,
     whiteSpace: 'nowrap',
     boxSizing: 'border-box',
-  
     ...(open && {
       ...openedMixin(theme),
       '& .MuiDrawer-paper': openedMixin(theme),
@@ -128,12 +112,9 @@ const ChevronDiv = styled(Box, {
   boxShadow: 'rgba(0, 0, 0, 0.24) 0px 3px 8px',
   background: 'white',
   borderRadius: '50%',
-  
   display: 'flex',
- 
   alignItems: 'center',
   justifyContent: 'center',
- 
   transition: theme.transitions.create(['left'], {
     easing: theme.transitions.easing.sharp,
     duration: theme.transitions.duration.enteringScreen,
@@ -147,25 +128,27 @@ const ChevronDiv = styled(Box, {
 }));
 
 export default function MiniDrawer() {
-  const theme = useTheme();
-  const [open, setOpen] = React.useState(false);
+  const [open, setOpen] = useState(false);
   const [authenticated, setAuthenticated] = useState(false);
- 
+  const [backdropOpen, setBackdropOpen] = useState(false); // Backdrop kontrolü
 
   useEffect(() => {
     const token = Cookies.get('access_token');
     setAuthenticated(!!token);
   }, []);
+
   const handleDrawerOpen = () => {
     setOpen(true);
+    setBackdropOpen(true); // Drawer açıldığında backdrop görünür
   };
 
   const handleDrawerClose = () => {
     setOpen(false);
+    setBackdropOpen(false); // Drawer kapandığında backdrop kapanır
   };
 
   const handleLoginClick = () => {
-  window.location.href = '/login'
+    window.location.href = '/login';
   };
 
   return (
@@ -181,50 +164,55 @@ export default function MiniDrawer() {
           >
             <Image src='/Burger.svg' className={css.hamburger} width='0' height='0' />
           </IconButton>
-
-          {/* <div className={css.nav_div_left}>
-           
-            <div className={css.search}> <input type='search' placeholder='Axtarış üçün toxunun' className={css.search_input} /> <img src='search.svg' type='submit' className={css.search_icon} /></div>
-          </div> */}
           <div className={css.nav_div_right}>
-          <span className={css.mobile_fav}><img src='/Booking.svg' /></span>
+            {/* <span className={css.mobile_fav}><img src='/Booking.svg' /></span> */}
             <span className={css.feedback}> <Feedback /></span>
-            <span className={css.favourites_div}> <img src='/home/bookmark.svg' /> Favourites</span>
+            {/* <span className={css.favourites_div}> <img src='/home/bookmark.svg' /> Favourites</span> */}
             <span className={css.noti_and_ticket}>
-              <Link href='/tickets'><img src='/tiicket.svg' className={css.ticket_logo} /></Link>
-              <Notification />
+              <Link href='/my_tickets'><img src='/tiicket.svg' className={css.ticket_logo} /></Link>
+              {/* <Notification /> */}
             </span>
-            <div>           
-            {authenticated ? (
+            <span>
+              {authenticated ? (
                 <Profile />
               ) : (
                 <button onClick={handleLoginClick} className={css.loginButton}>
                   Login
                 </button>
               )}
-               </div>
-
+            </span>
           </div>
         </Toolbar>
       </AppBar>
+
+      {/* Backdrop */}
       <Backdrop
-        sx={{ color: '#fff', zIndex: (theme) => theme.zIndex.drawer - 1 }}
-        className={css.layer}
-        open={open}
-        onClick={handleDrawerClose}
+        sx={{
+          zIndex: (theme) => theme.zIndex.drawer - 1, // AppBar'ın altında Backdrop olacak
+          display: { xs: 'block', sm: 'none' }, // Mobilde gösterilecek, bilgisayarda gizli olacak
+        }}
+        open={backdropOpen}
+        onClick={handleDrawerClose} // Backdrop'a tıklanınca Drawer kapanacak
       />
+
       <Box>
         <Drawer sx={{}} variant="permanent" open={open} className={css.sidebar}>
-          
           <span className={`${css.logo} ${open ? css.logoOpen : css.logoClosed}`}>
             <Image className={css.sidebar_360img} width={0} height={0} src='/wide360logo.svg' />
           </span>
-          
           <div><Categories className={css.category} /></div>
           <div className={css.sidebar_bottom_div}>
-            <Link href='/settings'><img src='/settings.svg' className={css.bottom_div_img} /></Link>
+            {authenticated ? (
+              <Link href='/settings'><img src='/settings.svg' className={css.bottom_div_img} /></Link>
+            ) : (
+              <h1 className={css.fake}></h1>
+            )}
             <Link href='/technical_support'><img src='/contact.svg' className={css.bottom_div_img} /></Link>
-            <span><Logout /></span>
+            {authenticated ? (
+              <span><Logout /></span>
+            ) : (
+              <h1 className={css.fake}></h1>
+            )}
           </div>
         </Drawer>
         <ChevronDiv open={open} className={`${css.chevron_div} ${!open ? css.closed : ''}`}>

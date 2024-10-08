@@ -9,34 +9,38 @@ import Link from 'next/link';
 import css2 from './modal.module.css';
 import css from '../navbar&toggle/navbar.module.css';
 import modalcss from './modal.module.css';
+import axios from 'axios';
+import Cookies from 'js-cookie';
+import { MAINURL } from '../../utils/constants'; // Adjust the path
+import { toast } from 'react-hot-toast'; 
 
 const style = {
   position: 'absolute',
-  display:'flex',
-  flexDirection:'column',
-  alignItems:'center',
+  display: 'flex',
+  flexDirection: 'column',
+  alignItems: 'center',
   top: '35%',
   left: '50%',
   transform: 'translate(-50%, -50%)',
   width: '30%',
   bgcolor: '#F4F4F4',
   boxShadow: 24,
-  borderRadius:'1.3vw',
-  padding:'1% 3% 1% 3%',
+  borderRadius: '1.3vw',
+  padding: '1% 3% 1% 3%',
   '@media (max-width: 800px)': {
     width: '75%',
-    borderRadius:'2vw',
-    padding:'8%',
+    borderRadius: '2vw',
+    padding: '8%',
   },
 };
 
 const styleh2 = {
-  fontFamily:'DM Sans',
-  fontSize:'1.4vw',
-  fontWeight:'800',
-  color:'#8F00FF',
+  fontFamily: 'DM Sans',
+  fontSize: '1.4vw',
+  fontWeight: '800',
+  color: '#8F00FF',
   '@media (max-width: 800px)': {
-    fontSize:'5.5vw',
+    fontSize: '5.5vw',
   },
 };
 
@@ -45,34 +49,46 @@ export default function BasicModal() {
   const [feedback, setFeedback] = useState('');
   const [rating, setRating] = useState(2); // Default rating
 
-  const handleOpen = () => setOpen(true);
+  const handleToggle = () => setOpen((prev) => !prev);
   const handleClose = () => setOpen(false);
-
-  const handleToggle = () => setOpen(prev => !prev);
 
   const handleFeedbackChange = (event) => {
     setFeedback(event.target.value);
   };
 
-  const handleRatingChange = (event) => {
-    setRating(Number(event.target.value));
+  const handleRatingChange = (event, newValue) => {
+    setRating(newValue);
   };
 
-  const handleSubmit = () => {
-    console.log('Gönderilecek feedback:', feedback);
-    console.log('Seçilen rating:', rating);
-   
-    // fetch('api-url', { method: 'POST', body: JSON.stringify({ feedback, rating }) })
-    //   .then(response => response.json())
-    //   .then(data => console.log(data))
-    //   .catch(error => console.error('Error:', error));
+  const handleSubmit = async () => {
+    const accessToken = Cookies.get('access_token');
+    const feedbackData = {
+      stars: rating,
+      message: feedback,
+    };
+
+    try {
+      const response = await axios.post(`${MAINURL}api/v1/students/feedback`, feedbackData, {
+        headers: {
+          Authorization: `Bearer ${accessToken}`,
+        },
+      });
+
+      if (response.status === 200) {
+        toast.success('Rəyiniz uğurla göndərildi!');  // Success message
+      }
+    } catch (error) {
+      toast.error('Rəy göndərilməsində xəta baş verdi.');  // Error message
+    }
 
     handleClose();
   };
 
+
   return (
     <div className={modalcss.logoutdiv}>
-      <button onClick={handleToggle} className={css2.feedback}>Feedback</button>
+      <button onClick={handleToggle} className={css2.feedback}>Rəy bildirin</button>
+      <button onClick={handleToggle} className={css2.feedback2}>Rəy </button>
       <Modal
         open={open}
         onClose={handleClose}
@@ -81,11 +97,13 @@ export default function BasicModal() {
         className={modalcss.bulanik}
       >
         <Box sx={style}>
-          <Typography sx={styleh2} id="modal-modal-title" variant="h6" component="h2">
+          <Typography sx={styleh2} id="modal-modal-title" variant="h6" component="h2" className={css.text}>
             Təcrübənizi qiymətləndirin
           </Typography>
           <div className={modalcss.rating}>
-            <Stack direction="row" spacing={1} sx={{ "& .MuiRating-root": { fontSize: '3vw' } }}>
+            <Stack direction="row" spacing={1} sx={{ "& .MuiRating-root": { 
+              fontSize: { xs: '10vw', sm: '3vw' } 
+            } }}>
               <Rating
                 name="size-large"
                 value={rating}

@@ -102,7 +102,7 @@ const Slider = ({ tickets }) => {
       infiniteLoop={false}
       showArrows={true}
       emulateTouch={true}
-      swipeScrollTolerance={10}
+      swipeScrollTolerance={90}
       thumbWidth={0}
       interval={5000}
       transitionTime={1500}

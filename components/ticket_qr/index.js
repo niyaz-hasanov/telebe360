@@ -1,68 +1,66 @@
-"use client"
+"use client";
 import React from 'react';
 import Box from '@mui/material/Box';
-import Button from '@mui/material/Button';
-import Typography from '@mui/material/Typography';
 import Modal from '@mui/material/Modal';
-import Link from 'next/link'
+import Typography from '@mui/material/Typography';
+import Grid from '@mui/material/Grid';
+import PropTypes from 'prop-types';
+import modalcss from './modal.module.css';
 
-import css from '../navbar&toggle/navbar.module.css'
-import modalcss from './modal.module.css'
 const style = {
   position: 'absolute',
-
-  display:'flex',
-  justifyContent:'center',
-  alignItems:'center',
+  display: 'flex',
+  justifyContent: 'center',
+  alignItems: 'center',
   top: '50%',
   left: '50%',
   transform: 'translate(-50%, -50%)',
   width: '35%',
- 
-  border:'3.5px solid #8F00FF',
+  border: '3.5px solid #8F00FF',
   bgcolor: '#F4F4F4',
-   boxShadow: 24,
-  borderRadius:'1.3vw', 
+  boxShadow: 24,
+  borderRadius: '1.3vw',
   '@media (max-width: 800px)': {
     width: '75%',
-    borderRadius:'2vw',
-   
+    borderRadius: '2vw',
   },
-
 };
-const styleh2 = {
-  fontFamily:'DM Sans',fontSize:'1.4vw',fontWeight:'800',
-  '@media (max-width: 800px)': {
-  
-    fontSize:'5.5vw'
-  },
-}
 
-export default function BasicModal() {
-  const [open, setOpen] = React.useState(false);
-  const handleOpen = () => setOpen(true);
-  const handleClose = () => setOpen(false);
+export default function BasicModal({ qrCode, companyName, discount, onClose }) {
+  const open = Boolean(qrCode); // Modal is open if qrCode is provided
 
   return (
-    <div className={modalcss.logoutdiv}>
-      <button className={modalcss.logoutbut} onClick={handleOpen}>Bilet</button>
-      <Modal
-        open={open}
-        onClose={handleClose}
-        aria-labelledby="modal-modal-title"
-        aria-describedby="modal-modal-description"
-        className={modalcss.bulanik}
-      >
-        <Box sx={style}  >
-            <div className={modalcss.main_div}>
-       <div className={modalcss.brand_name}><h3>KFC</h3></div>
-       <div className={modalcss.ticket_main}>
-        <h2>Tələbə360°</h2>
-       </div>
-       <div className={modalcss.percent}><h3>20%</h3></div>
-       </div>
-        </Box>
-      </Modal>
-    </div>
+    <Modal
+      open={open}
+      onClose={onClose}
+      aria-labelledby="modal-modal-title"
+      aria-describedby="modal-modal-description"
+      className={modalcss.bulanik}
+    >
+      <Box sx={style}>
+        <Grid container direction="row" alignItems="stretch" className={modalcss.main_div}>
+          <Grid item className={modalcss.brand_name} style={{ flexGrow: 1, borderBottom: '3.5px solid #8F00FF', padding: '10px' }}>
+            <Typography variant="h6" align="center">{companyName}</Typography>
+          </Grid>
+          <Grid item className={modalcss.ticket_main} style={{ flexGrow: 1, padding: '10px', textAlign: 'center' }}>
+            <Typography variant="h5" style={{color:'#8F00FF'}}>Tələbə360°</Typography>
+            
+            {qrCode && (
+              <img src={`data:image/png;base64,${qrCode}`} alt="QR Code" className={modalcss.qrImage} />
+            )}
+          </Grid>
+          <Grid item className={modalcss.percent} style={{ flexGrow: 1, borderTop: '3.5px solid #8F00FF', padding: '10px' }}>
+            <Typography variant="h6" align="center">{`${discount}%`}</Typography>
+          </Grid>
+        </Grid>
+      </Box>
+    </Modal>
   );
 }
+
+BasicModal.propTypes = {
+  qrCode: PropTypes.string,
+  companyName: PropTypes.string.isRequired,
+  discount: PropTypes.number.isRequired,
+  onClose: PropTypes.func.isRequired,
+};

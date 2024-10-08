@@ -62,7 +62,7 @@ export default function CustomizedSwitches() {
   return (
     <FormGroup>
       <FormControlLabel
-        control={<IOSSwitch sx={{ m: 1 }} defaultChecked />}
+        control={<IOSSwitch sx={{ m: 1 }} />}
       />
     </FormGroup>
   );

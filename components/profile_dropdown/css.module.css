@@ -7,32 +7,49 @@
 }
 .a{
     color:black;
+    display:flex;
+    align-items: center;
+  
 }
 
 
 .dropdownbtn{
  
 }
+.ppdiv{
+    width: 3vw; /* Kapsayıcı genişliği */
+    height: 3vw; /* Kapsayıcı yüksekliği */
+    border-radius: 50%; /* Yuvarlak şekil için */
+    overflow: hidden; /* Taşan kısmı gizler */
+    position: relative; /* Pozisyonlama için */
+}
 .ppbutton{
-   width:50px;
-   margin-right:1vw;
+    width: 100%;
+    height: auto;
+    object-fit: cover; /* Resmin kapsayıcıyı tamamen kaplamasını sağlar */
+    position: absolute; /* Konumlandırmayı ayarlamak için */
+    top: 50%; /* Yükseklik ortalaması */
+    left: 50%; /* Genişlik ortalaması */
+    transform: translate(-50%, -50%); /* Ortalar */
 }
 .ppbutton1{
     margin:0;
-
-   display: flex    ;
-   right:0;
-    padding:0;
+    margin-left:30px;
+    border:none;
+   display: flex;
 }
 .dropdownp{
-    font-weight: 600; font-size:17px;  width:9vw;
+    font-weight: 600; font-size:14px;  width:9vw;
 }
 .chevron{
     width:1.2vw;
     height:1.2vw; justify-self:flex-end;display:none
 }
+
 .dropdown_li{
     border-radius:0vw; height:3vw !important;
+    display:flex;align-items: center;
+    gap:10px;
 }
 .dropdown_li:hover .dropdownbtn{
     filter: invert(25%) sepia(100%) saturate(2000%) hue-rotate(270deg) brightness(100%) contrast(100%);
@@ -56,6 +73,7 @@
     filter: invert(25%) sepia(100%) saturate(2000%) hue-rotate(340deg) brightness(100%) contrast(100%);
 
 }
+
 @media only screen and (max-width: 800px) {
     .drop {
         /* Ensure there's no unwanted size or margin in mobile view */
@@ -68,11 +86,21 @@
 }
 
 @media only screen and (max-width: 800px){
+    .ppdiv{
+        width: 12vw; /* Kapsayıcı genişliği */
+        height: 12vw; /* Kapsayıcı yüksekliği */
+        border-radius: 50%; /* Yuvarlak şekil için */
+        overflow: hidden; /* Taşan kısmı gizler */
+        position: relative; /* Pozisyonlama için */
+    }
     .ppbutton{
-        margin:0;
-        width: 12vw;
-        margin-top:-1vw;
-        padding:0;
+        width: 100%;
+        height: auto;
+        object-fit: cover; /* Resmin kapsayıcıyı tamamen kaplamasını sağlar */
+        position: absolute; /* Konumlandırmayı ayarlamak için */
+        top: 50%; /* Yükseklik ortalaması */
+        left: 50%; /* Genişlik ortalaması */
+        transform: translate(-50%, -50%); /* Ortalar */
     }
     
     .ppbutton1{
@@ -81,11 +109,11 @@
         margin-left:20px;
     }
     .dropdownp{
-        font-weight: 600; font-size:20px;  width:9vw;
+        font-weight: 600; font-size:18px;  width:9vw;
     }
    
     .dropdown_li{
-        border-radius:1vw; height:10vw !important; width:60vw;
+        border-radius:1vw; height:10vw !important; width:50vw;
     }
     
     .bulanik{
@@ -99,6 +127,9 @@
   
         backdrop-filter: blur(1px);
      
+    }
+    .chevron{
+        display:none;
     }
 }
 @media only screen and (min-width: 800px){
