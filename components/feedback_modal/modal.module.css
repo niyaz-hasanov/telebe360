@@ -1,0 +1,104 @@
+
+
+.logoutdiv{
+
+}
+.feedback{
+    background: rgb(143,0,255);
+background: linear-gradient(137deg, rgba(143,0,255,1) 30%, rgba(189,0,255,1) 100%);
+color:white;
+border:none;
+border-radius:9px;
+padding:5px 15px 5px 15px;
+border:1px solid rgba(255, 255, 255, 0);
+transition:0.5s;
+font-size:16px;
+
+}
+.feedback:hover{
+    color:#8F00FF;
+    background: linear-gradient(137deg, rgba(0,0,0,0) 30%, rgba(0,0,0,0) 100%);
+    border: 1px solid #8F00FF;
+    font-weight:500;transition:0.5s;
+  }
+.bulanik{
+      
+    backdrop-filter: blur(1px); 
+}
+.feedback2{
+    display:none;
+}
+
+.logoutbut{ margin:0;padding:0;
+    margin-top:0.3vw;
+    background:none;border:none;
+}
+.logoutbut img{
+   width:1.8vw;
+}
+.rating{
+    margin-top:2vw;
+}
+.textareadiv{
+    margin-top:2vw;
+}
+.textarea{
+    resize:none;
+    border:none;
+    width:28vw;
+    border-radius:1vw;padding:1vw; font-size:1vw;
+}
+.textarea_p{
+    font-size:1vw; font-weight: 800; 
+}
+.but{
+    background: linear-gradient(90deg, #8F00FF 1.57%, #BD00FF 100%);
+    padding:0.5vw 2vw 0.5vw 2vw;
+    color:white;
+    font-size:1vw;
+    border:none;
+    border-radius:0.7vw;
+    margin-top:1vw;
+    margin-right:1vw;
+    align-self:flex-end;
+
+}
+@media only screen and (max-width: 800px){
+ .feedback{
+    display:none;
+ }
+ .textarea{
+    font-size:4vw;
+    width:75vw;
+ }
+ .textarea_p{
+    font-size:5vw;
+ }
+
+ .but{
+    font-size:4vw;
+    border-radius:10px;
+    padding:10px;
+ }
+ .ratingo{
+    font-size:10vw;
+ }
+ .feedback2{
+    display:block;
+    background: rgb(143,0,255);
+    background: linear-gradient(137deg, rgba(143,0,255,1) 30%, rgba(189,0,255,1) 100%);
+    color:white;
+    border:none;
+    border-radius:9px;
+    padding:5px 15px 5px 15px;
+    border:1px solid rgba(255, 255, 255, 0);
+    transition:0.5s;
+    font-size:16px;
+ }
+ .feedback2:hover{
+    color:#8F00FF;
+    background: linear-gradient(137deg, rgba(0,0,0,0) 30%, rgba(0,0,0,0) 100%);
+    border: 1px solid #8F00FF;
+    font-weight:500;transition:0.5s;
+  }
+}

@@ -1,0 +1,94 @@
+.notification_top_div{
+    display:flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.alarm_img{
+    width:30px;
+    height:30px;
+}
+.information_div{
+    background:#ff00001b;
+    display:Flex;
+    align-items: center;
+    padding:10px 20px 10px 20px;
+    gap:30px;
+    border-radius:20px;
+}
+.information_div_right{
+    width:40%;
+    
+}
+.information_h3{
+    padding:0;
+    margin:0;
+    font-size:20px;
+    font-weight: 500;
+}
+.information_p{
+    padding:0;
+    margin:0;
+    font-size:13px;
+    font-weight: 500;
+    color:red;
+}
+.li_div{
+    list-style-type:disc;
+   display:flex;
+   align-items: center;
+   justify-content: space-between;
+}
+.notifications_ul{
+  
+  display:flex;
+  gap:20px;
+  flex-direction: column;
+}
+.dot{
+   background:#8F00FF;
+   width:6px;
+   height:6px;
+   margin-right:20px;
+   border-radius:50%;
+}
+.li_img{
+    width:50px;
+}
+.li_p{
+    font-size:14px;
+    font-weight:600;
+    margin-left:20px;
+    width:70%;
+}
+.X{
+    width:35px;
+    transition: 1s;
+}
+.X:hover{
+   transform: scale(1.2);
+   transition: 1s ease-in-out;
+}
+.notification_h2{
+    font-size:30px;
+    font-weight: 500;
+}
+.li_div_left{
+    display:flex;
+    align-items: center;
+}
+.time_div{
+    
+    display:flex;
+    align-items: flex-end;
+
+}
+.time{
+    font-size:13px;
+}
+@media only screen and (max-width: 800px) {
+    .notifications_ul{
+        padding:0;
+        padding-left:10px;
+        padding-right:10px;
+    }
+}

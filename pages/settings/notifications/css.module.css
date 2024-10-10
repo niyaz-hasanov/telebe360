@@ -1,0 +1,263 @@
+.main {
+    margin-bottom: 5vw;
+}
+
+.main_title {
+    font-size: 3vw;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding-right: 4.8vw;
+    margin-left: 15vw;
+}
+
+.X {
+    width: 3.5vw;
+    height: 3.5vw;
+}
+
+.desktop_main {
+    margin-left: 12vw;
+}
+
+.settings_ul {
+    display: flex;
+    gap: 2vw;
+    font-size: 1.3vw;
+    color: #828282;
+    list-style: none;
+    font-weight: 600;
+}
+
+.mobile_title {
+    display: none;
+}
+
+.settings_ul .ul_360id {
+    color: #8F00FF;
+    border-bottom: 0.2vw solid #8F00FF;
+}
+
+.ul_360id:hover {
+    border-bottom: none;
+}
+
+.ul:visited {
+    color: #828282;
+}
+
+.ul {
+    color: #828282;
+}
+
+.settings_ul li {
+    padding-left: 0.5vw;
+    cursor: pointer;
+    padding-right: 0.5vw;
+}
+
+.settings_ul li:hover {
+    color: #8F00FF;
+    border-bottom: 0.2vw solid #8F00FF;
+}
+
+.mobile_main {
+    font-family: 'DM Sans', sans-serif;
+    margin-left: 4vw;
+    display: block;
+}
+
+.desktop_main {
+    display: block;
+}
+
+/* ayrac*/
+.notification_div {
+    width: 80%;
+    margin-left: 3.5vw;
+}
+
+.notification_ul1 {
+    background: white;
+    border-radius: 1vw;
+    padding-left: 1vw;
+    padding-right: 1vw;
+    font-size: 1.3vw;
+}
+
+.notification_ul2 {
+    background: white;
+    border-radius: 1vw;
+    padding-left: 1vw;
+    padding-right: 1vw;
+    font-size: 1.3vw;
+}
+
+.notification_li {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border-top: 1px solid black;
+    padding-left: 1vw;
+    padding-right: 1vw;
+}
+
+.notification_li button {
+    background-color: #8F00FF;
+    font-size: 1.1vw;
+    border: none;
+    color: white;
+    padding: 0.5vw 2vw 0.5vw 2vw;
+    border-radius: 0.8vw;
+}
+
+#li1 {
+    border-top: none;
+}
+
+.p {
+    display: block;
+}
+
+.mobile_ul {
+    display: block;
+}
+
+
+.mobile_ul {
+    display: block;
+    width: 90%;
+    margin-left: 0vw;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+.mobile_li {
+    padding-left: 3vw;
+    margin-bottom: 3vw;
+    width: 90%;
+    background: white;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border-radius: 1vw;
+    box-shadow: rgba(0, 0, 0, 0.16) 0px 10px 36px 0px, rgba(0, 0, 0, 0.06) 0px 0px 0px 1px;
+}
+
+#p1 {
+    font-weight: 600;
+    font-size: 1.5vw;
+    margin-bottom: 0vw;
+}
+
+#p2 {
+    font-weight: 500;
+    font-size: 1vw;
+    margin-top: 0.5vw;
+}
+@media only screen and (max-width: 800px) {
+
+    .main_title {
+        display: none;
+        margin-left: 0vw;
+    }
+
+    .desktop_main {
+        display: flex;
+        flex-direction: column;
+        margin-left: 0vw;
+    }
+
+    .toggle {
+        position: absolute;
+        top: -3.5vw;
+        left: -1vw;
+    }
+
+    .settings_ul {
+        display: none;
+    }
+
+    .mobile_title {
+        display: block;
+        display: flex;
+        align-items: center;
+        margin-left: 5vw;
+        margin-top: 2vw;
+    }
+
+    .mobile_title h3 {
+        font-size: 4vw;
+        margin-left: 28vw;
+    }
+
+    .chevron_left {
+        width: 4vw;
+        height: 4vw;
+        cursor: pointer;
+    }
+
+    /* ayrac */
+    .notification_div {
+        display: none;
+    }
+
+    .p {
+        display: block;
+        display: flex;
+        padding-left: 15vw;
+        padding-right: 15vw;
+        align-items: center;
+        font-weight: 500;
+        font-size: 3vw;
+        text-align: center;
+    }
+
+    .mobile_ul {
+        display: block;
+        width: 90%;
+        margin-left: 0vw;
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .mobile_li {
+        padding-left: 3vw;
+        margin-bottom: 3vw;
+        width: 90%;
+        background: white;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        border-radius: 1vw;
+        box-shadow: rgba(0, 0, 0, 0.16) 0px 10px 36px 0px, rgba(0, 0, 0, 0.06) 0px 0px 0px 1px;
+    }
+
+    .not {
+        width: 14vw;
+        height: 10vw;
+    }
+
+    .mobile_li_left {
+        display: flex;
+        flex-direction: column;
+    }
+
+    #p1 {
+        font-weight: 900;
+        font-size: 2.5vw;
+        margin-bottom: 0vw;
+    }
+
+    #p2 {
+        font-weight: 500;
+        font-size: 2vw;
+        margin-top: 0.5vw;
+    }
+
+    #dropdown {
+        margin-left: 20vw;
+    }
+}

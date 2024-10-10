@@ -1,0 +1,240 @@
+
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,100;0,9..40,200;0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;0,9..40,800;0,9..40,900;0,9..40,1000;1,9..40,100;1,9..40,200;1,9..40,300;1,9..40,400;1,9..40,500;1,9..40,600;1,9..40,700;1,9..40,800;1,9..40,900;1,9..40,1000&display=swap');
+
+.container{
+    margin-left:3vw;
+    margin-right:3vw;
+}
+.loginNav{
+    display:flex;
+    padding-top:3vw;
+   justify-content: space-between;
+   font-family: 'DM Sans', sans-serif; 
+}
+.loginLeftButton{
+    background-color: transparent;
+    border-radius: 1vw;
+    font-size:1.5vw;  
+    font-weight: 600;
+    border:0.3vw solid black;
+    
+    width:12.5vw;
+    height:3vw;
+    cursor:pointer;
+    transition:1s;
+   
+}
+.loginLeftButton:hover{
+    background-color:black;
+    color:white;
+ 
+}
+.loginRightButton{
+    background: var(--360, linear-gradient(180deg, #FF8A00 0%, #FFB800 100%));
+    color:white;
+    border:none;
+    border-radius:1vw;
+    width:13.5vw;
+    height:3vw;
+    font-size:1.5vw;  
+    font-weight: 700;
+    cursor: pointer;
+    transition:0.5s;
+}
+.loginRightButton:hover{
+    background:white;
+    border:0.3vw solid #FE964B;
+    color:#FE964B;
+    
+}
+.section1{
+
+    padding-right:0;
+width:100%;
+    background-image: url('../before_login//media//section1.svg');
+    height:70vw;
+   background-size:100% 100%;
+   background-repeat: no-repeat;
+   background-position: center;
+}
+.section1div{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.logoDiv{
+    display:flex;
+    justify-content: center;
+    
+}
+.img{
+    width:15vw;
+    height:5vw;
+}
+.section1P{
+   display:flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    font-family: 'DM Sans', sans-serif; 
+    font-weight:500;
+    margin:0;
+    margin-top:-3vw;
+    padding:0;
+}
+.section1pDiv{
+    margin:0;
+    
+    padding:0;
+    margin-top:1vw;
+}
+.section1p1{
+    font-size:2.4vw;
+}
+.section1p2{
+    font-size:1.4vw;
+    margin-top:-2vw;
+}
+.videoimg{
+   width:70vw;
+   height:25vw;
+}
+.videodiv{
+   margin-top:1vw;
+}
+.sec1but{
+    display: flex;
+    justify-content: center;
+    margin-top:3vw;
+}
+.sec1but button{
+    background: var(--360, linear-gradient(180deg, #FF8A00 0%, #FFB800 100%));
+   color:white;
+   font-family: 'DM Sans', sans-serif; 
+   border:none;
+   font-size:1.5vw;
+   font-weight: 500;
+   padding:0.5vw;
+   width:19vw;
+   border-radius: 0.5vw;
+   cursor: pointer;
+   transition:1s;
+}
+.sec1but button:hover{
+    background:white;
+    border:0.125vw solid #FE964B;
+    color:#FE964B;
+   
+}
+.cross_line{
+    width:100%;
+    height:100%;
+}
+
+.section2{
+
+   margin-top:-20vw;
+   padding-top:20vw;
+width:100%;
+    background-image: url('../before_login//media/section2_back.svg');
+    height:140vw;
+   background-size:100% 100%;
+   background-repeat: no-repeat;
+   background-position: center;
+}
+.sec2imgdiv{
+    display:flex;
+    justify-content: center;
+}
+.section2img{
+    width:12vw;
+    height:20vw;
+}
+.section2pdiv{
+    display:flex;
+    justify-content: center;
+}
+.section2p{
+    width:40vw;
+    height:10vw;
+    position:relative;
+}
+.cloud_div{
+    position:relative;
+ 
+
+}
+.cloudimg{
+    position:absolute;
+    width:10vw;
+    left:80vw;top:-14vw;
+    height:10vw;
+}
+.sec2_orange_line{
+    position:absolute;
+    right:39vw;
+    top:94.5vw;
+    width:9vw;
+    height:1vw;
+}
+.sec2_main_div{
+    display:flex;
+    justify-content: space-between;
+    padding:0vw 5vw 0vw; 
+    margin-top:12vw;
+}
+.sec2_main_div_left{    
+    position:relative;
+
+}
+.macbook{
+ width:30vw;
+ height:20vw;
+ position:absolute;
+  top:8=5vw;
+}
+.ipad{
+   width:30vw;
+   height:13vw; position:absolute;
+   top:7vw;
+   left:8vw;
+
+}
+.sec2line{
+  
+    border-left:0.25vw solid #979797a4;
+    width:1vw;
+   height:90vw;
+    
+}
+.sec2_main_div_right{
+    margin-left:-40vw;  
+}
+.sec2_main_div_right ul{
+    list-style: none;
+  
+    font-family: 'DM Sans', sans-serif; 
+
+ 
+}
+.sec2_main_div_right ul li{
+    display:flex;
+align-items: center;
+font-size:1.2vw;
+font-family: 'DM Sans', sans-serif; 
+}
+.student_span{
+    display:inline-block;
+    border:0.2vw solid black;
+    padding:0.7vw;
+    border-radius:50vw;
+    margin-right:3vw;
+}
+.check{
+    width:5vw;
+    height:5vw;
+}
+.student{
+    width:3vw;
+    height:3vw;
+}

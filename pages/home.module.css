@@ -1,0 +1,308 @@
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,100;0,9..40,200;0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;0,9..40,800;0,9..40,900;0,9..40,1000;1,9..40,100;1,9..40,200;1,9..40,300;1,9..40,400;1,9..40,500;1,9..40,600;1,9..40,700;1,9..40,800;1,9..40,900;1,9..40,1000&display=swap');
+
+.body{
+    display:flex;
+}
+.mobilebanner{
+    display:none;
+    
+}
+.footer{
+    width:100%;
+    height:100%;
+    bottom:0vw;
+    z-index:-1;
+    position:relative;
+}
+.ppdiv{
+    display:inline-block;
+    border:0.2vw solid black;
+    border-radius:50vw;
+    padding:0;
+     margin-right:13vw;
+    height:3.99vw;
+    margin-left:1vw;
+    color:black;
+    text-decoration: none;
+}
+.card{
+   background:white;border-radius:2vw;
+   list-style:none;
+   text-decoration: none;
+   color:black;
+   width:22vw;
+   height:17vw;
+   padding:-5vw;
+   display:flex;
+   flex-wrap:wrap;
+   
+   box-shadow: rgba(0, 0, 0, 0.15) 2.4px 2.4px 3.2px;
+   
+}
+.main_container{
+       margin-top:-5vw;
+       font-family: 'DM Sans', sans-serif; 
+       display:flex;
+       flex-wrap:wrap;
+    margin-left:18vw;
+    
+
+    
+}.card_p{
+  display:inline-block;
+  
+  padding:0;
+  margin-top:-1vw;
+    color:black;
+  margin-left:1vw;
+}
+.but_div{
+    margin-left:1vw;
+    display:flex;
+    padding-bottom:2vw;
+  height:1vw;
+    
+}
+.percent{
+    margin-left:4.5vw;
+    background:#E3E2E3;
+    padding:0.2vw;
+    display:inline-block;
+    font-size:1.4vw;text-decoration: none;
+    color:#B179F4;  
+    border-radius:0.3vw;
+    height:2vw;
+}
+.but_div button{
+    padding:0.5vw;
+    
+    height:2.5vw;
+}
+.woltbut{
+    background:#E3E2E3;
+    border:none;
+    border-radius:0.3vw;
+}
+.todaybut{
+    border:none;
+    background:#FC6766;
+    color:white;
+    border-radius:0.3vw;
+}
+.but_div button{
+    margin-right:1vw;
+    padding-left:1vw;
+    font-size:1.2vw;
+    padding-right:1vw;
+}
+.card_p p{
+    
+    font-size:1.5vw;
+    margin-top:-1.5vw;
+}
+.cardtop{
+    display:flex;
+    
+   flex-direction: row;
+   align-items: center;
+    
+}
+.card_p h3{
+    font-size:1.5vw;
+}
+
+.card_pp{
+    width:4vw;
+    border-radius:50vw;
+    height:4vw;
+}
+
+.bookmarkcard{
+    width:2.5vw;
+    height:2.5vw;
+    margin-top:-2vw;
+    margin-bottom:0;
+
+}
+.categories_div{
+    display:none;
+}
+.card_div{
+    display:flex;
+    flex-wrap: wrap;
+    gap:3vw;
+}
+.banner{
+    width:88vw;height:19vw;margin-left:-8vw;
+}
+
+.mobweekbest{
+    display:none;
+}
+.add2mob{
+    display:none;
+}
+.deskweekbest{
+    display:block;
+    display:flex;
+    flex-direction: column;
+    align-items: center;margin-left:4vw;
+    font-size:1.9vw;
+    font-weight: 700;
+   }
+   .deskweekbest p{
+    margin-left:-20vw;
+   }
+   .mobfooter{
+    display:none;
+   }
+@media only screen and (max-width: 800px) {
+    .footer{
+        display:none;
+    }
+    .mobfooter{
+        display:block;
+        width:120vw;
+    height:100%;
+    bottom:0vw;
+    z-index:-1;
+    position:relative;
+    }
+    .card{
+        width:53vw;
+        height:40vw; margin-left:-1vw;
+        border-radius:4vw;
+    }
+    .card_div{
+        justify-content: center;
+        gap:7vw;
+        margin-left:-20vw;
+    margin-right:-20vw;
+    }
+    .ppdiv{
+        width:10vw;
+        height:10vw;
+        
+        
+        margin-right:30vw;
+    }
+    .bookmarkcard{
+        margin-top:-5vw;
+        width:7vw;
+        height:7vw;
+    }
+    .cardtop{
+        margin-top:1vw;
+        margin-left:2vw;
+        
+    }
+    .categories_div{
+        display:block;
+        display:flex;align-items: left;flex-direction: column;margin-left:-9vw;
+    }
+    .categories_div>p{
+        font-size:6vw;
+        font-family: 'DM Sans', sans-serif; 
+        font-weight: 800;
+    }
+    .category_div{
+        width:10vw;
+        
+        
+        height:10vw;
+     
+    }
+    .category_li{
+        border:1px solid #969696;
+        border-radius:15vw;
+        display:flex; align-items: center;
+        flex-direction: column;
+        justify-content: center;
+        padding:4vw;
+    }
+    .categories_li{
+        display:flex;
+        flex-direction: column;
+        align-items: center;
+        
+    }
+    .categories_ul{
+        display:flex;
+        align-items: center;
+        gap:3vw;
+      margin-left:-10vw;
+      margin-top:-3vw;
+        list-style: none;
+        flex-direction: row;
+    }
+    .category_p{
+        font-size:3.5vw;
+        margin-top:1vw;
+        font-weight:800;
+    }
+    .card_pp{
+        width:10vw;
+        height:10vw;
+    }
+    .percent{
+        font-size:3vw;
+        display: flex;align-items: center;
+        justify-content: center;
+        height:5vw;font-weight: 900;
+        margin-right:0.6vw;
+        border-radius: 1.1vw;
+        margin-left:12vw;
+    }
+    .but_div{
+        margin-left:3vw;
+    }
+    .but_div button{
+        font-size:3vw;
+        padding:2vw;
+        display: flex;
+        align-items: center;
+        height:5vw;
+        border-radius:1.1vw;
+    }
+    .card_p h3{
+        margin-top:1vw;
+        font-size:4vw;
+        margin-bottom:2vw;
+    }
+    .card_p{
+        margin-left:3vw;
+        margin-top:3vw;
+    }
+    .card_p p{
+        font-size:2.5vw;
+        margin-top:-2vw;
+    }
+ 
+   .mobilebanner{
+    display:block;
+    width:100vw;
+    height:43vw;
+    margin-left:-11vw;
+   }
+   .banner{
+    display:none;
+ 
+   }
+   .deskweekbest{
+    display:none;
+   }
+   .mobweekbest{
+    display:block;
+    display:flex;
+    flex-direction: column;
+    align-items: left;margin-left:-10vw;
+    font-size:5vw;
+    font-weight: 800;
+   }
+   .add2desk{
+    display:none;
+   }
+   .add2mob{
+    display:block;
+   }
+}
