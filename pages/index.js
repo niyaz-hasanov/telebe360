@@ -10,6 +10,7 @@ import DeskWeeklyBests from '../components/desk_weekly_bests/carousel'
 import DeskAddCarousel2 from '../components/desk_carousel_2/carousel'
 import MobAddCarousel2 from '../components/mobile_carousel_2/carousel'
 import Footer from '../components/footer/index'
+import Table from '../components/all_tickets_table/table'
 import Link from 'next/link';
 export default function Home (){
     return(
@@ -38,7 +39,14 @@ export default function Home (){
       <div className={css.mobilebanner}>
         <MobileCarousel/>
       </div>
-      
+      <div className={css.table_div}><Table/></div>
+  
+
+    
+      <div className={css.add2desk}><DeskAddCarousel2/></div>
+      <div className={css.add2mob}><MobAddCarousel2/></div>
+     </div>
+
       {/* <div className={css.categories_div}>
         <p>Kategoriyalar</p>
        <ul className={css.categories_ul}>
@@ -95,12 +103,6 @@ export default function Home (){
         
        </ul>
       </div> */}
-
-    
-      <div className={css.add2desk}><DeskAddCarousel2/></div>
-      <div className={css.add2mob}><MobAddCarousel2/></div>
-     </div>
-  <Footer/>
   
      </>
     )

@@ -3,7 +3,7 @@ import Cookies from 'js-cookie';
 import css from './css.module.css';
 import Head from 'next/head';
 import BasicModal from '../../components/ticket_qr/index'; // Import BasicModal
-import {MAINURL} from '../../utils/constants'
+import {MAINURL,APIURL} from '../../utils/constants'
 const TicketPage = () => {
   const [tickets, setTickets] = useState([]);
   const [selectedTicket, setSelectedTicket] = useState(null); // To store selected ticket for QR
@@ -12,7 +12,7 @@ const TicketPage = () => {
     const fetchTickets = async () => {
       const token = Cookies.get('access_token');
       try {
-        const response = await fetch(`${MAINURL}api/v1/tickets/student/ticket`, {
+        const response = await fetch(`${APIURL}tickets/student/ticket`, {
           method: 'GET',
           headers: {
             'Authorization': `Bearer ${token}`,
@@ -52,7 +52,7 @@ const TicketPage = () => {
             <li key={ticket.id} className={css.ticket_li}>
               <div className={css.ticket_li_left}>
                 <img src={`${MAINURL}uploads/${ticket.registrator.company.logo_path}`} alt={ticket.registrator.company.name} />
-                <p>{`${ticket.registrator.company.name} - ${ticket.registrator.name} • ${ticket.registrator.company.address}`}</p>
+                <p>{`${ticket.registrator.company.name} - ${ticket.registrator.name} • ${ticket.registrator.company.address} `}</p>
               </div>
               <div className={css.ticket_li_right}>
                 <span
@@ -62,11 +62,12 @@ const TicketPage = () => {
                     qrCode: ticket.qr_code,
                     companyName: ticket.registrator.company.name,
                     discount: ticket.registrator.discount,
+                    createdAt : ticket.created_at,
                   })} 
                 >
                  Bilet
                 </span>
-                <span className={css.ticket_li_right_button_1}>{ticket.used ? 'Bitdi' : 'Aktiv'}</span>
+                <span className={css.ticket_li_right_button_1}>{ticket.used ? 'Deaktiv' : 'Aktiv'}</span>
                 <span className={css.ticket_li_right_button_2}>{`${ticket.registrator.discount}%`}</span>
                
               </div>
@@ -82,7 +83,7 @@ const TicketPage = () => {
         <BasicModal 
           qrCode={selectedTicket.qrCode} 
           companyName={selectedTicket.companyName}
-
+          createdAt={selectedTicket.createdAt}
           discount={selectedTicket.discount}
           onClose={() => setSelectedTicket(null)} 
         />

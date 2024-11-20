@@ -21,7 +21,7 @@ const CategoryPage = () => {
     if (router.isReady && slug) {
       const fetchTickets = async () => {
         try {
-          const categoriesResponse = await axios.get(`${APIURL}categories`);
+          const categoriesResponse = await axios.get(`${APIURL}categories/`);
           const category = categoriesResponse.data.find(cat => cat.slug === slug);
           
           if (category) {

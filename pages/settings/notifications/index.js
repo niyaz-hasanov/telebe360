@@ -5,22 +5,22 @@ import Image from "next/image";
 import Head from "next/head";
 import Link from "next/link";
 import { toast } from "react-hot-toast";
-import Switch from "../../../components/switch_button/index";
-import { MAINURL } from "../../../utils/constants";
+import Switch from "../../../components/switch_button/index";  // Switch bileşeni import edildi.
+import { APIURL } from "../../../utils/constants";
 import Cookies from "js-cookie";
 import css from "./css.module.css";
 
 export default function Home() {
-  // State for each notification setting
+  // Bildirim ayarları için state
   const [emailNotifications, setEmailNotifications] = useState(false);
   const [inAppNotifications, setInAppNotifications] = useState(false);
   const [updateNotifications, setUpdateNotifications] = useState(false);
 
-  // Fetch user notification preferences on component mount
+  // Component yüklendiğinde API'den bildirim ayarlarını çek
   useEffect(() => {
     const fetchNotificationSettings = async () => {
       try {
-        const accessToken = Cookies.get("access_token");
+        const accessToken = Cookies.get("access_token"); // Token cookie'den alınıyor.
         const config = {
           headers: {
             Authorization: `Bearer ${accessToken}`,
@@ -28,32 +28,33 @@ export default function Home() {
           },
         };
 
-        // API request to fetch current notification settings
-        const response = await axios.get(`${MAINURL}api/v1/students/me`, config);
+        // API isteği ile bildirim ayarlarını getir
+        const response = await axios.get(`${APIURL}students/me`, config);
 
-        // Assuming the API returns the notification preferences in the response
+
+        // API'den gelen değerleri state'e aktar
         const { get_email_notifications, get_inapp_notifications, get_update_notifications } = response.data;
 
-        // Set the state with the fetched values
         setEmailNotifications(get_email_notifications);
         setInAppNotifications(get_inapp_notifications);
         setUpdateNotifications(get_update_notifications);
       } catch (error) {
-        console.error("Failed to fetch notification settings:", error);
-        toast.error("Failed to load notification settings.");
+        console.error("Dəyişiklik uğurla tətbiq edildi", error);
+        toast.error("Bildirim ayarları yüklenemedi.");
       }
     };
 
     fetchNotificationSettings();
-  }, []); // Empty dependency array means this runs only once when the component mounts
+  }, []); // Boş dependency array ile component mount olduğunda bir kez çalışır.
 
+  // Kullanıcı switch durumunu değiştirdiğinde API'ye PUT isteği atan fonksiyon
   const handleNotificationChange = async (type, value) => {
-    // Update the relevant state based on the switch type
+    // Değişen switch'in türüne göre state'i güncelle
     if (type === "email") setEmailNotifications(value);
     if (type === "inApp") setInAppNotifications(value);
     if (type === "update") setUpdateNotifications(value);
 
-    // Prepare the data to send to the API
+    // API'ye gönderilecek veri
     const data = {
       get_email_notifications: type === "email" ? value : emailNotifications,
       get_inapp_notifications: type === "inApp" ? value : inAppNotifications,
@@ -69,15 +70,12 @@ export default function Home() {
         },
       };
 
-      // Send PUT request
-      await axios.put(`${MAINURL}api/v1/students/`, data, config);
+      // PUT isteği ile API'ye veri gönder
+      await axios.put(`${APIURL}students/`, data, config);
 
-      // Show success toast notification
-      toast.success("Notification settings updated successfully!");
+      toast.success("Dəyişiklik uğurla tətbiq edildi.");
     } catch (error) {
-      console.error(error);
-      // Show error toast notification
-      toast.error("Failed to update notification settings.");
+      toast.error("Dəyişikliklərin tətbiqi zamanı xəta!");
     }
   };
 
@@ -138,9 +136,9 @@ export default function Home() {
             <ul className={css.mobile_ul}>
               <li className={css.mobile_li}>
                 <div className={css.mobile_li_left}>
-                  <p id={css.p1}>E-mail notifications</p>
+                  <p id={css.p1}>E-mail bildirişləri</p>
                   <p id={css.p2}>
-                    You will receive an e-mail about any notification regularly
+                    E-mail ünvanınızdan saytda etdiyiniz əməliyyatlar və ümumi xəbərlərlə bağlı bildiriş alacaqsınız.
                   </p>
                 </div>
                 <div>
@@ -152,7 +150,7 @@ export default function Home() {
                   />
                 </div>
               </li>
-              <li className={css.mobile_li}>
+              {/* <li className={css.mobile_li}>
                 <div className={css.mobile_li_left}>
                   <p id={css.p1}>In app notifications</p>
                   <p id={css.p2}>
@@ -167,12 +165,12 @@ export default function Home() {
                     }
                   />
                 </div>
-              </li>
+              </li> */}
               <li className={css.mobile_li}>
                 <div className={css.mobile_li_left}>
-                  <p id={css.p1}>Update notification</p>
+                  <p id={css.p1}>Yeniləmə bildirişi</p>
                   <p id={css.p2}>
-                    You will receive a notification about update application
+                   Applikasiyadakı yeniliklər barədə bildiriş alacaqsınız.
                   </p>
                 </div>
                 <div>

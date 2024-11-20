@@ -1,44 +1,106 @@
 "use client";
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Head from 'next/head';
 import { motion, AnimatePresence } from 'framer-motion';
 import css from './register.module.css';
 import { FaEye, FaEyeSlash } from 'react-icons/fa';
-
+import { APIURL, MAINURL } from '../../utils/constants'
+import toast from 'react-hot-toast';
 export default function Register() {
   const [formData, setFormData] = useState({
-    firstName: '',
-    lastName: '',
-    dob: '',
-    gender: '',
+    fname: '',
+    lname: '',
+    birth_date: '',
+    sex: '',
     email: '',
     password: '',
-    university: '',
-    studentCard: null,
-    otp: ['', '', '', '']
+    university_id: '',
+    card: null,
+
   });
 
   const [activeDiv, setActiveDiv] = useState(1);
   const [passwordVisible, setPasswordVisible] = useState(false);
   const [passwordStrength, setPasswordStrength] = useState('');
+  const [passwordRequirements, setPasswordRequirements] = useState({
+    length: false,
+    uppercase: false,
+    symbol: false,
+  });
+  const [timer, setTimer] = useState(120); // 120 saniye = 2 dakika
+  const [isResendActive, setIsResendActive] = useState(false);
+  const [universities, setUniversities] = useState([]);
+  useEffect(() => {
+    let countdown;
+    if (timer > 0) {
+      countdown = setTimeout(() => setTimer(timer - 1), 1000);
+    } else {
+      setIsResendActive(true); // Resend butonunu aktif yap
+    }
+    return () => clearTimeout(countdown);
+  }, [timer]);
+  useEffect(() => {
+    const fetchUniversities = async () => {
+      try {
+        const response = await fetch(`${APIURL}universities/`);
+        const data = await response.json();
+        setUniversities(data); // Assuming `data` is an array
+      } catch (error) {
+        console.error('Error fetching universities:', error);
+      }
+    };
 
+    fetchUniversities();
+  }, []);
+
+
+  const formatTime = (seconds) => {
+    const minutes = Math.floor(seconds / 60);
+    const secs = seconds % 60;
+    return `${minutes}:${secs < 10 ? '0' : ''}${secs}`;
+  };
+  const checkAge = (birthDate) => {
+    const today = new Date();
+    const birth = new Date(birthDate);
+    const age = today.getFullYear() - birth.getFullYear();
+    const monthDifference = today.getMonth() - birth.getMonth();
+    const dayDifference = today.getDate() - birth.getDate();
+    return age > 17 || (age === 17 && (monthDifference > 0 || (monthDifference === 0 && dayDifference >= 0)));
+  };
+  
   const handleChange = (e) => {
     const { name, value, type, files } = e.target;
     if (type === 'file') {
-        setFormData({ ...formData, [name]: files[0] });
+      setFormData({ ...formData, [name]: files[0] });
+    } else if (name === 'sex') {
+      const isMale = value === "male";
+      setFormData({ ...formData, [name]: isMale });
     } else {
-        setFormData({ ...formData, [name]: value });
-        if (name === 'password') {
-            setPasswordStrength(checkPasswordStrength(value));
+      setFormData({ ...formData, [name]: value });
+  
+      if (name === 'birth_date') {
+        if (!checkAge(value)) {
+          return; // Tarih değiştiğinde yaş kontrolü başarısızsa form geçişini engelle
         }
+      }
+  
+      if (name === 'password') {
+        const requirements = checkPasswordStrength(value);
+        setPasswordRequirements(requirements);
+  
+        // Şifre gücünü renk ile göster
+        setPasswordStrength(
+          requirements.length && requirements.uppercase && requirements.symbol
+            ? 'strong'
+            : requirements.length && (requirements.uppercase || requirements.symbol)
+            ? 'medium'
+            : 'weak'
+        );
+      }
     }
-
-    // Şifre alanı boşsa güç çubuğunun rengini temizle
-    if (name === 'password' && value === '') {
-        setPasswordStrength('');
-    }
-};
-
+  };
+  
+  
 
   const handleOtpChange = (e, index) => {
     const { value } = e.target;
@@ -55,31 +117,108 @@ export default function Register() {
   };
 
   const checkPasswordStrength = (password) => {
-    let strength = '';
-    if (password.length >= 8) {
-        if (/[A-Z]/.test(password) && /[0-9]/.test(password) && /[^A-Za-z0-9]/.test(password)) {
-            strength = 'strong';
-        } else if ((/[A-Z]/.test(password) && /[0-9]/.test(password)) || (/[A-Z]/.test(password) && /[^A-Za-z0-9]/.test(password)) || (/[0-9]/.test(password) && /[^A-Za-z0-9]/.test(password))) {
-            strength = 'medium';
-        } else {
-            strength = 'weak';
-        }
-    } else {
-        strength = 'weak';
-    }
-    console.log(strength); // Parola gücünü kontrol etmek için eklendi
-    return strength;
-};
+    return {
+      length: password.length >= 8,
+      uppercase: /[A-Z]/.test(password),
+      symbol: /[^A-Za-z0-9]/.test(password),
+    };
+  };
 
   const togglePasswordVisibility = () => {
     setPasswordVisible(!passwordVisible);
   };
+  const validateForm = () => {
+    if (activeDiv === 1) {
+      if (!formData.fname || !formData.lname || !formData.birth_date || formData.sex === '') {
+        toast.error("Zəhmət olmasa bütün xanaları doldurun.");
+        return false;
+      }
+      if (!checkAge(formData.birth_date)) {
+        toast.error("Qeydiyyat üçün ən az 17 yaşında olmalısınız!");
+        return false; // Yaş kontrolü başarısızsa form geçişini engelle
+      }
+    }
+  
+    if (activeDiv === 2) {
+      const isPasswordValid = Object.values(passwordRequirements).every((req) => req);
+      if (!isPasswordValid) {
+        toast.error("Şifrəniz bütün tələbləri ödəməlidir!");
+        return false;
+      }
+    }
+    switch (activeDiv) {
+      case 1:
+        return formData.fname && formData.lname && formData.birth_date && formData.sex !== '';
+      case 2:
+        return formData.email && formData.password;
+      case 3:
+        return formData.university_id && formData.card;
+      default:
+        return false;
+    }
+  };
+  
 
-  const handleSubmit = (e) => {
+
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log(formData);
+  
+    const formDataToSend = new FormData();
+    formDataToSend.append('fname', formData.fname);
+    formDataToSend.append('lname', formData.lname);
+    formDataToSend.append('birth_date', formData.birth_date);
+    formDataToSend.append('sex', formData.sex); // Doğru değer gönderildiğinden emin olun
+    formDataToSend.append('university_id', formData.university_id); // ID doğru mu?
+    formDataToSend.append('email', formData.email);
+    formDataToSend.append('password', formData.password);
+    formDataToSend.append('card', formData.card); // File olarak gönderildiğinden emin olun
+  
+    try {
+      const response = await fetch(`${APIURL}auth/sign-up`, {
+        method: 'POST',
+        body: formDataToSend,
+      });
+  
+      const result = await response.json();
+      if (response.ok) {
+        toast.success('Qeydiyyat sorğusu uğurla göndərildi! Zəhmət olmasa e-poçtunuza daxil olub, hesabınızı təsdiq edin.Təsdiq etdikdən sonra hesabınıza giriş edə bilərsiniz');
+        setActiveDiv(4); // Sunucu başarılıysa 4. div'e geç
+      } else if (response.status === 409) {
+        toast.error(result.message || 'Bu email artıq qeydiyyatdan keçib.Zəhmət olmasa başqa email yoxlayın');
+      } 
+      else if (response.status === 422) {
+        toast.error(result.message || 'Gözlənilməyən növ məlumatlar göndərilməsinə görə xəta! Zəhmət olmasa qeydiyyat qaydalarına riayət edin!');
+      }else {
+        toast.error(result.message || 'Xəta baş verdi, bir daha cəhd edin.');
+      }
+    } catch (error) {
+      toast.error('Server ilə əlaqə qurulmadı.');
+    }
   };
 
+
+  const handleResendVerification = async () => {
+    setTimer(120); // 2 dakika geri sayımı sıfırla
+    setIsResendActive(false); // Butonu tekrar pasif yap
+
+    try {
+      const response = await fetch(`${APIURL}auth/resend-verification`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ email: formData.email }), // Kullanıcının girdiği email'i ekleyin
+      });
+
+      if (response.ok) {
+        toast.success("Verifikasiya e-maili uğurla göndərildi!");
+      } else {
+        toast.error("Verifikasiya e-maili göndərilə bilmədi!");
+      }
+    } catch (error) {
+      toast.error("Xəta baş verdi. Zəhmət olmasa bir daha cəhd edin");
+    }
+  };
   return (
     <div className={css.body}>
       <style jsx global>{`
@@ -112,46 +251,58 @@ export default function Register() {
           >
             <form className={css.registerFormDiv}>
               <div className={css.form_top_div}>
-              <h2 className={css.daxiltxt}>Başlayın</h2>
-              <p>Artıq hesabınız var? <a href='/login'>Daxil olun</a></p>
+                <h2 className={css.daxiltxt}>Başlayın</h2>
+                <p>Artıq hesabınız var? <a href='/login'>Daxil olun</a></p>
 
               </div>
               <input
                 type="text"
-                name="firstName"
-                value={formData.firstName}
+                name="fname"
+                value={formData.fname}
                 onChange={handleChange}
                 placeholder="Adınız"
                 className={css.input}
               />
               <input
                 type="text"
-                name="lastName"
-                value={formData.lastName}
+                name="lname"
+                value={formData.lname}
                 onChange={handleChange}
                 placeholder="Soyadınız"
                 className={css.input}
               />
               <input
                 type="date"
-                name="dob"
-                value={formData.dob}
+                name="birth_date"
+                value={formData.birth_date}
                 onChange={handleChange}
                 placeholder="Doğum Tarixiniz"
                 className={css.input}
               />
               <select
-                name="gender"
-                value={formData.gender}
-                onChange={handleChange}
+                name="sex"
+                value={formData.sex === true ? "male" : formData.sex === false ? "female" : "non-binary"}
+                onChange={(e) => {
+                  const value = e.target.value === "male" ? true : e.target.value === "female" ? false : null;
+                  setFormData({ ...formData, sex: value });
+                }}
                 className={css.input}
-                id={css.gender}
               >
-                <option value="">Cinsiyyətiniz</option>
+                <option value="non-binary">Cinsiyyətiniz</option>
                 <option value="male">Kişi</option>
                 <option value="female">Qadın</option>
               </select>
-              <button className={css.nextbut} onClick={(e) => { e.preventDefault(); setActiveDiv(2); }}>➜ Növbəti</button>
+
+              <button className={css.nextbut}
+                onClick={(e) => {
+                  e.preventDefault();
+                  if (validateForm()) {
+
+                    setActiveDiv(2);
+                  } else {
+                    toast.error("Zəhmət olmasa bütün xanaları doldurun.");
+                  }
+                }}>➜ Növbəti</button>
             </form>
           </motion.div>
         )}
@@ -168,12 +319,12 @@ export default function Register() {
               <button className={css.prevbut} onClick={() => setActiveDiv(activeDiv - 1)}>🡠</button>
             )}
             <form className={css.registerFormDiv}>
-            <div className={css.form_top_div}>
-              <h2 className={css.daxiltxt}>Başlayın</h2>
-              <p>Artıq hesabınız var? <a href='/login'>Daxil olun</a></p>
+              <div className={css.form_top_div}>
+                <h2 className={css.daxiltxt}>Başlayın</h2>
+                <p>Artıq hesabınız var? <a href='/login'>Daxil olun</a></p>
 
               </div>
-           
+
               <input
                 type="email"
                 name="email"
@@ -196,19 +347,28 @@ export default function Register() {
                 <span onClick={togglePasswordVisibility} className={css.eyeIcon}>
                   {passwordVisible ? <img src='eye.svg' className={css.eye} /> : <FaEye className={css.eye} />}
                 </span>
-               <div> 
-                <p>Şifrənizin gücü</p>
-                <div className={css.passwordStrengthBar} style={{ width: passwordStrength === 'strong' ? '100%' : passwordStrength === 'medium' ? '66%' : '33%', backgroundColor: passwordStrength === 'strong' ? 'green' : passwordStrength === 'medium' ? 'orange' : 'red' }}></div>
-               </div>
+                <div>
+                  <p>Şifrənizin gücü</p>
+                  <div className={css.passwordStrengthBar} style={{ width: passwordStrength === 'strong' ? '100%' : passwordStrength === 'medium' ? '66%' : '33%', backgroundColor: passwordStrength === 'strong' ? 'green' : passwordStrength === 'medium' ? 'orange' : 'red' }}></div>
+                </div>
               </div>
               <p>Şifrəniz aşağıdakıları əhatə etməlidir:</p>
 
               <ul className={css.passwordRequirements}>
-                <li style={{color:'grey',listStyle:'circle'}}>ən az 8 xanalı olmalıdır</li>
-                <li style={{color:'grey',listStyle:'circle'}}>ən az 1 böyük hərf</li>
-                <li style={{color:'grey',listStyle:'circle'}}>ən az 1 simvol</li>
+                <li style={{ color: 'grey', listStyle: 'circle'  ,color: passwordRequirements.length ? 'green' : 'red'  }}>ən az 8 xanalı olmalıdır</li>
+                <li style={{ color: 'grey', listStyle: 'circle' ,  color: passwordRequirements.uppercase ? 'green' : 'red'  }}>ən az 1 böyük hərf</li>
+                <li style={{ color: 'grey', listStyle: 'circle' ,  color: passwordRequirements.symbol ? 'green' : 'red' }}>ən az 1 simvol</li>
+                <li style={{ color: 'grey', listStyle: 'circle' ,  }}>şifrədə ? simvolundan istifadə etməyin</li>
               </ul>
-              <button className={css.nextbut} onClick={(e) => { e.preventDefault(); setActiveDiv(3); }}>➜ Növbəti</button>
+              <button className={css.nextbut}
+                onClick={(e) => {
+                  e.preventDefault();
+                  if (validateForm()) {
+                    setActiveDiv(3);
+                  } else {
+                    toast.error("Zəhmət olmasa bütün xanaları doldurun.");
+                  }
+                }}>➜ Növbəti</button>
             </form>
           </motion.div>
         )}
@@ -225,41 +385,53 @@ export default function Register() {
               <button className={css.prevbut} onClick={() => setActiveDiv(activeDiv - 1)}>🡠</button>
             )}
             <form className={css.registerFormDiv}>
-            <div className={css.form_top_div}>
-              <h2 className={css.daxiltxt}>Başlayın</h2>
-              <p>Artıq hesabınız var? <a href='/login'>Daxil olun</a></p>
+              <div className={css.form_top_div}>
+                <h2 className={css.daxiltxt}>Başlayın</h2>
+                <p>Artıq hesabınız var? <a href='/login'>Daxil olun</a></p>
 
               </div>
               <select
-                name="university"
-                value={formData.university}
+                name="university_id"
+                value={formData.university_id}
                 onChange={handleChange}
                 className={css.input}
               >
                 <option value="">Universitetiniz</option>
-                <option value="university1">Universitet 1</option>
-                <option value="university2">Universitet 2</option>
-                {/* Diğer üniversiteler buraya eklenebilir */}
+                {universities.map(university => (
+                  <option key={university.id} value={university.id}>
+                    {university.name}
+                  </option>
+                ))}
               </select>
               <div className={css.fileUploadDiv}>
                 <p className={css.fileUploadLabel}>   Tələbə kartınız</p>
-                <label htmlFor="studentCard" >
-               
-                  <img className={css.uploadIcon} src='/telebe_input.svg'/>
+                <label htmlFor="card" >
+
+                  <img className={css.uploadIcon} src='/telebe_input.svg' />
                 </label>
                 <input
                   type="file"
-                  name="studentCard"
-                  id="studentCard"
+                  name="card"
+                  id="card"
                   onChange={handleChange}
                   className={css.inputFile}
                 />
               </div>
-              <button className={css.nextbut} onClick={(e) => { e.preventDefault(); setActiveDiv(4); }}>➜ Növbəti</button>
+              <button
+                className={css.nextbut}
+                onClick={async (e) => {
+                  e.preventDefault();
+                  if (validateForm()) {
+                    await handleSubmit(e); // Yalnız sunucu isteği olumlu yanıt alırsa aktifDiv'i artıracak
+                  } else {
+                    toast.error("Zəhmət olmasa bütün xanaları doldurun.");
+                  }
+                }}
+              >➜ Növbəti</button>
             </form>
           </motion.div>
         )}
-        {activeDiv === 4 && ( 
+        {activeDiv === 4 && (
           <motion.div
             key="register_part4"
             initial={{ opacity: 0, x: -100 }}
@@ -272,27 +444,23 @@ export default function Register() {
               <button className={css.prevbut} onClick={() => setActiveDiv(activeDiv - 1)}>🡠</button>
             )}
             <form onSubmit={handleSubmit} className={css.registerFormDiv}>
-            <div className={css.form_top_div}>
-              <h2 className={css.daxiltxt}>Başlayın</h2>
-              <p>Artıq hesabınız var? <a href='/login'>Daxil olun</a></p>
+              <div className={css.form_top_div}>
+                <h2 className={css.daxiltxt}>Başlayın</h2>
+                <p>Artıq hesabınız var? <a href='/login'>Daxil olun</a></p>
 
               </div>
-              <div className={css.otpDiv}>
-                {formData.otp.map((digit, index) => (
-                  <input
-                    key={index}
-                    id={`otp-${index}`}
-                    type="text"
-                    name={`otp-${index}`}
-                    value={digit}
-                    onChange={(e) => handleOtpChange(e, index)}
-                    maxLength="1"
-                    placeholder='0'
-                    className={css.otpInput}
-                  />
-                ))}
+              <div className={css.validationDiv}>
+                <span className={css.timer}><p>{formatTime(timer)}</p></span>
+                <button
+                  onClick={handleResendVerification}
+                  disabled={!isResendActive}
+                  className={isResendActive ? css.activeButton : css.disabledButton}
+                  id={css.resend}
+                >
+                  Verifikasiya mailini təkrar göndər
+                </button>
               </div>
-              <button className={css.submitbut} type="submit">➜ Qeydiyyat</button>
+
             </form>
           </motion.div>
         )}

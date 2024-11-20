@@ -16,7 +16,7 @@ const Categories = () => {
   useEffect(() => {
     const fetchCategories = async () => {
       try {
-        const response = await axios.get(`${APIURL}categories`);
+        const response = await axios.get(`${APIURL}categories/`);
         setCategories(response.data);
         setLoading(false);
       } catch (error) {
@@ -35,7 +35,7 @@ const Categories = () => {
       ) : (
         <div className={css.sidebar_list}>
           <div >
-             <Link href='/telebe360+' passHref>
+             <Link href='/coming_soon' passHref>
               <div className={css.sidebar_item}>
                 <div className={css.sidebar_item_image_div}>
                   <img src='/home/crown.svg' alt='360logo' className={css.sidebar_item_icon}/>

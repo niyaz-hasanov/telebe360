@@ -11,7 +11,7 @@ import css from '../navbar&toggle/navbar.module.css';
 import modalcss from './modal.module.css';
 import axios from 'axios';
 import Cookies from 'js-cookie';
-import { MAINURL } from '../../utils/constants'; // Adjust the path
+import { APIURL } from '../../utils/constants'; // Adjust the path
 import { toast } from 'react-hot-toast'; 
 
 const style = {
@@ -68,7 +68,7 @@ export default function BasicModal() {
     };
 
     try {
-      const response = await axios.post(`${MAINURL}api/v1/students/feedback`, feedbackData, {
+      const response = await axios.post(`${APIURL}students/feedback`, feedbackData, {
         headers: {
           Authorization: `Bearer ${accessToken}`,
         },

@@ -9,8 +9,9 @@
     font-size:1.2vw;
 }
 .submit_button:hover{
-    cursor: pointer;
+    cursor: pointer;  
 }
+
 
 
 @media only screen and (max-width: 800px){

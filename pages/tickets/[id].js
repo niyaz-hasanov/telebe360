@@ -8,7 +8,9 @@ import Head from 'next/head';
 import Link from 'next/link';
 import Alert from '../../components/ticket_alert/index'
 import Cookies from 'js-cookie';
-import Carousel from '../../components/desktop_company_tickets_carousel/carousel'
+import Carousel from '../../components/desk_company_carousel/carousel'
+import MobileCarousel from '../../components/mobile_company_carousel/carousel'
+
 const TicketPage = () => {
   const router = useRouter();
   const { id } = router.query;
@@ -122,7 +124,7 @@ const TicketPage = () => {
                 </div>
                 <div>
                 {authenticated ? (
-                 <Alert />
+                 <Alert ticketId={ticket.id} />
               ) : (
                 <span  className={css.loginButton}>
                   
@@ -140,10 +142,11 @@ const TicketPage = () => {
           <p id={css.textdivp}>{ticket.company.description}</p>
          </div>
 
-        {/* <div className={css.carousel_container}>
+        <div className={css.carousel_container}>
         <h3>{ticket.company.name}'dən daha çox kuponlar</h3>
-        <div><Carousel ticket={ticket}/></div>
-        </div> */}
+        <div className={css.carousel}><Carousel ticket={ticket}/></div>
+        <div className={css.mobile_carousel}><MobileCarousel ticket={ticket}/></div>
+        </div>
 
       </div>
     </div>

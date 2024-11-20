@@ -7,7 +7,9 @@ import Link from 'next/link';
 import { motion, AnimatePresence } from 'framer-motion';
 import css from './css.module.css';
 import Slider from '../../components/login_slider/index';
-import Cookies from 'js-cookie'; // Cookie için kütüphane ekle
+import { toast } from 'react-hot-toast';  
+
+import Cookies from 'js-cookie'; 
 
 export default function Login() {
   const [passwordVisible, setPasswordVisible] = useState(false);
@@ -37,8 +39,9 @@ export default function Login() {
     e.preventDefault();
   
     try {
-      const response = await fetch('/api/login', {
+      const response = await fetch('/api/auth/login', {
         method: 'POST',
+        credentials: 'include',
         headers: {
           'Content-Type': 'application/json',
         },
@@ -46,20 +49,37 @@ export default function Login() {
       });
   
       const data = await response.json();
-      
-      console.log('Response data:', data); // Yanıtı kontrol et
   
       if (response.ok) {
-        // Erişim token'ını saklayın
         Cookies.set('access_token', data.access_token);
-        console.log('Refresh Token:', data.refresh_token); 
+        toast.success('Uğurlu giriş edildi!'); 
+        
+        if (formData.rememberMe) {
+          localStorage.setItem('email', formData.email);
+          localStorage.setItem('password', formData.password);
+          localStorage.setItem('rememberMe', 'true');
+        } else {
+          localStorage.removeItem('email');
+          localStorage.removeItem('password');
+          localStorage.removeItem('rememberMe');
+        }
+  
         window.location.href = '/';
-        // Refresh token'ı doğrudan istemci tarafında kullanamıyoruz, sunucuda saklanıyor
-      } else {
-        alert(data.message); // Hata mesajı
+      } 
+      else {
+        if (response.status === 403) {
+          toast.error('Bu email təsdiqlənməyib. Zəhmət olmasa emaillərinizi yoxlayın.');
+        } else if (response.status === 404) {
+          toast.error('Email tapılmadı. Zəhmət olmasa qeydiyyatdan keçin');
+        } else if (response.status === 401) {
+          toast.error('Şifrəniz səhvdir');
+        } else {
+          toast.error(data.message || 'Giriş zamanı xəta yarandı');
+        }
       }
-    } catch (error) {
-      alert('Giriş prosesində hata');
+    } 
+     catch (error) {
+      toast.error('Giriş zamanı xəta yarandı');
     }
   };
   return (
@@ -149,7 +169,7 @@ export default function Login() {
                   />
                   Məni xatırla
                 </label>
-                <a className={css.logintxt} href='/'><i>Şifrəmi unutdum </i></a>
+                {/* <a className={css.logintxt} href='/'><i>Şifrəmi unutdum </i></a> */}
               </div>
               <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginTop: '2vw' }}>
                 <button className={css.daxilol} type="submit">➜ Daxil ol</button>

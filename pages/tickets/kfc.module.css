@@ -51,7 +51,9 @@
     
 
 }
-
+.mobile_carousel{
+    display:none;
+}
 #wolt {
     background: rgba(128, 128, 128, 0.505);
     color: white;
@@ -131,7 +133,12 @@
 }
 
 @media only screen and (max-width: 800px) {
- 
+     .carousel{
+        display:none;
+     }
+     .mobile_carousel{
+        display:block;
+     }
     .image {
         width: 100vw;
         height: 100vw;

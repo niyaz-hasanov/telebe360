@@ -6,8 +6,8 @@ import Link from 'next/link';
 import { useState, useEffect } from 'react';
 import Cookies from 'js-cookie';
 import axios from 'axios';
-import { MAINURL } from '../../../utils/constants';
-import toast, { Toaster } from 'react-hot-toast';
+import { MAINURL ,APIURL} from '../../../utils/constants';
+import toast from 'react-hot-toast';
 
 export default function Home() {
   const [fname, setFname] = useState('');
@@ -16,6 +16,8 @@ export default function Home() {
   const [profileImgPath, setProfileImgPath] = useState('');
   const [universityName, setUniversityName] = useState('');
   const [showTooltip, setShowTooltip] = useState(false);
+  const [showTooltip2, setShowTooltip2] = useState(false);
+  const [isVerified, setIsVerified] = useState(true);
   useEffect(() => {
     const fetchStudentData = async () => {
       try {
@@ -25,7 +27,7 @@ export default function Home() {
           return;
         }
 
-        const response = await axios.get(`${MAINURL}api/v1/students/me`, {
+        const response = await axios.get(`${APIURL}students/me`, {
           headers: {
             Authorization: `Bearer ${token}`,
           },
@@ -35,15 +37,16 @@ export default function Home() {
         setLname(data.lname);
         setEmail(data.email);
         setProfileImgPath(data.profile_img_path);
+        setIsVerified(data.is_student_verified);
 
-        const universityResponse = await axios.get(`${MAINURL}api/v1/universities/${data.university_id}`, {
+        const universityResponse = await axios.get(`${APIURL}universities/${data.university_id}`, {
           headers: {
             Authorization: `Bearer ${token}`,
           },
         });
         setUniversityName(universityResponse.data.name);
       } catch (error) {
-        toast.error('Öğrenci verileri alınırken bir hata oluştu.');
+        toast.error('Tələbə məlumatları alınanda xəta baş verdi.Zəhmət olmasa səhifəni yeniləyin');
       }
     };
 
@@ -65,7 +68,7 @@ export default function Home() {
         email,
       };
 
-      await axios.put(`${MAINURL}api/v1/students`, studentData, {
+      await axios.put(`${APIURL}students/`, studentData, {
         headers: {
           Authorization: `Bearer ${token}`,
           'Content-Type': 'application/json',
@@ -91,7 +94,7 @@ export default function Home() {
         const formData = new FormData();
         formData.append('profile_photo', file);
 
-        await axios.post(`${MAINURL}api/v1/students/profile`, formData, {
+        await axios.post(`${APIURL}students/profile`, formData, {
           headers: {
             Authorization: `Bearer ${token}`,
             'Content-Type': 'multipart/form-data',
@@ -119,7 +122,6 @@ export default function Home() {
           <link rel="icon" href="/home/360minilogo.svg" />
         </Head>
 
-        <Toaster position="top-right" reverseOrder={false} />
 
         <div className={css.main}>
           <div className={css.main_title}>
@@ -197,24 +199,39 @@ export default function Home() {
                   <div className={css.li1_left}>
                     <h2>Email</h2>
                   </div>
-                  <div className={css.li1_right} id={css.special}>
-                    <input
+                
+                  <div className={css.li1_right} id={css.special}
+                    onMouseEnter={() => setShowTooltip2(true)} 
+                    onMouseLeave={() => setShowTooltip2(false)}
+                  >
+                     <input
                       className={css.li2_right_input}
                       id={css.mail}
                       type="mail"
                       value={email}
-                      onChange={(e) => setEmail(e.target.value)}
+                  
                       placeholder="forexample@mail.com"
+                      readOnly
                     />
+                    {showTooltip2 && (
+                      <div className={css.tooltip}>
+                        Email ünvanınızı dəyişdirə bilməzsiniz
+                      </div>
+                    )}
                   </div>
                 </li>
                 <li className={css.my360id_li} id={css.my360id_li}>
                   <div className={css.li1_left}>
                     <h2>Şəkliniz</h2>
                     <p>Bu şəkil sizin <a href='/settings/360id'>360ID</a> şəkliniz olacaq</p>
+                    {!isVerified && (
+      <p>
+        Hesabınız moderatorlar tərəfindən təsdiq olunmamışdır.
+      </p>
+    )}
                   </div>
                   <div className={css.li1_right} id={css.li4_right}>
-                  <span className={css.ppspan}>  <img
+                  <span  className={isVerified ? css.ppspan : css.ppspanRed}>  <img
                       src={`${MAINURL}uploads/${profileImgPath}`}
                       width={0}
                       height={0}

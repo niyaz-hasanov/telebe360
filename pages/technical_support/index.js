@@ -2,43 +2,30 @@ import { useState } from 'react';
 import styles from './css.module.css';
 import Head from "next/head";
 import Link from 'next/link';
-import { APIURL } from '../../utils/constants'; // Importing API URL from constants.js
+import { APIURL } from '../../utils/constants'; 
+import toast, { Toaster } from 'react-hot-toast'; // Hot-toast eklendi
 
 export default function Home() {
-  // State variables for form data
   const [formData, setFormData] = useState({
     fname: '',
     lname: '',
     email: '',
     message: ''
   });
-  
-  // Separate states for phone prefix and number
+
   const [phonePrefix, setPhonePrefix] = useState('055');
   const [phoneNumber, setPhoneNumber] = useState('');
 
-  // State to handle submission status
-  const [submitStatus, setSubmitStatus] = useState('');
-
-  // Handling form changes
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData({ ...formData, [name]: value });
   };
 
-  // Submit form data to API
   const handleSubmit = async (e) => {
     e.preventDefault();
-    setSubmitStatus('Sending...');
 
-    // Remove the first "0" from the prefix and add "+994"
     const formattedPhoneNumber = `+994${phonePrefix.slice(1)}${phoneNumber}`;
-
-    // Add formatted phone number to formData
-    const dataToSend = {
-      ...formData,
-      phone_number: formattedPhoneNumber,
-    };
+    const dataToSend = { ...formData, phone_number: formattedPhoneNumber };
 
     try {
       const response = await fetch(`${APIURL}students/support`, {
@@ -50,8 +37,8 @@ export default function Home() {
       });
 
       if (response.ok) {
-        setSubmitStatus('Mesajınız uğurla göndərildi!');
-        // Optionally reset the form
+        // Başarılı olursa başarılı bildirimi göster
+        toast.success('Mesajınız uğurla göndərildi!');
         setFormData({
           fname: '',
           lname: '',
@@ -61,10 +48,11 @@ export default function Home() {
         setPhonePrefix('055');
         setPhoneNumber('');
       } else {
-        setSubmitStatus('Mesajınız göndərilə bilmədi.');
+        // Hata olursa hata bildirimi göster
+        toast.error('Mesajınız göndərilə bilmədi.');
       }
     } catch (error) {
-      setSubmitStatus('Mesaj göndərmə zamanı xəta.');
+      toast.error('Mesaj göndərmə zamanı xəta.');
     }
   };
 
@@ -85,7 +73,10 @@ export default function Home() {
         <h1 className={styles.title}>Texniki Dəstək</h1>
         <Link href='/settings'><img src='X.svg' alt="Close" /></Link>
       </div>
-      
+
+      {/* Toaster bileşeni burada render ediliyor */}
+ 
+
       <form className={styles.form} onSubmit={handleSubmit}>
         <div className={styles.formGroup}>
           <label className={styles.label}>Ad Soyad</label>
@@ -174,8 +165,6 @@ export default function Home() {
           Göndər
         </button>
       </form>
-
-      <p>{submitStatus}</p>
     </div>
   );
 }

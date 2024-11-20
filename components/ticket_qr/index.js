@@ -15,18 +15,18 @@ const style = {
   top: '50%',
   left: '50%',
   transform: 'translate(-50%, -50%)',
-  width: '35%',
+  width: '40%',
   border: '3.5px solid #8F00FF',
   bgcolor: '#F4F4F4',
   boxShadow: 24,
   borderRadius: '1.3vw',
   '@media (max-width: 800px)': {
-    width: '75%',
-    borderRadius: '2vw',
+    width: '90%',
+    borderRadius: '4vw',
   },
 };
 
-export default function BasicModal({ qrCode, companyName, discount, onClose }) {
+export default function BasicModal({ qrCode, companyName, discount, onClose ,createdAt}) {
   const open = Boolean(qrCode); // Modal is open if qrCode is provided
 
   return (
@@ -38,21 +38,21 @@ export default function BasicModal({ qrCode, companyName, discount, onClose }) {
       className={modalcss.bulanik}
     >
       <Box sx={style}>
-        <Grid container direction="row" alignItems="stretch" className={modalcss.main_div}>
-          <Grid item className={modalcss.brand_name} style={{ flexGrow: 1, borderBottom: '3.5px solid #8F00FF', padding: '10px' }}>
-            <Typography variant="h6" align="center">{companyName}</Typography>
-          </Grid>
-          <Grid item className={modalcss.ticket_main} style={{ flexGrow: 1, padding: '10px', textAlign: 'center' }}>
-            <Typography variant="h5" style={{color:'#8F00FF'}}>Tələbə360°</Typography>
+        <div container direction="row" alignItems="stretch" className={modalcss.main_div}>
+          <div item className={modalcss.brand_name} style={{ flexGrow: 1}}>
+            <p variant="h6" align="center">{companyName}</p>
+          </div>
+          <div item className={modalcss.ticket_main} >
+            <p variant="h5" className={modalcss.telebe360}>Tələbə 360°</p>
             
             {qrCode && (
               <img src={`data:image/png;base64,${qrCode}`} alt="QR Code" className={modalcss.qrImage} />
             )}
-          </Grid>
-          <Grid item className={modalcss.percent} style={{ flexGrow: 1, borderTop: '3.5px solid #8F00FF', padding: '10px' }}>
-            <Typography variant="h6" align="center">{`${discount}%`}</Typography>
-          </Grid>
-        </Grid>
+          </div>
+          <div item className={modalcss.percent} style={{ flexGrow: 1 }}>
+            <p variant="h6" align="center">{`${discount}%`}</p>
+          </div>
+        </div>
       </Box>
     </Modal>
   );
@@ -63,4 +63,5 @@ BasicModal.propTypes = {
   companyName: PropTypes.string.isRequired,
   discount: PropTypes.number.isRequired,
   onClose: PropTypes.func.isRequired,
+  
 };

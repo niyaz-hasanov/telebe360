@@ -3,7 +3,7 @@ import Button from '@mui/material/Button';
 import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
 import Cookies from 'js-cookie'; // Import js-cookie
-import { MAINURL } from '../../utils/constants';
+import { MAINURL,APIURL } from '../../utils/constants';
 import css from './css.module.css';
 
 export default function BasicMenu() {
@@ -17,7 +17,7 @@ export default function BasicMenu() {
     const fetchUserData = async () => {
       const accessToken = Cookies.get('access_token'); // Get access token from cookies
 
-      const response = await fetch(`${MAINURL}api/v1/students/me`, {
+      const response = await fetch(`${APIURL}students/me`, {
         method: 'GET',
         headers: {
           'Authorization': `Bearer ${accessToken}`, // Include Bearer token in the header
