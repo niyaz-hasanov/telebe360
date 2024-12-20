@@ -62,7 +62,7 @@ export default function Home() {
             <ul className={css.proful}>
               <div className={css.profdiv}>
                 <span className={css.profmobspan}><img
-                  src={`${MAINURL}uploads/${student.profile_img_path}`} 
+                  src={student.profile_img_path ? `${MAINURL}uploads/${student.profile_img_path}` : '/profile.jpg' }
                   width={0}
                   height={0}
                   className={css.profmob}

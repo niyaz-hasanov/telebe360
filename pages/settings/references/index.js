@@ -42,7 +42,7 @@ export default function Home() {
                       height={0}
                       className={css.chevron_left}
                     /></Link>
-                    <h3>Membership</h3>
+                    <h3>Referanslar</h3>
          </div>
           <div className={css.desktop_main}>
             <ul className={css.settings_ul}>
@@ -52,10 +52,10 @@ export default function Home() {
               <Link className={css.ul} href='/settings/notifications'><li >Bildirişlər</li></Link>
               <Link className={css.ul_360id} href='/settings/references'><li >Referanslar</li></Link>
             </ul>
-           <span className={css.comingsoon}><ComingSoon/></span>
+         
            
           </div>
-            
+          <span className={css.comingsoon}><ComingSoon/></span>
         </div>
       </div>
 

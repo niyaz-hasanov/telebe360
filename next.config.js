@@ -1,15 +1,19 @@
 /** @type {import('next').NextConfig} */
 
 const nextConfig = {
-   async rewrites() {
-        return [
-          {
-            source: '/api/:path*', // Bu kısmı değiştirmeyin
-            destination: 'https://api.com/api/:path*',
-          },
-        ];
+  distDir: 'dist', 
+  async rewrites() {
+    return [
+      {
+        source: '/api/:path*',
+        destination: 'https://api.com/api/:path*',
+      },
+    ];
+  },
+  images: {
+    domains: ['api.telebe360.com'], 
   },
 };
 
 const transpiledModules = require('next-transpile-modules')(["react-icons"]);
-module.exports = nextConfig
+module.exports = transpiledModules(nextConfig);

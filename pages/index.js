@@ -5,12 +5,11 @@ import Image from 'next/image'
 import Carousel from "../components/desk_carousel/carousel"
 import MobileCarousel from '../components/mobile_carousel/carousel'
 import Head from 'next/head';
-import MobileWeeklyBests from '../components/mobile_weekly_bests_carousel/carousel'
-import DeskWeeklyBests from '../components/desk_weekly_bests/carousel'
+import Table4 from '../components/all_tickets_table_4/table'
 import DeskAddCarousel2 from '../components/desk_carousel_2/carousel'
 import MobAddCarousel2 from '../components/mobile_carousel_2/carousel'
 import Footer from '../components/footer/index'
-import Table from '../components/all_tickets_table/table'
+import Table from '../components/all_tickets_table_all/table'
 import Link from 'next/link';
 export default function Home (){
     return(
@@ -39,12 +38,14 @@ export default function Home (){
       <div className={css.mobilebanner}>
         <MobileCarousel/>
       </div>
-      <div className={css.table_div}><Table/></div>
-  
+      <div className={css.ticket_table_div}><h2 className={css.ticket_table_h2}>Bütün biletlər</h2></div>
+     
+      <div className={css.table_div}><Table4/></div>
 
     
       <div className={css.add2desk}><DeskAddCarousel2/></div>
       <div className={css.add2mob}><MobAddCarousel2/></div>
+      <div className={css.table_div}><Table/></div>
      </div>
 
       {/* <div className={css.categories_div}>

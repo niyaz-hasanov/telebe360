@@ -1,9 +1,9 @@
-import cookie from 'cookie'; // Sunucu tarafında cookie işlemleri için
+import cookie from 'cookie';
 import { APIURL } from '../../../utils/constants';
 
 export default async function handler(req, res) {
   if (req.method === 'POST') {
-    await refreshAccessToken(req, res); 
+    await refreshAccessToken(req, res);
   } else {
     return res.status(405).json({ message: `Method ${req.method} Not Allowed` });
   }
@@ -12,7 +12,7 @@ export default async function handler(req, res) {
 const refreshAccessToken = async (req, res) => {
   try {
     const cookies = cookie.parse(req.headers.cookie || '');
-    const refreshToken = cookies.RT; 
+    const refreshToken = cookies.RT;
 
     if (!refreshToken) {
 
@@ -32,10 +32,11 @@ const refreshAccessToken = async (req, res) => {
       const { access_token } = data;
 
       res.setHeader('Set-Cookie', cookie.serialize('access_token', access_token, {
-       
-       
-        path: '/',
-     
+        httpOnly: false, 
+        secure: process.env.NODE_ENV === 'production', 
+        sameSite: 'Lax', 
+        path: '/', 
+        maxAge: 60 * 60 * 24 * 7,
       }));
 
       return res.status(200).json({ access_token });

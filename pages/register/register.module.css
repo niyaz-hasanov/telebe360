@@ -5,6 +5,37 @@
   font-family: 'DM Sans', sans-serif;
 }
 
+
+.inputFile {
+  display: none;
+}
+.previewContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.previewImage {
+  max-width: 200px;
+  max-height: 200px;
+  object-fit: contain;
+  margin-top: 10px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+}
+
+.clearPreviewButton {
+  margin-top: 10px;
+  background-color: red;
+  color: white;
+  border: none;
+  padding: 5px 10px;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+
+
 .registerPart {
   background: rgba(248, 246, 249, 0.7);
   border-radius: 30px;
@@ -260,7 +291,7 @@
     }
     .nextbut,
     .submitbut {
-      width: 35vw;
+      width: 100%;
       height: 10vw;
       font-size: 4vw; /* Daha büyük yazı boyutu */
       padding: 2vw 4vw; /* Yeni padding değerleri */
@@ -340,3 +371,6 @@
     }
   }
     
+
+
+

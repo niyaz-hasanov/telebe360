@@ -6,6 +6,8 @@ import css from './register.module.css';
 import { FaEye, FaEyeSlash } from 'react-icons/fa';
 import { APIURL, MAINURL } from '../../utils/constants'
 import toast from 'react-hot-toast';
+import DatePicker from 'react-datepicker';
+import 'react-datepicker/dist/react-datepicker.css';
 export default function Register() {
   const [formData, setFormData] = useState({
     fname: '',
@@ -16,6 +18,7 @@ export default function Register() {
     password: '',
     university_id: '',
     card: null,
+    imagePreview: null,
 
   });
 
@@ -53,6 +56,33 @@ export default function Register() {
     fetchUniversities();
   }, []);
 
+  const isValidBirthDate = (birthDate) => {
+    const birth = new Date(birthDate);
+
+    // Gün kontrolü
+    const day = birth.getDate();
+    if (day > 31) {
+      toast.error("Gün 31-dən böyük ola bilməz!");
+      return false;
+    }
+
+    // Ay kontrolü
+    const month = birth.getMonth() + 1; // getMonth() 0'dan başladığı için 1 ekliyoruz
+    if (month > 12) {
+      toast.error("Ay 12-dən böyük ola bilməz!");
+      return false;
+    }
+
+    // Yıl kontrolü
+    const year = birth.getFullYear();
+    if (year < 1990) {
+      toast.error("İl 1990-dan kiçik ola bilməz!");
+      return false;
+    }
+
+    // Eğer bütün kontroller geçtiyse, doğum tarihi geçerlidir.
+    return true;
+  };
 
   const formatTime = (seconds) => {
     const minutes = Math.floor(seconds / 60);
@@ -67,40 +97,61 @@ export default function Register() {
     const dayDifference = today.getDate() - birth.getDate();
     return age > 17 || (age === 17 && (monthDifference > 0 || (monthDifference === 0 && dayDifference >= 0)));
   };
-  
+
   const handleChange = (e) => {
     const { name, value, type, files } = e.target;
-    if (type === 'file') {
-      setFormData({ ...formData, [name]: files[0] });
-    } else if (name === 'sex') {
+
+    // fname ve lname için harf kontrolü
+    if (name === 'fname' || name === 'lname') {
+      const regex = /^[A-Za-zÇçəƏĞğİıÖöŞşÜü\s]*$/;
+      if (!regex.test(value)) {
+        toast.error('Ad və soyad yalnız hərflərdən ibarət olmalıdır!');
+        return; // Geçersiz girdi olduğunda işlemi durdur
+      }
+
+    }
+
+    if (type === 'file' && name === 'card') {
+      const file = files[0];
+      // Resmi yüklerken imagePreview'e resmin URL'sini ekliyoruz
+      setFormData({
+        ...formData,
+        [name]: file,
+        imagePreview: URL.createObjectURL(file), // Resmi yükledikten sonra önizleme için URL oluşturuyoruz
+      });
+    }
+
+
+    else if (name === 'sex') {
       const isMale = value === "male";
       setFormData({ ...formData, [name]: isMale });
     } else {
       setFormData({ ...formData, [name]: value });
-  
+
       if (name === 'birth_date') {
         if (!checkAge(value)) {
           return; // Tarih değiştiğinde yaş kontrolü başarısızsa form geçişini engelle
         }
       }
-  
+
       if (name === 'password') {
         const requirements = checkPasswordStrength(value);
         setPasswordRequirements(requirements);
-  
+
         // Şifre gücünü renk ile göster
         setPasswordStrength(
           requirements.length && requirements.uppercase && requirements.symbol
             ? 'strong'
             : requirements.length && (requirements.uppercase || requirements.symbol)
-            ? 'medium'
-            : 'weak'
+              ? 'medium'
+              : 'weak'
         );
       }
     }
   };
-  
-  
+
+
+
 
   const handleOtpChange = (e, index) => {
     const { value } = e.target;
@@ -129,16 +180,24 @@ export default function Register() {
   };
   const validateForm = () => {
     if (activeDiv === 1) {
+      // Bütün alanlar doldurulmuş mu?
       if (!formData.fname || !formData.lname || !formData.birth_date || formData.sex === '') {
         toast.error("Zəhmət olmasa bütün xanaları doldurun.");
         return false;
       }
+
+      // Yaş kontrolü
       if (!checkAge(formData.birth_date)) {
         toast.error("Qeydiyyat üçün ən az 17 yaşında olmalısınız!");
-        return false; // Yaş kontrolü başarısızsa form geçişini engelle
+        return false;
+      }
+
+      // Yeni doğum tarihi kontrolü
+      if (!isValidBirthDate(formData.birth_date)) {
+        return false; // Tarih geçerli değilse, formu geçemez
       }
     }
-  
+
     if (activeDiv === 2) {
       const isPasswordValid = Object.values(passwordRequirements).every((req) => req);
       if (!isPasswordValid) {
@@ -146,6 +205,7 @@ export default function Register() {
         return false;
       }
     }
+
     switch (activeDiv) {
       case 1:
         return formData.fname && formData.lname && formData.birth_date && formData.sex !== '';
@@ -157,12 +217,13 @@ export default function Register() {
         return false;
     }
   };
-  
+
+
 
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-  
+
     const formDataToSend = new FormData();
     formDataToSend.append('fname', formData.fname);
     formDataToSend.append('lname', formData.lname);
@@ -172,23 +233,23 @@ export default function Register() {
     formDataToSend.append('email', formData.email);
     formDataToSend.append('password', formData.password);
     formDataToSend.append('card', formData.card); // File olarak gönderildiğinden emin olun
-  
+
     try {
       const response = await fetch(`${APIURL}auth/sign-up`, {
         method: 'POST',
         body: formDataToSend,
       });
-  
+
       const result = await response.json();
       if (response.ok) {
         toast.success('Qeydiyyat sorğusu uğurla göndərildi! Zəhmət olmasa e-poçtunuza daxil olub, hesabınızı təsdiq edin.Təsdiq etdikdən sonra hesabınıza giriş edə bilərsiniz');
         setActiveDiv(4); // Sunucu başarılıysa 4. div'e geç
       } else if (response.status === 409) {
         toast.error(result.message || 'Bu email artıq qeydiyyatdan keçib.Zəhmət olmasa başqa email yoxlayın');
-      } 
+      }
       else if (response.status === 422) {
         toast.error(result.message || 'Gözlənilməyən növ məlumatlar göndərilməsinə görə xəta! Zəhmət olmasa qeydiyyat qaydalarına riayət edin!');
-      }else {
+      } else {
         toast.error(result.message || 'Xəta baş verdi, bir daha cəhd edin.');
       }
     } catch (error) {
@@ -271,13 +332,17 @@ export default function Register() {
                 placeholder="Soyadınız"
                 className={css.input}
               />
-              <input
-                type="date"
-                name="birth_date"
-                value={formData.birth_date}
-                onChange={handleChange}
-                placeholder="Doğum Tarixiniz"
+              <DatePicker
+                selected={formData.birth_date ? new Date(formData.birth_date) : ''}
+                onChange={(date) => setFormData({ ...formData, birth_date: date.toISOString().split('T')[0] })}
+                placeholderText="Doğum Tarixiniz"
                 className={css.input}
+                showMonthDropdown
+                showYearDropdown
+                scrollableYearDropdown
+                yearDropdownItemNumber={100} 
+                   dateFormat="dd-MM-yyyy"
+
               />
               <select
                 name="sex"
@@ -355,10 +420,10 @@ export default function Register() {
               <p>Şifrəniz aşağıdakıları əhatə etməlidir:</p>
 
               <ul className={css.passwordRequirements}>
-                <li style={{ color: 'grey', listStyle: 'circle'  ,color: passwordRequirements.length ? 'green' : 'red'  }}>ən az 8 xanalı olmalıdır</li>
-                <li style={{ color: 'grey', listStyle: 'circle' ,  color: passwordRequirements.uppercase ? 'green' : 'red'  }}>ən az 1 böyük hərf</li>
-                <li style={{ color: 'grey', listStyle: 'circle' ,  color: passwordRequirements.symbol ? 'green' : 'red' }}>ən az 1 simvol</li>
-                <li style={{ color: 'grey', listStyle: 'circle' ,  }}>şifrədə ? simvolundan istifadə etməyin</li>
+                <li style={{ color: 'grey', listStyle: 'circle', color: passwordRequirements.length ? 'green' : 'red' }}>ən az 8 xanalı olmalıdır</li>
+                <li style={{ color: 'grey', listStyle: 'circle', color: passwordRequirements.uppercase ? 'green' : 'red' }}>ən az 1 böyük hərf</li>
+                <li style={{ color: 'grey', listStyle: 'circle', color: passwordRequirements.symbol ? 'green' : 'red' }}>ən az 1 simvol</li>
+                <li style={{ color: 'grey', listStyle: 'circle', }}>şifrədə ? simvolundan istifadə etməyin</li>
               </ul>
               <button className={css.nextbut}
                 onClick={(e) => {
@@ -404,10 +469,13 @@ export default function Register() {
                 ))}
               </select>
               <div className={css.fileUploadDiv}>
-                <p className={css.fileUploadLabel}>   Tələbə kartınız</p>
-                <label htmlFor="card" >
-
-                  <img className={css.uploadIcon} src='/telebe_input.svg' />
+                <p className={css.fileUploadLabel}>Tələbə kartınız</p>
+                <label htmlFor="card">
+                  <img
+                    className={css.uploadIcon}
+                    src={formData.imagePreview || '/telebe_input.svg'} // Eğer bir resim yüklendiyse, yüklenen resmi gösteriyoruz
+                    alt="Upload Icon"
+                  />
                 </label>
                 <input
                   type="file"
@@ -446,7 +514,7 @@ export default function Register() {
             <form onSubmit={handleSubmit} className={css.registerFormDiv}>
               <div className={css.form_top_div}>
                 <h2 className={css.daxiltxt}>Başlayın</h2>
-                <p>Artıq hesabınız var? <a href='/login'>Daxil olun</a></p>
+                <p>Mail təsdiqi etdiniz? <a href='/login'>Daxil olun</a></p>
 
               </div>
               <div className={css.validationDiv}>

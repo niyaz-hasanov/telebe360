@@ -38,7 +38,7 @@ const Categories = () => {
              <Link href='/coming_soon' passHref>
               <div className={css.sidebar_item}>
                 <div className={css.sidebar_item_image_div}>
-                  <img src='/home/crown.svg' alt='360logo' className={css.sidebar_item_icon}/>
+                  <img src='/home/crown.svg' alt='360logo' className={css.sidebar_item_icon} id={css.crownimg}/>
                 </div>
                 <p className={ `${css.sidebar_item_text} ${css.telebe360text}`} > Tələbə360+ </p>
               </div>
@@ -48,9 +48,9 @@ const Categories = () => {
              <Link href='/' passHref>
               <div className={css.sidebar_item}>
                 <div className={css.sidebar_item_image_div}>
-                  <img src='/home/offers.svg' alt='allofferslogo' className={css.sidebar_item_icon}/>
+                  <img src='/home/offers.svg' alt='allofferslogo' className={css.sidebar_item_icon} id={css.alloffersimg}/>
                 </div>
-                <p className={ `${css.sidebar_item_text}`} > All Offers </p>
+                <p className={ `${css.sidebar_item_text}`} >Ana səhifə</p>
               </div>
                </Link>
             </div>

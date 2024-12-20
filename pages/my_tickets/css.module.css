@@ -71,7 +71,8 @@
 @media only screen and (max-width: 800px){
     .ticket_div{
         position:absolute;
-    left:5%;
+    left:2.5%;
+  
     top:15vw;
    
     
@@ -79,7 +80,7 @@
     .ticket_ul{
        margin:0;
        padding:0;
-       width:105vw;
+       width:100vw;
        gap:6vw;
     }
     .ticket_li{
@@ -90,7 +91,8 @@
     }
     .ticket_li_right_button_1{
         color:white;
-        background:#FF0000;
+        background:#3EC48D;
+
         border-radius:1vw;
         padding:10px 20px 10px 20px
     }

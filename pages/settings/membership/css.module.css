@@ -27,8 +27,7 @@
     display:none;
 }
 .comingsoon{
-    position:absolute;
-    left:5%;
+  
 }
 
 .settings_ul .ul_360id{
@@ -188,11 +187,16 @@
 }.carddet{
     display:none;
 }
+.comingsoon{
+    position:absolute;
+    left:15%;
+}
 @media only screen and (max-width: 800px) {
     .comingsoon{
-        position:absolute;
-        right:20%;    
+        left:-1%;
+        top:20%;
     }
+  
         .main_title{
             display:none;
         }
@@ -226,6 +230,7 @@
         /* ayrac */
         .title{
           color: #FBB651;
+        padding-left:7vw;
 
         }
         #myplan{

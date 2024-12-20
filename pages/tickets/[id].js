@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
 import axios from 'axios';
-import { APIURL ,MAINURL } from '../../utils/constants'
+import { APIURL, MAINURL } from '../../utils/constants'
 import css from './kfc.module.css';
 import Image from 'next/image'
 import Head from 'next/head';
@@ -46,28 +46,42 @@ const TicketPage = () => {
         const now = new Date();
         const endTime = new Date(ticket.end_time);
         const timeDifference = endTime - now;
-
+  
         if (timeDifference <= 0) {
           setRemainingTime('Bitib');
           return;
         }
-
-        const oneDayInMs = 24 * 60 * 60 * 1000; // 24 saat
-        if (timeDifference > oneDayInMs) {
+  
+        const oneDayInMs = 24 * 60 * 60 * 1000; // 1 gün = 24 saat * 60 dakika * 60 saniye * 1000 milisaniye
+        const oneMonthInMs = 30 * oneDayInMs; // 30 gün = 1 ay
+        const oneYearInMs = 365 * oneDayInMs; // 365 gün = 1 yıl
+  
+        if (timeDifference >= oneYearInMs) {
+          // Yıl hesabı
+          const yearsRemaining = Math.floor(timeDifference / oneYearInMs);
+          setRemainingTime(`${yearsRemaining} il`);
+        } else if (timeDifference >= oneMonthInMs) {
+          // Ay hesabı
+          const monthsRemaining = Math.floor(timeDifference / oneMonthInMs);
+          setRemainingTime(`${monthsRemaining} ay`);
+        } else if (timeDifference >= oneDayInMs) {
+          // Gün hesabı
           const daysRemaining = Math.floor(timeDifference / oneDayInMs);
           setRemainingTime(`${daysRemaining} gün`);
         } else {
+          // Saat, dakika ve saniye hesabı
           const hours = Math.floor((timeDifference / (1000 * 60 * 60)) % 24);
           const minutes = Math.floor((timeDifference / (1000 * 60)) % 60);
           const seconds = Math.floor((timeDifference / 1000) % 60);
           setRemainingTime(`${hours} : ${minutes} : ${seconds}`);
         }
       };
-
+  
       const interval = setInterval(calculateRemainingTime, 1000);
       return () => clearInterval(interval); // Bileşen unmounted olduğunda interval'i temizle
     }
   }, [ticket]);
+  
 
   if (loading) {
     return <div>Loading...</div>;
@@ -76,11 +90,11 @@ const TicketPage = () => {
   if (!ticket) {
     return <div>Ticket not found</div>;
   }
- 
+
 
   return (
     <div className={css.ticketContainer}>
-           <style jsx global>{`
+      <style jsx global>{`
             body {
              
                 background-color: #F2F3F2;
@@ -88,64 +102,64 @@ const TicketPage = () => {
             }
       `}</style>
       <Head>
-      <title>{ticket.company.name}-{ticket.name} </title>
+        <title>{ticket.company.name}-{ticket.name} </title>
         <link rel="icon" href="/home/360minilogo.svg" />
       </Head>
-      
-     
+
+
       <div className={css.container}>
         <div className={css.kfcbanner}>
           <div className={css.overlay}>
             <div className={css.div}>
               <div className={css.top}>
-              <div className={css.top_left}>  
-               <Link href={`/categories/${ticket.category.slug}`}> <img className={css.icon} src='/leftarrow.svg' alt="Back" /></Link>
-                <p className={css.paragraph}>{ticket.company.name} - {ticket.name} • {ticket.company.address}</p>
+                <div className={css.top_left}>
+                  <Link href={`/categories/${ticket.category.slug}`}> <img className={css.icon} src='/Vector.svg' alt="Back" /></Link>
+                  <p className={css.paragraph}>{ticket.company.name} - {ticket.name} • {ticket.company.address}</p>
                 </div>
                 <div className={css.topleft}>
-                  <img className={css.icon} src='/whitebookmark.svg' alt="Bookmark" />
-                  <img className={css.icon} id={css.itkin} src='/share.svg' alt="Share" />
+
                 </div>
               </div>
               <div className={css.bottom}>
                 <div className={css.bottom_left}>
-                  <img className={css.kfcpp} src={`${MAINURL}uploads/${ticket.company.logo_path}`} alt={ticket.company.name} />
+                  <span className={css.kfcppspan}><img className={css.kfcpp} src={`${MAINURL}uploads/${ticket.company.logo_path}`} alt={ticket.company.name} /></span>
                   <div>
                     <span id={css.wolt}>{ticket.count} ədəd</span>
-                    <span id={css.day}> 
+                    <span id={css.day}>
                       {remainingTime === 'Bitib' ? (
                         <span className={css.expired}>Bitib</span>
                       ) : (
-                        <span> {remainingTime}</span>
+                      <p className={css.remain_time}>{remainingTime}</p>
                       )}
                     </span>
                     <span id={css.percent}>{ticket.discount}%</span>
                   </div>
                 </div>
                 <div>
-                {authenticated ? (
-                 <Alert ticketId={ticket.id} />
-              ) : (
-                <span  className={css.loginButton}>
-                  
-                </span>
-              )}
+                  {authenticated ? (
+                    <Alert ticketId={ticket.id} />
+                  ) : (
+                    <span className={css.loginButton}>
+
+                    </span>
+                  )}
                 </div>
               </div>
             </div>
           </div>
-          <img className={css.bannerr} src='/kfcbanner.svg' alt="Banner" />
+          <img className={css.bannerr} src='/ticket_banner.svg' alt="Banner" />
         </div>
 
         <div className={css.textdiv}>
           <h3>{ticket.company.name} haqqında</h3>
-          <p id={css.textdivp}>{ticket.company.description}</p>
-         </div>
+          <p className={css.textdivp}>{ticket.company.description} 
+          </p>
+        </div>
 
         <div className={css.carousel_container}>
-        <h3>{ticket.company.name}'dən daha çox kuponlar</h3>
-        <div className={css.carousel}><Carousel ticket={ticket}/></div>
-        <div className={css.mobile_carousel}><MobileCarousel ticket={ticket}/></div>
+          <h3 className={css.company_name}>"{ticket.company.name}"-dən daha çox kuponlar</h3>
+          <div className={css.carousel}><Carousel ticket={ticket} /></div>
+          <div className={css.mobile_carousel}><MobileCarousel ticket={ticket} /></div>
         </div>
 
       </div>

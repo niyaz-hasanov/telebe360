@@ -73,7 +73,10 @@ export default function Login() {
           toast.error('Email tapılmadı. Zəhmət olmasa qeydiyyatdan keçin');
         } else if (response.status === 401) {
           toast.error('Şifrəniz səhvdir');
-        } else {
+        }
+        else if (response.status === 422) {
+          toast.error('Düzgün email daxil edin!');
+        }  else {
           toast.error(data.message || 'Giriş zamanı xəta yarandı');
         }
       }
@@ -103,22 +106,22 @@ export default function Login() {
       </Head>
 
       <AnimatePresence>
+        {/* {activeDiv === 1 && (
+          // <motion.div
+          //   key="login_slider"
+          //   initial={{ opacity: 0, x: 100 }}
+          //   animate={{ opacity: 1, x: 0 }}
+          //   exit={{ opacity: 0, x: -100 }}
+          //   transition={{ duration: 0.4 }}
+          //   className={css.login_slider}
+          // >
+          //   <div className={css.slider_div}>
+          //     <Slider />
+          //   </div>
+          //   <button className={css.nextbut} onClick={() => setActiveDiv(2)}>➜ Növbəti</button>
+          // </motion.div>
+        )} */}
         {activeDiv === 1 && (
-          <motion.div
-            key="login_slider"
-            initial={{ opacity: 0, x: 100 }}
-            animate={{ opacity: 1, x: 0 }}
-            exit={{ opacity: 0, x: -100 }}
-            transition={{ duration: 0.4 }}
-            className={css.login_slider}
-          >
-            <div className={css.slider_div}>
-              <Slider />
-            </div>
-            <button className={css.nextbut} onClick={() => setActiveDiv(2)}>➜ Növbəti</button>
-          </motion.div>
-        )}
-        {activeDiv === 2 && (
           <motion.div
             key="login_form"
             initial={{ opacity: 0, x: -100 }}
@@ -169,7 +172,7 @@ export default function Login() {
                   />
                   Məni xatırla
                 </label>
-                {/* <a className={css.logintxt} href='/'><i>Şifrəmi unutdum </i></a> */}
+                <a className={css.logintxt} href='/forgot_password'><i>Şifrəmi unutdum </i></a>
               </div>
               <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginTop: '2vw' }}>
                 <button className={css.daxilol} type="submit">➜ Daxil ol</button>

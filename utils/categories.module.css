@@ -11,7 +11,7 @@
 
  padding:0px 10px 0px 10px;
  border-radius:1vw;
- width:85%;
+ width:90%;
  
 }
 .telebe360text{
@@ -21,6 +21,7 @@
 
 
 }
+
 .sidebar_item:hover{
     background: linear-gradient(180deg, #A763DD 0%, #F06BF2 100%);
     color:white;
@@ -36,7 +37,19 @@
    
 
 }
+#alloffersimg{
+    padding-top:5px;
+}
+
 .sidebar_item:hover .sidebar_item_icon{
     -webkit-filter: invert(100%);
     filter: invert(100%);
+}
+.sidebar_item:hover #crownimg{
+    filter: brightness(0) invert(1);
+    padding-top:5px;
+
+}
+.sidebar_item:hover .telebe360text{
+    color:white;
 }

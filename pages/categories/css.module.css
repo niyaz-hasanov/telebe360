@@ -1,6 +1,6 @@
 .container{
    margin-left:10vw;
-   margin-top:-5vw;
+   margin-top:0vw;
 }
 .container h1{
    text-align: center;
@@ -21,6 +21,11 @@
 .down_banner{
     margin-left:8vw;
 }
+.banner_mobile2{
+ display:none;
+     
+}
+
 @media only screen and (max-width: 800px){
     .div .desktop_slider{
         display:none;
@@ -36,12 +41,17 @@
         display:block;
     }
     .banner_mobile{
-        display:block
+        display:block;
+    }
+    .banner_mobile2{
+        margin-left:0.5vw;
+        display:block;
+         
     }
     .banner_desktop{
         display:none;
     }
     .up_banner{
-        margin-left:-4vw;
+        margin-left:-2vw;
     }
 }

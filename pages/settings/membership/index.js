@@ -51,8 +51,7 @@ export default function Home() {
               <Link className={css.ul} href='/settings/notifications'><li >Bildirişlər</li></Link>
               <Link className={css.ul} href='/settings/references'><li >Referanslar</li></Link>
             </ul>
-           <div  className={css.comingsoon}>
-             <ComingSoon/></div>
+           
             {/* <div className={css.div}>
                      
                 <h3 className={css.fontstabil} id={css.myplan}>My Plan</h3>
@@ -107,7 +106,8 @@ export default function Home() {
                </ul>
             </div> */}
           </div>
-
+          <div  className={css.comingsoon}>
+          <ComingSoon/></div>
         </div>
       </div>
 

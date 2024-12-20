@@ -5,12 +5,27 @@ import { useState, useEffect } from 'react';
 import Image from 'next/image';
 import { Toaster } from 'react-hot-toast';
 import startTokenRefresh from '../utils/startTokenRefresh'; // Token yenileme fonksiyonunu import et
-import Footer from '../components/footer/index'
+import Footer from '../components/footer/index';
+import { ThemeProvider } from '@mui/material/styles';
+import theme from '../components/theme';  // theme.js dosyasını import edin
+
 function MyApp({ Component, pageProps }) {
   const router = useRouter();
   const [loading, setLoading] = useState(false);
 
   useEffect(() => {
+    // Service Worker kaydını yap
+    if ('serviceWorker' in navigator) {
+      navigator.serviceWorker
+        .register('/service-worker.js')
+        .then((registration) => {
+          console.log('Service Worker registered with scope:', registration.scope);
+        })
+        .catch((error) => {
+          console.error('Service Worker registration failed:', error);
+        });
+    }
+
     const handleStart = () => setLoading(true);
     const handleComplete = () => setLoading(false);
 
@@ -56,8 +71,11 @@ function MyApp({ Component, pageProps }) {
     '/settings/notifications',
     '/settings/references',
     '/verify_email/[token]',
-    '/ticket_burn/[id]'
+    '/ticket_burn/[id]',
+    '/forgot_password',
+     '/forgot_password/change_password/[token]'
   ];
+
   const noFooterRoutes = [
     '/technical_support',
     '/notifications',
@@ -73,8 +91,9 @@ function MyApp({ Component, pageProps }) {
     '/verify_email/[token]',
     '/ticket_burn/[id]',
     '/my_tickets',
-    '/coming_soon'
-   
+    '/coming_soon',
+    '/forgot_password',
+     '/forgot_password/change_password/[token]'
   ];
 
   return (
@@ -93,14 +112,16 @@ function MyApp({ Component, pageProps }) {
         </div>
       ) : (
         <>
-          {!noNavbarRoutes.includes(router.pathname) && <Navbar />} 
-          <Component {...pageProps} />
-          <Toaster 
-            toastOptions={{
-              duration: 5000, 
-            }}
-          /> 
-         {!noFooterRoutes.includes(router.pathname) && <Footer/>} 
+          <ThemeProvider theme={theme}>
+            {!noNavbarRoutes.includes(router.pathname) && <Navbar />}
+            <Component {...pageProps} />
+            <Toaster 
+              toastOptions={{
+                duration: 5000,
+              }}
+            />
+            {!noFooterRoutes.includes(router.pathname) && <Footer />}
+          </ThemeProvider>
         </>
       )}
     </>

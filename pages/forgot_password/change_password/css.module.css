@@ -115,6 +115,16 @@
 
 
 }
+.button_div{
+  display: 'flex'; justify-content: 'space-between'; align-items: 'center'; margin-top: 2vw;
+  
+}
+.disabledButton {
+    background-color: #ccc; /* Gri arka plan rengi */
+    color: #888; /* Gri metin rengi */
+    cursor: not-allowed; /* Fare işaretçisini engelle */
+    opacity: 0.5; /* Opaklığı düşür */
+  }
 
 .keyicon {
     position: absolute;

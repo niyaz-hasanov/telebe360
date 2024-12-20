@@ -67,14 +67,14 @@ const CategoryPage = () => {
     <span  className={css.desktop_slider}>  <Slider tickets={tickets}/> </span>
      <span  className={css.mobile_slider}> <MobileSlider tickets={tickets}/></span>
       </div>
-      <div className={css.down_banner}>
+      {/* <div className={css.down_banner}>
          <div className={css.banner_desktop}>
          <BannerDown/>
          </div>
-         <div className={css.banner_mobile}>
+         <div className={css.banner_mobile2}>
           <BannerDownMobile/>
          </div>
-      </div>
+      </div> */}
     </div>
   </>);
 };

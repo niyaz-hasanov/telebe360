@@ -170,7 +170,7 @@ export default function Home() {
                     </div>
                   </div>
                   <div className={css.li1_right}>
-                    <button id={css.li1but1}>Ləğv et</button>
+                    {/* <button id={css.li1but1}>Ləğv et</button> */}
                     <button id={css.li1but2} type="submit">Yadda saxla</button>
                   </div>
                 </li>
@@ -232,7 +232,7 @@ export default function Home() {
                   </div>
                   <div className={css.li1_right} id={css.li4_right}>
                   <span  className={isVerified ? css.ppspan : css.ppspanRed}>  <img
-                      src={`${MAINURL}uploads/${profileImgPath}`}
+                      src={profileImgPath ? `${MAINURL}uploads/${profileImgPath}` : '/profile.jpg'}
                       width={0}
                       height={0}
                       className={css.pp}

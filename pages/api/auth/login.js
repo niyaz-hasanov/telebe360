@@ -32,7 +32,7 @@ export default async function handler(req, res) {
           path: '/', 
           maxAge: 60 * 60 * 24 * 30, // 30 gün
         }));
-
+          
         return res.status(200).json({ access_token: accessToken });
       } else {
         console.log('Login error detail:', responseData);
