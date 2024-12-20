@@ -13,7 +13,7 @@
     margin:0;
     padding:0;
     display:flex;
-    
+    width:20vw;
    
     align-items: center;
     justify-content: center;
@@ -27,7 +27,7 @@
     margin:0;
     padding:0;
     align-items: center;
-
+     width:20vw;
     justify-content: center;
     rotate:270deg;
 
@@ -71,39 +71,170 @@
 }
 
 .qrImage {
-    width: 15vw; 
-    height: 15vw; 
+    width: 10vw; 
+    height: 10vw; 
     margin-top: 10px;
 }
 
+
+
+
+
+.profdiv{
+    background:none;
+    display:flex;
+    align-items: center; 
+    flex-direction:row;
+    position:relative;
+    height:6vw;
+    width:23vw;
+}
+.profmob{
+    width: 100%;
+    height: auto;
+    object-fit: cover; 
+    position: absolute; 
+    top: 50%; 
+    left: 50%; 
+    transform: translate(-50%, -50%); 
+}
+.profmobspan{
+    border-radius: 50%; 
+    overflow: hidden; 
+    position: relative; 
+       width:5vw;
+   height:5vw;
+   border: 0.3vw solid #8F00FF;
+}
+.divtext{
+    display:flex;
+    flex-direction: column;
+    align-items: flex-start;
+     margin-left:2vw;
+    justify-content: flex-start;
+}
+.divtext h2{
+    font-weight: 700;
+    font-size:1.5vw;color:#8F00FF;
+    margin-bottom:-1vw;
+}
+.divtext p{
+    font-weight: 600;font-size:1vw;
+}
+
 @media only screen and (max-width: 800px){
-    .ticket_main{
-       
-       
-        padding-left:5vw;
-        padding-right:5vw;
-        border-left:0.8vw solid #8F00FF;
-        border-right:0.8vw solid #8F00FF;
-      }
-    .qrImage{
-        width:40vw;
-        height:40vw;
-        margin-bottom:5vw;
-        margin-left:5vw;
-        margin-right:5vw;
-    }
-    .brand_name p{
-        font-size:8vw;
-        font-weight: 800;
-          
-       }
-    .percent p{
-        font-weight: 800;
-        font-size:8vw;
-          
-       }
-       .telebe360{
-        font-size:6vw;
-        font-weight: 800;
-    }
+
+.brand_name{
+    color:#8F00FF;
+    margin:0;
+    padding:0;
+    display:flex;
+    width:20vw;
+   
+    align-items: center;
+    justify-content: center;
+    rotate:270deg;
+   
+}
+
+.percent{
+    color:#8F00FF;
+    display:flex;
+    margin:0;
+    padding:0;
+    align-items: center;
+     width:20vw;
+    justify-content: center;
+    rotate:270deg;
+
+}
+.brand_name p{
+    font-size:5vw;
+    font-weight: 800;
+      
+   }
+.percent p{
+    font-weight: 800;
+    font-size:5vw;
+      
+   }
+.ticket_main{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin:0;
+  padding:3vw;
+  padding-left:5vw;
+  padding-right:5vw;
+  border-left:0.7vw solid #8F00FF;
+  border-right:0.7vw solid #8F00FF;
+}
+.telebe360{
+    color:#8F00FF;
+    font-size:5vw;
+    font-weight: 800;
+
+}
+
+#modal-modal-title{
+    font-size:200% !important;
+}
+
+
+.qrImage {
+    width: 20vw; 
+    height: 20vw; 
+    margin-top: 10px;
+}
+
+
+
+
+
+.profdiv{
+    background:none;
+    display:flex;
+    align-items: center; 
+    flex-direction:row;
+    position:relative;
+    height:15vw;
+    width:50vw;
+}
+.profmob{
+    width: 100%;
+    height: auto;
+    object-fit: cover; 
+    position: absolute; 
+ 
+    top: 50%; 
+    left: 50%; 
+    transform: translate(-50%, -50%); 
+}
+.profmobspan{
+    border-radius: 50%; 
+    overflow: hidden; 
+    position: relative; 
+    padding:0;
+       width:10vw;
+   height:10vw;
+   border: 0.5vw solid #aa62e1;
+}
+.divtext{
+    display:flex;
+    flex-direction: column;
+    align-items: flex-start;
+     margin-left:2vw;
+    justify-content: flex-start;
+}
+.divtext h2{
+    font-weight: 700;
+    font-size:5vw;color:#8F00FF;
+    margin-bottom:-3vw;
+    margin-top:2vw;
+}
+.divtext p{
+    font-weight: 600;font-size:2.3vw;
+}
+   
 }

@@ -22,6 +22,7 @@
     border-radius: 50%; /* Yuvarlak şekil için */
     overflow: hidden; /* Taşan kısmı gizler */
     position: relative; /* Pozisyonlama için */
+    background:#F2F3F2;
 }
 .ppbutton{
     width: 100%;
@@ -31,12 +32,14 @@
     top: 50%; /* Yükseklik ortalaması */
     left: 50%; /* Genişlik ortalaması */
     transform: translate(-50%, -50%); /* Ortalar */
+    background:#F2F3F2;
 }
 .ppbutton1{
     margin:0;
     margin-left:30px;
     border:none;
    display: flex;
+   background:#F2F3F2;
 }
 .dropdownp{
     font-weight: 600; font-size:14px;  width:9vw;
@@ -73,7 +76,9 @@
     filter: invert(25%) sepia(100%) saturate(2000%) hue-rotate(340deg) brightness(100%) contrast(100%);
 
 }
-
+.bulanik{
+   margin-left:-2vw;
+}
 @media only screen and (max-width: 800px) {
     .drop {
         /* Ensure there's no unwanted size or margin in mobile view */

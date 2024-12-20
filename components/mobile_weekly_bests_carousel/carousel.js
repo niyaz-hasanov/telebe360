@@ -12,27 +12,46 @@ import PropTypes from 'prop-types';
 const calculateTimeLeft = (end_time) => {
   const now = new Date();
   const endTime = new Date(end_time);
-  const difference = endTime - now; // Kalan süreyi milisaniye cinsinden hesapla
+  const difference = endTime - now;
 
   if (difference <= 0) {
-    return "Bitib"; // Eğer süre geçmişse
+    return "Bitib";
   }
 
-  // Gün, saat, dakika ve saniye hesaplama
-  const days = Math.floor(difference / (1000 * 60 * 60 * 24));
+  const oneDayInMs = 1000 * 60 * 60 * 24; // 1 gün
+  const oneMonthInMs = 30 * oneDayInMs; // 30 gün = 1 ay
+  const oneYearInMs = 365 * oneDayInMs; // 365 gün = 1 yıl
+
+  // Yıl hesaplama
+  if (difference >= oneYearInMs) {
+    const years = Math.floor(difference / oneYearInMs);
+    return `${years} il`;
+  }
+
+  // Ay hesaplama
+  if (difference >= oneMonthInMs) {
+    const months = Math.floor(difference / oneMonthInMs);
+    return `${months} ay`;
+  }
+
+  // Gün hesaplama
+  const days = Math.floor(difference / oneDayInMs);
+  if (days > 0) {
+    return `${days} gün`;
+  }
+
+  // Saat, dakika ve saniye hesaplama
   const hours = Math.floor((difference / (1000 * 60 * 60)) % 24);
   const minutes = Math.floor((difference / 1000 / 60) % 60);
   const seconds = Math.floor((difference / 1000) % 60);
 
-  // Gün varsa göster, yoksa saat, dakika, saniye göster
-  if (days > 0) {
-    return `${days} gün`;
-  } else if (hours > 0 || minutes > 0 || seconds > 0) {
-    return `${hours} : ${minutes} : ${seconds} `;
+  if (hours > 0 || minutes > 0 || seconds > 0) {
+    return `${hours} : ${minutes} : ${seconds}`;
   }
 
-  return "Bitib"; // Varsayılan olarak "Süre doldu" göster
+  return "Bitib";
 };
+
 
 const Slider = ({ tickets }) => {
   // Eğer tickets dizisi boşsa, bir mesaj göster
@@ -64,15 +83,15 @@ const Slider = ({ tickets }) => {
   infiniteLoop={false}
   showArrows={false}
   emulateTouch={true}
-  swipeScrollTolerance={100}
-  thumbWidth={100}
+  swipeScrollTolerance={0}
+  thumbWidth={0}
   interval={5000}
   transitionTime={1500}
   showIndicators={false}
   centerMode={true}
-  centerSlidePercentage={57}
+  centerSlidePercentage={65}
   selectedItem={0}
-  stopOnHover={false}
+  stopOnHover={true}
   dynamicHeight={false}
   className={css.carousel}
     
@@ -87,12 +106,12 @@ const Slider = ({ tickets }) => {
                   alt={ticket.company.name}
                 />
               </div>
-              <Image
+              {/* <Image
                 src={'/home/bookmark.svg'}
                 width={20} // Örnek boyut, gerekli boyutu ayarlayın
                 height={20}
                 className={css.bookmark}
-              />
+              /> */}
               <div className={css.card_bottom}>
                 <div className={css.card_text_div}>
                   <h2>{ticket.company.name}</h2>

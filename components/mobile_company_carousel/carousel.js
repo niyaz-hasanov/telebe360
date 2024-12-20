@@ -19,14 +19,34 @@ const calculateTimeLeft = (end_time) => {
     return "Bitib";
   }
 
-  const days = Math.floor(difference / (1000 * 60 * 60 * 24));
+  const oneDayInMs = 1000 * 60 * 60 * 24; // 1 gün
+  const oneMonthInMs = 30 * oneDayInMs; // 30 gün = 1 ay
+  const oneYearInMs = 365 * oneDayInMs; // 365 gün = 1 yıl
+
+  // Yıl hesaplama
+  if (difference >= oneYearInMs) {
+    const years = Math.floor(difference / oneYearInMs);
+    return `${years} il`;
+  }
+
+  // Ay hesaplama
+  if (difference >= oneMonthInMs) {
+    const months = Math.floor(difference / oneMonthInMs);
+    return `${months} ay`;
+  }
+
+  // Gün hesaplama
+  const days = Math.floor(difference / oneDayInMs);
+  if (days > 0) {
+    return `${days} gün`;
+  }
+
+  // Saat, dakika ve saniye hesaplama
   const hours = Math.floor((difference / (1000 * 60 * 60)) % 24);
   const minutes = Math.floor((difference / 1000 / 60) % 60);
   const seconds = Math.floor((difference / 1000) % 60);
 
-  if (days > 0) {
-    return `${days} gün`;
-  } else if (hours > 0 || minutes > 0 || seconds > 0) {
+  if (hours > 0 || minutes > 0 || seconds > 0) {
     return `${hours} : ${minutes} : ${seconds}`;
   }
 
@@ -101,12 +121,12 @@ const Slider = ({ ticket }) => {
                   alt={ticket.company.name}
                 />
               </div>
-              <Image
+              {/* <Image
                 src={'/home/bookmark.svg'}
                 width={20} // Örnek boyut, gerekli boyutu ayarlayın
                 height={20}
                 className={css.bookmark}
-              />
+              /> */}
               <div className={css.card_bottom}>
                 <div className={css.card_text_div}>
                   <h2>{ticket.company.name}</h2>

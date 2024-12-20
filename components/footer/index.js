@@ -9,7 +9,7 @@ export default function Navbar (){
                     <li className={css.li_first}>Əməkdaşlıq</li>
                     <li>Websaytlar</li>
                     <li>Sosial şəbəkə</li>
-                    <li>Brendinq</li>
+                   
                 </ul>
                 <ul className={css.footer_left_top_ul}>
                     <li className={css.li_first}>Haqqımızda</li>
@@ -25,7 +25,7 @@ export default function Navbar (){
                 </ul>
               </div>
               <div className={css.footer_left_bottom}>
-                <p>© TELEBE360 MMC. All Rights Reserved. </p>
+                <p className={css.sign}>© TELEBE360 MMC. All Rights Reserved. </p>
               <ul className={css.footer_left_bottom_ul}>
                 <li>Privacy policy<span className={css.border_line}>|</span></li>
                 <li>Terms of use <span className={css.border_line}>|</span></li>
@@ -37,16 +37,17 @@ export default function Navbar (){
               </div>
             </div>
             <div className={css.footer_right}>
-              <p></p>
-              <div className={css.app}></div>
-              <ul>
-                <li></li>
-                <li></li>
-                <li></li>
-                <li></li>
-                <li></li>
-                <li></li>
+              <div className={css.app}> 
+                <ul>
+                <li><img className={css.img} src='/Facebook.svg'/></li>
+                <li><img className={css.img} src='/Twitter.svg'/></li>
+                <li><img className={css.img} src='/Instagram.svg'/></li>
+                <li><img className={css.img} src='/LinkedIn.svg'/></li>
+                <li><img className={css.img} src='/Telegram.svg'/></li>
+                <li><img className={css.img} src='/TikTok.svg'/></li>
               </ul>
+              </div>
+             
             </div>
         </div>
      </footer>

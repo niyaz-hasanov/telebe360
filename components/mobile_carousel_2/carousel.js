@@ -64,7 +64,7 @@ export default function Slider() {
 
             {slides.map((slide) => (
                 <div key={slide.id} className={css.mobcardiv}>
-                    <Image
+                    <img
                         src={`${MAINURL}uploads/${slide.mobile_img_path}`} // Mobile için ilgili görsel
                         alt={slide.name}
                         width={0}

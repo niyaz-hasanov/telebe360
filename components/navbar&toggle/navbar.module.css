@@ -29,6 +29,9 @@
   color: #8F00FF;
   z-index: 9999999999999999999934324343999;
 }
+.appbar{
+  margin-bottom :1rem;
+}
 
 .sidebar_bottom_div {
   display: flex;
@@ -61,7 +64,7 @@
   display:none;
 }
 .logoOpen {
-  transform: translateX(0);
+  transform: translateX(10px);
 }
 
 .navbar{
@@ -144,9 +147,13 @@
 }
 
 @media only screen and (max-width: 800px) {
-  .appbar{
-    width:105%;
+  .sidebar_360img {
+    margin-left:1vw;
   }
+  .appbar{
+    margin-bottom :-3vw;
+  }
+
   .nav_div_right{
     position:relative;
     align-items: center;
@@ -159,7 +166,7 @@
   .navbar{
     display:flex; flex-direction: row;
     
-    transform: translateX(0px);
+  
   }
 .favourites_div{
   display:none;
@@ -187,7 +194,7 @@
    
   }
   .navbar{
-    justify-content: space-between;
+  
   }
   
   .mobile_fav{
@@ -205,14 +212,7 @@
   }
   .chevron_div{
     
-    margin-left:-100px;
-    width:22vw;
-    margin-top:350px;
-    padding:1px 1px 1px 1px;
-     display:flex;
-     align-items: center;
-     justify-content: flex-end;
-    height:14vw;
+   display:none;
   }
   .chevron_icon{
       
@@ -230,7 +230,7 @@
 
 @media (max-width: 600px) {
   .chevron_div{
-    margin-left:-45px;
+   display:none;
     
   }
   .chevron_div.closed {
@@ -239,9 +239,7 @@
   .layer{
     display:block;
   }
-  .appbar{
-    width:110%;
-  }
+ 
   .profile{
  
   }

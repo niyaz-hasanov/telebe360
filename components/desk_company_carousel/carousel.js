@@ -4,7 +4,6 @@ import { Carousel } from 'react-responsive-carousel';
 import { FaChevronRight, FaChevronLeft } from 'react-icons/fa';
 import css from './carousel.module.css';
 import Link from 'next/link';
-import Image from 'next/image';
 import { MAINURL, APIURL } from '../../utils/constants';
 import axios from 'axios';
 import PropTypes from 'prop-types';
@@ -19,14 +18,34 @@ const calculateTimeLeft = (end_time) => {
     return "Bitib";
   }
 
-  const days = Math.floor(difference / (1000 * 60 * 60 * 24));
+  const oneDayInMs = 1000 * 60 * 60 * 24; // 1 gün
+  const oneMonthInMs = 30 * oneDayInMs; // 30 gün = 1 ay
+  const oneYearInMs = 365 * oneDayInMs; // 365 gün = 1 yıl
+
+  // Yıl hesaplama
+  if (difference >= oneYearInMs) {
+    const years = Math.floor(difference / oneYearInMs);
+    return `${years} il`;
+  }
+
+  // Ay hesaplama
+  if (difference >= oneMonthInMs) {
+    const months = Math.floor(difference / oneMonthInMs);
+    return `${months} ay`;
+  }
+
+  // Gün hesaplama
+  const days = Math.floor(difference / oneDayInMs);
+  if (days > 0) {
+    return `${days} gün`;
+  }
+
+  // Saat, dakika ve saniye hesaplama
   const hours = Math.floor((difference / (1000 * 60 * 60)) % 24);
   const minutes = Math.floor((difference / 1000 / 60) % 60);
   const seconds = Math.floor((difference / 1000) % 60);
 
-  if (days > 0) {
-    return `${days} gün`;
-  } else if (hours > 0 || minutes > 0 || seconds > 0) {
+  if (hours > 0 || minutes > 0 || seconds > 0) {
     return `${hours} : ${minutes} : ${seconds}`;
   }
 
@@ -55,10 +74,13 @@ const Slider = ({ ticket }) => {
     return <div>No tickets available.</div>;
   }
 
+  // Öğelerin sayısını kontrol ediyoruz
+  const isSmall = companyTickets.length < 4;
+
   return (
     <Carousel
       renderArrowPrev={(onClickHandler, hasPrev, label) =>
-        hasPrev && (
+        hasPrev && !isSmall && ( // 4'ten azsa okları gösterme
           <button
             type="button"
             onClick={onClickHandler}
@@ -66,7 +88,7 @@ const Slider = ({ ticket }) => {
             style={{
               position: 'absolute',
               top: '8vw',
-              left: '2vw',
+              left: '1vw',
               zIndex: '1',
               background: '#DADADA',
               border: 'none',
@@ -84,7 +106,7 @@ const Slider = ({ ticket }) => {
         )
       }
       renderArrowNext={(onClickHandler, hasNext, label) =>
-        hasNext && (
+        hasNext && !isSmall && ( // 4'ten azsa okları gösterme
           <button
             type="button"
             onClick={onClickHandler}
@@ -110,13 +132,13 @@ const Slider = ({ ticket }) => {
         )
       }
       useKeyboardArrows={true}
-      swipeable={true}
-      showStatus={false}
-      showThumbs={false}
-      autoPlay={true}
-      infiniteLoop={false}
-      showArrows={true}
-      emulateTouch={true}
+      swipeable={!isSmall} // Eğer öğe sayısı 4'ten azsa kaydırma özelliğini devre dışı bırak
+      showStatus={false} // Durum göstergesini kapat
+      showThumbs={false} // Thumbnail'ları kapat
+      autoPlay={false}  // Eğer öğe sayısı 4'ten azsa autoplay'i devre dışı bırak
+      infiniteLoop={false}  // Eğer öğe sayısı 4'ten azsa infinite loop'u devre dışı bırak
+      showArrows={!isSmall}  // 4'ten azsa okları devre dışı bırak
+      emulateTouch={!isSmall}  // 4'ten azsa touch özelliğini devre dışı bırak
       swipeScrollTolerance={90}
       thumbWidth={0}
       interval={5000}
@@ -124,14 +146,14 @@ const Slider = ({ ticket }) => {
       showIndicators={false}
       centerMode={true}
       centerSlidePercentage={30}
-      selectedItem={0}
+      selectedItem={isSmall ? 0 : 1}
       stopOnHover={false}
       dynamicHeight={false}
       className={css.carousel}
     >
       {companyTickets.map(ticket => (
         <div key={ticket.id} className={css.mobcardiv}>
-          <Link style={{ color: 'black' }} key={ticket.id} href={`/tickets/${ticket.id}`}>
+          <Link style={{ color: 'black' }} href={`/tickets/${ticket.id}`}>
             <div className={css.card_div}>
               <div className={css.card_pp}>
                 <img
@@ -139,12 +161,6 @@ const Slider = ({ ticket }) => {
                   alt={ticket.company.name}
                 />
               </div>
-              <Image
-                src={'/home/bookmark.svg'}
-                width={20} // Örnek boyut, gerekli boyutu ayarlayın
-                height={20}
-                className={css.bookmark}
-              />
               <div className={css.card_bottom}>
                 <div className={css.card_text_div}>
                   <h2>{ticket.company.name}</h2>

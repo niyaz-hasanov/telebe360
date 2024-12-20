@@ -39,8 +39,10 @@ const styleh2 = {
   fontSize: '1.4vw',
   fontWeight: '800',
   color: '#8F00FF',
+
   '@media (max-width: 800px)': {
     fontSize: '5.5vw',
+    textAlign:'center'
   },
 };
 

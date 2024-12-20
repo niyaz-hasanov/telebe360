@@ -4,7 +4,6 @@ import { Carousel } from 'react-responsive-carousel';
 import { FaChevronRight, FaChevronLeft } from 'react-icons/fa';
 import css from './carousel.module.css';
 import Link from 'next/link';
-import Image from 'next/image';
 import { MAINURL } from '../../utils/constants';
 import PropTypes from 'prop-types';
 
@@ -12,26 +11,44 @@ import PropTypes from 'prop-types';
 const calculateTimeLeft = (end_time) => {
   const now = new Date();
   const endTime = new Date(end_time);
-  const difference = endTime - now; // Kalan süreyi milisaniye cinsinden hesapla
+  const difference = endTime - now;
 
   if (difference <= 0) {
-    return "Bitib"; // Eğer süre geçmişse
+    return "Bitib";
   }
 
-  // Gün, saat, dakika ve saniye hesaplama
-  const days = Math.floor(difference / (1000 * 60 * 60 * 24));
+  const oneDayInMs = 1000 * 60 * 60 * 24; // 1 gün
+  const oneMonthInMs = 30 * oneDayInMs; // 30 gün = 1 ay
+  const oneYearInMs = 365 * oneDayInMs; // 365 gün = 1 yıl
+
+  // Yıl hesaplama
+  if (difference >= oneYearInMs) {
+    const years = Math.floor(difference / oneYearInMs);
+    return `${years} il`;
+  }
+
+  // Ay hesaplama
+  if (difference >= oneMonthInMs) {
+    const months = Math.floor(difference / oneMonthInMs);
+    return `${months} ay`;
+  }
+
+  // Gün hesaplama
+  const days = Math.floor(difference / oneDayInMs);
+  if (days > 0) {
+    return `${days} gün`;
+  }
+
+  // Saat, dakika ve saniye hesaplama
   const hours = Math.floor((difference / (1000 * 60 * 60)) % 24);
   const minutes = Math.floor((difference / 1000 / 60) % 60);
   const seconds = Math.floor((difference / 1000) % 60);
 
-  // Gün varsa göster, yoksa saat, dakika, saniye göster
-  if (days > 0) {
-    return `${days} gün`;
-  } else if (hours > 0 || minutes > 0 || seconds > 0) {
-    return `${hours} : ${minutes} : ${seconds} `;
+  if (hours > 0 || minutes > 0 || seconds > 0) {
+    return `${hours} : ${minutes} : ${seconds}`;
   }
 
-  return "Bitib"; // Varsayılan olarak "Süre doldu" göster
+  return "Bitib";
 };
 
 const Slider = ({ tickets }) => {
@@ -40,10 +57,13 @@ const Slider = ({ tickets }) => {
     return <div>No tickets available.</div>;
   }
 
+  // Öğelerin sayısını kontrol ediyoruz
+  const isSmall = tickets.length < 4;
+
   return (
     <Carousel
       renderArrowPrev={(onClickHandler, hasPrev, label) =>
-        hasPrev && (
+        hasPrev && !isSmall && ( // 4'ten azsa okları gösterme
           <button
             type="button"
             onClick={onClickHandler}
@@ -69,7 +89,7 @@ const Slider = ({ tickets }) => {
         )
       }
       renderArrowNext={(onClickHandler, hasNext, label) =>
-        hasNext && (
+        hasNext && !isSmall && ( // 4'ten azsa okları gösterme
           <button
             type="button"
             onClick={onClickHandler}
@@ -95,28 +115,28 @@ const Slider = ({ tickets }) => {
         )
       }
       useKeyboardArrows={true}
-      swipeable={true}
-      showStatus={false}
-      showThumbs={false}
-      autoPlay={true}
-      infiniteLoop={false}
-      showArrows={true}
-      emulateTouch={true}
+      swipeable={false} // Eğer öğe sayısı 4'ten azsa kaydırma özelliğini devre dışı bırak
+      showStatus={false} // Durum göstergesini kapat
+      showThumbs={false} // Thumbnail'ları kapat
+      autoPlay={false}  // Eğer öğe sayısı 4'ten azsa autoplay'i devre dışı bırak
+      infiniteLoop={false}  // Eğer öğe sayısı 4'ten azsa infinite loop'u devre dışı bırak
+      showArrows={!isSmall}  // 4'ten azsa okları devre dışı bırak
+      emulateTouch={false}  // 4'ten azsa touch özelliğini devre dışı bırak
       swipeScrollTolerance={90}
-      thumbWidth={0}
+      thumbWidth={1}
       interval={5000}
       transitionTime={1500}
       showIndicators={false}
       centerMode={true}
-      centerSlidePercentage={28}
-      selectedItem={0}
-      stopOnHover={false}
+      centerSlidePercentage={29}
+      selectedItem={1}
+      stopOnHover={true}
       dynamicHeight={false}
       className={css.carousel}
     >
       {tickets.map(ticket => (
         <div key={ticket.id} className={css.mobcardiv}>
-          <Link style={{color:'black'}} key={ticket.id} href={`/tickets/${ticket.id}`}>
+          <Link style={{ color: 'black' }} href={`/tickets/${ticket.id}`}>
             <div className={css.card_div}>
               <div className={css.card_pp}>
                 <img
@@ -124,12 +144,6 @@ const Slider = ({ tickets }) => {
                   alt={ticket.company.name}
                 />
               </div>
-              <Image
-                src={'/home/bookmark.svg'}
-                width={20} // Örnek boyut, gerekli boyutu ayarlayın
-                height={20}
-                className={css.bookmark}
-              />
               <div className={css.card_bottom}>
                 <div className={css.card_text_div}>
                   <h2>{ticket.company.name}</h2>
@@ -154,7 +168,6 @@ const Slider = ({ tickets }) => {
     </Carousel>
   );
 };
-
 
 Slider.propTypes = {
   tickets: PropTypes.arrayOf(

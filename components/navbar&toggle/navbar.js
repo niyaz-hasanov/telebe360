@@ -72,8 +72,7 @@ const AppBar = styled(MuiAppBar, {
   position: 'relative',
   border: 'none',
   boxShadow: 'none',
-  marginLeft: open ? drawerWidth : `calc(${theme.spacing(7)} + 1px)`,
-  width: open ? `calc(100% - ${drawerWidth}px)` : `calc(100% - ${theme.spacing(7)} - 1px)`,
+
   ...(open && {
     transition: theme.transitions.create(['width', 'margin'], {
       easing: theme.transitions.easing.sharp,
@@ -100,7 +99,7 @@ const Drawer = styled(MuiDrawer, { shouldForwardProp: (prop) => prop !== 'open' 
       ...closedMixin(theme),
       '& .MuiDrawer-paper': closedMixin(theme),
     }),
-  }),
+  })
 );
 
 const ChevronDiv = styled(Box, {
@@ -165,12 +164,9 @@ export default function MiniDrawer() {
             <Image src='/Burger.svg' className={css.hamburger} width='0' height='0' />
           </IconButton>
           <div className={css.nav_div_right}>
-            {/* <span className={css.mobile_fav}><img src='/Booking.svg' /></span> */}
             <span className={css.feedback}> <Feedback /></span>
-            {/* <span className={css.favourites_div}> <img src='/home/bookmark.svg' /> Favourites</span> */}
             <span className={css.noti_and_ticket}>
               <Link href='/my_tickets'><img src='/tiicket.svg' className={css.ticket_logo} /></Link>
-              {/* <Notification /> */}
             </span>
             <span>
               {authenticated ? (
@@ -198,7 +194,7 @@ export default function MiniDrawer() {
       <Box>
         <Drawer sx={{}} variant="permanent" open={open} className={css.sidebar}>
           <span className={`${css.logo} ${open ? css.logoOpen : css.logoClosed}`}>
-            <Image className={css.sidebar_360img} width={0} height={0} src='/wide360logo.svg' />
+            <Link href='/'> <Image className={css.sidebar_360img} width={0} height={0} src='/wide360logo.svg' /></Link>
           </span>
           <div><Categories className={css.category} /></div>
           <div className={css.sidebar_bottom_div}>

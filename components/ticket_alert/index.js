@@ -20,7 +20,7 @@ const Index = ({ ticketId }) => {
         confirmButton.style.backgroundColor = '#8F00FF';
         confirmButton.style.color = '#ffffff';
         confirmButton.style.border = 'none';
-
+        
         cancelButton.style.backgroundColor = 'white';
         cancelButton.style.color = 'grey';
         cancelButton.style.border = 'none';
