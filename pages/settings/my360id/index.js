@@ -223,7 +223,7 @@ export default function Home() {
                 <li className={css.my360id_li} id={css.my360id_li}>
                   <div className={css.li1_left}>
                     <h2>Şəkliniz</h2>
-                    <p>Bu şəkil sizin <a href='/settings/360id'>360ID</a> şəkliniz olacaq</p>
+                    <p>Bu şəkil sizin <a >360ID</a>  şəkliniz olacaq</p>
                     {!isVerified && (
       <p>
         Hesabınız moderatorlar tərəfindən təsdiq olunmamışdır.

@@ -65,13 +65,13 @@ export default function Home() {
       `}</style>
       
       <Head>
-        <title>Texniki dəstək</title>
+        <title>Əlaqə</title>
         <link rel="icon" href="/home/360minilogo.svg" />
       </Head>
 
       <div className={styles.top_div}>
-        <h1 className={styles.title}>Texniki Dəstək</h1>
-        <Link href='/settings'><img src='X.svg' alt="Close" /></Link>
+        <h1 className={styles.title}>Əlaqə</h1>
+        <Link href='/'><img src='X.svg' alt="Close" /></Link>
       </div>
 
       {/* Toaster bileşeni burada render ediliyor */}

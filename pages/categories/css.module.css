@@ -9,11 +9,13 @@
     display:flex;
     flex-direction: column;
     margin-left:-5vw;
-    overflow: hidden;
  
 }
 .div .mobile_slider{
     display:none;
+}
+.table{
+    margin-left:3vw;
 }
 .banner_mobile{
     display:none;
@@ -53,5 +55,8 @@
     }
     .up_banner{
         margin-left:-2vw;
+    }
+    .table{
+        margin-left:-3vw;
     }
 }

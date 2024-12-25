@@ -74,7 +74,7 @@ const TicketPage = () => {
             </li>
           ))
         ) : (
-          <li>Kupon yoxdur</li>
+          <li className={css.noticket}>Hazırda kuponunuz yoxdur. </li>
         )}
       </ul>
 

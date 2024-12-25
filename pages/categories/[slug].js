@@ -3,6 +3,7 @@ import { useRouter } from 'next/router';
 import axios from 'axios';
 import Slider from '../../components/desk_weekly_bests/carousel'; // Karusel bileşeninizin yolu
 import MobileSlider from '../../components/mobile_weekly_bests_carousel/carousel';
+import Table from '../../components/category_tickets_table/table'
 import css from './css.module.css'; // CSS dosyanızın yolu
 import { APIURL } from '../../utils/constants';
 import Head from 'next/head';
@@ -64,8 +65,9 @@ const CategoryPage = () => {
       </div>
       <div className={css.div}>
       <h1>{categoryName}</h1>
-    <span  className={css.desktop_slider}>  <Slider tickets={tickets}/> </span>
-     <span  className={css.mobile_slider}> <MobileSlider tickets={tickets}/></span>
+    {/* <span  className={css.desktop_slider}>  <Slider tickets={tickets}/> </span>
+     <span  className={css.mobile_slider}> <MobileSlider tickets={tickets}/></span> */}
+     <span className={css.table}> <Table tickets={tickets}/></span>
       </div>
       {/* <div className={css.down_banner}>
          <div className={css.banner_desktop}>

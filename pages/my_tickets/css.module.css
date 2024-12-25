@@ -68,6 +68,9 @@
   cursor: pointer;
 
 }
+.noticket{
+  font-size:1.3vw;
+}
 @media only screen and (max-width: 800px){
     .ticket_div{
         position:absolute;
