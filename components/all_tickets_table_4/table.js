@@ -85,7 +85,7 @@ const Slider = () => {
   }
 
   if (tickets.length === 0) {
-    return <div>No tickets available.</div>;
+    return <div>Kupon yoxdur. Daha sonra təkrar cəhd edin</div>;
   }
 
   // Tickets array'inin sadece ilk 4 elemanını alıyoruz

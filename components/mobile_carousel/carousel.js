@@ -24,14 +24,14 @@ export default function MobileSlider() {
         <Carousel
             renderArrowPrev={(onClickHandler, hasPrev, label) =>
                 hasPrev && (
-                    <button type="button" onClick={onClickHandler} title={label} style={{position:'absolute',top:'18vw',left:'5vw',zIndex:'1',background:'#ffffff2a',border:'none',borderRadius:'50vw' ,width:'8vw',display:'flex',justifyContent:'center',alignItems:'center',height:'8vw',color:'white',fontSize:'5vw',}}>
+                    <button type="button" onClick={onClickHandler} title={label} style={{position:'absolute',top:'18vw',left:'5vw',zIndex:'1',background:'rgba(128, 128, 128, 0.599)',border:'none',borderRadius:'50vw' ,width:'8vw',display:'flex',justifyContent:'center',alignItems:'center',height:'8vw',color:'white',fontSize:'5vw',}}>
                         <FaChevronLeft/>
                     </button>
                 )
             }
             renderArrowNext={(onClickHandler, hasNext, label) =>
                 hasNext && (
-                    <button type="button" onClick={onClickHandler} title={label} style={{position:'absolute',top:'18vw',right:'5vw',zIndex:'0',background:'#ffffff2a',border:'none',borderRadius:'50vw' ,width:'8vw',display:'flex',justifyContent:'center',alignItems:'center',height:'8vw',color:'white',fontSize:'5vw'}}>
+                    <button type="button" onClick={onClickHandler} title={label} style={{position:'absolute',top:'18vw',right:'5vw',zIndex:'0',background:'rgba(128, 128, 128, 0.599)',border:'none',borderRadius:'50vw' ,width:'8vw',display:'flex',justifyContent:'center',alignItems:'center',height:'8vw',color:'white',fontSize:'5vw'}}>
                         <FaChevronRight/>
                     </button>
                 )
@@ -49,7 +49,7 @@ export default function MobileSlider() {
             interval={5000}
             transitionTime={1500}
             showIndicators={false}
-            centerMode={true}
+            centerMode={false}
             centerSlidePercentage={100}
             selectedItem={0}
             stopOnHover={false}

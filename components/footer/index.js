@@ -7,20 +7,20 @@ export default function Navbar (){
               <div className={css.footer_left_top}>
                 <ul className={css.footer_left_top_ul}>
                     <li className={css.li_first}>Əməkdaşlıq</li>
-                    <li>Websaytlar</li>
                     <li>Sosial şəbəkə</li>
+                    <li><a href='https://docs.google.com/forms/d/e/1FAIpQLSditFI3TYNQCBpO-OJXvoypfpTXFbBMBpFumOffomGRJcNPBg/viewform'>Əlaqə</a></li>
                    
                 </ul>
                 <ul className={css.footer_left_top_ul}>
                     <li className={css.li_first}>Haqqımızda</li>
-                    <li>Proyektlərimiz</li>
-                    <li>Karyeralar</li>
+                    <li><a href = 'https://www.intechmain.com/'  style={{color:'black'}}>InTech Main</a></li>
+                    <li><a href = 'https://instagram.com/intech.academy/'  style={{color:'black'}}>InTech Academy</a></li>
                     <li></li>
                 </ul>
                 <ul className={css.footer_left_top_ul}>
                     <li className={css.li_first}>Dəstək</li>
-                    <li>Dəstək sorğusu</li>
-                    <li>Əlaqə</li>
+                    <li>Təkliflər</li>
+                    <li><a href='/technical_support' style={{color:'black'}}>Əlaqə</a></li>
                     <li></li>
                 </ul>
               </div>

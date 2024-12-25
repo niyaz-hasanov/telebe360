@@ -165,15 +165,20 @@ export default function MiniDrawer() {
           </IconButton>
           <div className={css.nav_div_right}>
             <span className={css.feedback}> <Feedback /></span>
-            <span className={css.noti_and_ticket}>
-              <Link href='/my_tickets'><img src='/tiicket.svg' className={css.ticket_logo} /></Link>
-            </span>
+            {authenticated ? (
+              <span className={css.noti_and_ticket}>
+              <a href='/my_tickets'><img src='/tiicket.svg' className={css.ticket_logo} /></a>
+              </span>
+              )
+              :
+              (<h1></h1>)}
+          
             <span>
               {authenticated ? (
                 <Profile />
               ) : (
                 <button onClick={handleLoginClick} className={css.loginButton}>
-                  Login
+                  Daxil Ol
                 </button>
               )}
             </span>

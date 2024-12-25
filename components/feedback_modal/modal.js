@@ -77,10 +77,10 @@ export default function BasicModal() {
       });
 
       if (response.status === 200) {
-        toast.success('Rəyiniz uğurla göndərildi!');  // Success message
+        toast.success('Təklifiniz uğurla göndərildi!');  // Success message
       }
     } catch (error) {
-      toast.error('Rəy göndərilməsində xəta baş verdi.');  // Error message
+      toast.error('Təklif göndərilməsində xəta baş verdi.');  // Error message
     }
 
     handleClose();
@@ -89,8 +89,8 @@ export default function BasicModal() {
 
   return (
     <div className={modalcss.logoutdiv}>
-      <button onClick={handleToggle} className={css2.feedback}>Rəy bildirin</button>
-      <button onClick={handleToggle} className={css2.feedback2}>Rəy </button>
+      <button onClick={handleToggle} className={css2.feedback}>Təkliflərinizi bildirin</button>
+      <button onClick={handleToggle} className={css2.feedback2}>Təklif </button>
       <Modal
         open={open}
         onClose={handleClose}
@@ -102,7 +102,7 @@ export default function BasicModal() {
           <Typography sx={styleh2} id="modal-modal-title" variant="h6" component="h2" className={css.text}>
             Təcrübənizi qiymətləndirin
           </Typography>
-          <div className={modalcss.rating}>
+          {/* <div className={modalcss.rating}>
             <Stack direction="row" spacing={1} sx={{ "& .MuiRating-root": { 
               fontSize: { xs: '10vw', sm: '3vw' } 
             } }}>
@@ -114,7 +114,7 @@ export default function BasicModal() {
                 size="large"
               />
             </Stack>
-          </div>
+          </div> */}
           <div className={modalcss.textareadiv}>
             <p className={modalcss.textarea_p}>Təkliflərinizi bizimlə bölüşün</p>
             <textarea

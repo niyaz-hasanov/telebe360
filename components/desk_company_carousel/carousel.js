@@ -132,14 +132,14 @@ const Slider = ({ ticket }) => {
         )
       }
       useKeyboardArrows={true}
-      swipeable={!isSmall} // Eğer öğe sayısı 4'ten azsa kaydırma özelliğini devre dışı bırak
+      swipeable={false} // Eğer öğe sayısı 4'ten azsa kaydırma özelliğini devre dışı bırak
       showStatus={false} // Durum göstergesini kapat
       showThumbs={false} // Thumbnail'ları kapat
       autoPlay={false}  // Eğer öğe sayısı 4'ten azsa autoplay'i devre dışı bırak
       infiniteLoop={false}  // Eğer öğe sayısı 4'ten azsa infinite loop'u devre dışı bırak
       showArrows={!isSmall}  // 4'ten azsa okları devre dışı bırak
       emulateTouch={!isSmall}  // 4'ten azsa touch özelliğini devre dışı bırak
-      swipeScrollTolerance={90}
+      swipeScrollTolerance={100}
       thumbWidth={0}
       interval={5000}
       transitionTime={1500}
