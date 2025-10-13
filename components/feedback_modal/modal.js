@@ -63,9 +63,13 @@ export default function BasicModal() {
   };
 
   const handleSubmit = async () => {
+    if (feedback.trim().length < 10) {
+      toast.error('Təklifin məzmunu ən az 10 simvoldan ibarət olmalıdır!');
+      return;
+    }
     const accessToken = Cookies.get('access_token');
     const feedbackData = {
-      stars: rating,
+      // stars: rating,
       message: feedback,
     };
 
@@ -79,8 +83,17 @@ export default function BasicModal() {
       if (response.status === 200) {
         toast.success('Təklifiniz uğurla göndərildi!');  // Success message
       }
+   
     } catch (error) {
-      toast.error('Təklif göndərilməsində xəta baş verdi.');  // Error message
+      if (error.response) {
+        if (error.response.status === 401) {
+          toast.error('Təklif göndərmək üçün hesabınız olmalıdır!');
+        } else {
+          toast.error('Təklif göndərilməsində xəta baş verdi.');
+        }
+      } else {
+        toast.error('Şəbəkə xətası baş verdi.');
+      }
     }
 
     handleClose();

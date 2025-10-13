@@ -18,6 +18,7 @@ import Feedback from '../feedback_modal/modal';
 import Profile from '../profile_dropdown/dropdown';
 import Notification from '../notification_modal/index';
 import Cookies from 'js-cookie';
+import { MAINURL, APIURL } from '../../utils/constants';
 
 const drawerWidth = 200;
 
@@ -63,7 +64,7 @@ const closedMixin = (theme) => ({
 const AppBar = styled(MuiAppBar, {
   shouldForwardProp: (prop) => prop !== 'open',
 })(({ theme, open }) => ({
-  zIndex: theme.zIndex.drawer + 1, // Backdrop arkasında kalması için
+  zIndex: theme.zIndex.drawer + 1,
   transition: theme.transitions.create(['width', 'margin'], {
     easing: theme.transitions.easing.sharp,
     duration: theme.transitions.duration.leavingScreen,
@@ -129,11 +130,50 @@ const ChevronDiv = styled(Box, {
 export default function MiniDrawer() {
   const [open, setOpen] = useState(false);
   const [authenticated, setAuthenticated] = useState(false);
+  const [profileImgPath, setProfileImgPath] = useState('');
   const [backdropOpen, setBackdropOpen] = useState(false); // Backdrop kontrolü
+  const [isStudentVerified, setIsStudentVerified] = useState(null);
+  const [isLoadingProfile, setIsLoadingProfile] = useState(true);
 
   useEffect(() => {
     const token = Cookies.get('access_token');
     setAuthenticated(!!token);
+
+    // token yoksa profil yüklenmesini bitmiş say
+    if (!token) {
+      setIsLoadingProfile(false);
+      return;
+    }
+
+    const controller = new AbortController();
+
+    const fetchProfile = async () => {
+      try {
+        setIsLoadingProfile(true);
+        const response = await fetch(`${APIURL}students/me`, {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+          signal: controller.signal,
+        });
+
+        if (!response.ok) console.log('Bad response');
+
+        const data = await response.json();
+        setIsStudentVerified(!!data.is_student_verified);
+        setProfileImgPath(data.profile_img_path || '');
+      } catch (error) {
+        console.error('Error fetching profile data:', error);
+        // hata olduğunda yanlış uyarı vermemek için bilinmiyor durumunda bırak
+        setIsStudentVerified(null);
+      } finally {
+        setIsLoadingProfile(false);
+      }
+    };
+
+    fetchProfile();
+
+    return () => controller.abort();
   }, []);
 
   const handleDrawerOpen = () => {
@@ -151,10 +191,14 @@ export default function MiniDrawer() {
   };
 
   return (
-    <Box sx={{ zIndex: '99999', marginBottom: '50px' }}>
+    <Box sx={{ marginBottom: '50px' }}>
       <CssBaseline />
       <AppBar open={open} className={css.appbar}>
         <Toolbar className={css.navbar}>
+          <span className={css.nav_div_left}>
+            <Link href='/'><img className={css.sidebar_360img} src='/wide360logo.svg' /></Link>
+          </span>
+
           <IconButton
             color="inherit"
             aria-label="open drawer"
@@ -163,19 +207,34 @@ export default function MiniDrawer() {
           >
             <Image src='/Burger.svg' className={css.hamburger} width='0' height='0' />
           </IconButton>
+
+          <span className={css.nav_div_left2}>
+            <Link href='/'><img className={css.sidebar_360img} src='/wide360logo.svg' /></Link>
+          </span>
+
+          <span>
+            {authenticated && !isLoadingProfile && isStudentVerified === false ? (
+              <span className={css.sidebar_middle_text}>
+                <p style={{ color: 'red' }}>
+                  <img src='/mod_alert.svg' />
+                  Hesabınız moderatorlar tərəfindən təsdiq edilməmişdir
+                </p>
+              </span>
+            ) : null}
+          </span>
+
           <div className={css.nav_div_right}>
-            <span className={css.feedback}> <Feedback /></span>
+            <span className={css.feedback}><Feedback /></span>
+
             {authenticated ? (
               <span className={css.noti_and_ticket}>
-              <a href='/my_tickets'><img src='/tiicket.svg' className={css.ticket_logo} /></a>
+                <a href='/my_tickets'><img src='/tiicket.svg' className={css.ticket_logo} /></a>
               </span>
-              )
-              :
-              (<h1></h1>)}
-          
+            ) : (<h1></h1>)}
+
             <span>
               {authenticated ? (
-                <Profile />
+                <Profile isStudentVerified={isStudentVerified} profileImgPath={profileImgPath} />
               ) : (
                 <button onClick={handleLoginClick} className={css.loginButton}>
                   Daxil Ol
@@ -197,10 +256,7 @@ export default function MiniDrawer() {
       />
 
       <Box>
-        <Drawer sx={{}} variant="permanent" open={open} className={css.sidebar}>
-          <span className={`${css.logo} ${open ? css.logoOpen : css.logoClosed}`}>
-            <Link href='/'> <Image className={css.sidebar_360img} width={0} height={0} src='/wide360logo.svg' /></Link>
-          </span>
+        <Drawer variant="permanent" open={open} className={css.sidebar}>
           <div><Categories className={css.category} /></div>
           <div className={css.sidebar_bottom_div}>
             {authenticated ? (
@@ -216,6 +272,7 @@ export default function MiniDrawer() {
             )}
           </div>
         </Drawer>
+
         <ChevronDiv open={open} className={`${css.chevron_div} ${!open ? css.closed : ''}`}>
           {open ? (
             <IconButton onClick={handleDrawerClose}>
@@ -231,3 +288,4 @@ export default function MiniDrawer() {
     </Box>
   );
 }
+

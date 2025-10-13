@@ -17,8 +17,8 @@
  
 }
 .ppdiv{
-    width: 3vw; /* Kapsayıcı genişliği */
-    height: 3vw; /* Kapsayıcı yüksekliği */
+    width: 3rem; /* Kapsayıcı genişliği */
+    height: 3rem; /* Kapsayıcı yüksekliği */
     border-radius: 50%; /* Yuvarlak şekil için */
     overflow: hidden; /* Taşan kısmı gizler */
     position: relative; /* Pozisyonlama için */

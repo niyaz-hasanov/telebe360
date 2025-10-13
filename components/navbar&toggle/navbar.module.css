@@ -31,8 +31,14 @@
 }
 .appbar{
   margin-bottom :1rem;
+  z-index:-0;
 }
-
+.sidebar{
+  z-index:9999999;
+}
+.nav_div_left2{
+  display:none;
+}
 .sidebar_bottom_div {
   display: flex;
   flex-wrap: wrap;
@@ -46,13 +52,33 @@
 }
 
 .sidebar_360img {
-  width: 170px;
+  width: 14rem;
   height: auto;
  
 }
+.sidebar_middle_text{
+  display: flex;
+  align-items: center;
+  position:absolute;
+  top:0;left:38vw;
+  width:29vw;
+  font-size: 1.1rem;
 
+  font-weight: 500;
+
+}
+.sidebar_middle_text img{
+  width:1.1rem;
+  margin-top:0.2vw;
+}
+.sidebar_middle_text p{
+  display: flex;
+  justify-content: center;
+  gap:0.5rem;
+
+  align-items: flex-start;
+}
 .logo {
-  transition: transform 0.2s ease-in-out;
   position:sticky;
  
 }
@@ -67,11 +93,7 @@
   transform: translateX(10px);
 }
 
-.navbar{
-  display: flex;
-  align-items: center;
-  
-}
+
 .search{
   display:flex;position: relative;
   align-items: center;
@@ -80,6 +102,7 @@
 .navbar{
   display:flex;
   align-items: center;
+   z-index: -9999999999999999999;
   justify-content:space-between;
 }
 .search_input{
@@ -135,25 +158,53 @@
   border-radius:9px;
   font-weight:500;
   padding:5px 15px 5px 15px;
-  border:1px solid rgba(255, 255, 255, 0);transition:0.5s;
+  border:1px solid rgba(255, 255, 255, 0);
   font-size:16px;
   
 }
 .loginButton:hover{
   color:#8F00FF;
-  background: linear-gradient(137deg, rgba(0,0,0,0) 30%, rgba(0,0,0,0) 100%);transition:0.5s;
+  background: linear-gradient(137deg, rgba(0,0,0,0) 30%, rgba(0,0,0,0) 100%);
   border: 1px solid #8F00FF;
   font-weight:500;
 }
+.footer_left_top_ul_button{
+  display: flex;
+  flex-direction: column-reverse;
+  
+  align-items: flex-start;
+}
+.nav_div_left{
+  display: flex;
+  margin-left:7vw;
+ 
+  align-items: center;
+}
 
 @media only screen and (max-width: 800px) {
+  .sidebar_middle_text{
+    width:100%;
+    font-size:3.3vw;
+    top:18vw;
+    bottom:0;
+    left:2vw;
+    justify-content: center;
+   
+  }
   .sidebar_360img {
     margin-left:1vw;
+    margin-top:1vw;
+    width:9rem;
   }
   .appbar{
     margin-bottom :-3vw;
   }
-
+.nav_div_left2{
+  display:block;
+}
+.nav_div_left{
+  display: none;
+}
   .nav_div_right{
     position:relative;
     align-items: center;
@@ -165,7 +216,7 @@
   }
   .navbar{
     display:flex; flex-direction: row;
-    
+    margin-bottom:5vw;
   
   }
 .favourites_div{
@@ -196,6 +247,11 @@
   .navbar{
   
   }
+  .loginButton{
+    font-size:4vw;
+    width:23vw;
+    margin-left:-6vw;
+  }
   
   .mobile_fav{
     display:block;margin-left:5px;
@@ -220,12 +276,7 @@
   .sidebar {}
 }
 
-.nav_div_left{
-  display: flex;
-  margin-left:0px;
-  
-  align-items: center;
-}
+
 
 
 @media (max-width: 600px) {

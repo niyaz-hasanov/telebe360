@@ -15,11 +15,11 @@
 .footer_left_top{
     display:flex;
     font-size:1.1vw;
-    margin-bottom:1vw;
+    margin-bottom:0vw;
 }
 .footer_left_bottom{
     display:flex;  font-size:0.9vw;
-    letter-spacing: 0.11vw;align-items: center;
+  align-items: center;
     border-top:1px solid black;
   margin-inline-start: 40px;
 }
@@ -62,14 +62,57 @@
 .img{
     width:2vw;
 }
-@media only screen and (max-width: 800px){
+.companybutton{
+    display: inline-block;
+    display: flex;
+    align-items: flex-end;
+    margin-left:18vw;
+    padding-bottom:1.5vw;
+}
+.loginButton{
+    background: rgb(143,0,255);
+    background: linear-gradient(137deg, rgba(143,0,255,1) 30%, rgba(189,0,255,1) 100%);
+    color:white;
+    border:none;
+    border-radius:0.6vw;
+    font-weight:500;
+    padding:5px 15px 5px 15px;
+    border:1px solid rgba(255, 255, 255, 0);
+    font-size:1.1vw;
+    
+  }
+  .loginButton:hover{
+    color:#8F00FF;
+    background: linear-gradient(137deg, rgba(0,0,0,0) 30%, rgba(0,0,0,0) 100%);
+    border: 1px solid #8F00FF;
+    font-weight:500;
+  }
 
+@media only screen and (max-width: 800px){
+    .loginButton{
+        border-radius: 2vw;
+    
+      padding:1vw 0 1vw 0;
+       
+        font-size:3vw;
+        width:29vw;
+        margin-left:-6vw;
+      }
+      .companybutton{
+        position :absolute;
+        left:54vw;
+        z-index:999;
+        top:35vw;
+      }
     .footer_left_top{
         font-size:3vw;
+      
         flex-direction: column;
+        position: relative;
     }
     .footer_left{
         flex-direction: row;
+        
     }
     .footer_container{
         padding-top:2vw;
@@ -93,6 +136,7 @@
         align-items: flex-start;
         justify-content: center;
         position:relative;  left:-5vw;
+        
     
     }
     .app{

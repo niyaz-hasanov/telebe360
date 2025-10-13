@@ -66,7 +66,7 @@ export default function BasicModal() {
     <div className={modalcss.logoutdiv}>
           <div className={modalcss.logout_but} onClick={handleOpen}>
          <img src='/dropdown_signout.svg' id={modalcss.logoutbtn} className={modalcss.dropdownbtn} />
-          <p id={modalcss.logoutp} className={modalcss.dropdownp}>Sign Out</p>
+          <p id={modalcss.logoutp} className={modalcss.dropdownp}>Çıxış edin</p>
           <img id={modalcss.logoutchevron} className={modalcss.chevron} src='/chevroncol.svg' />
           </div>
       <Modal
