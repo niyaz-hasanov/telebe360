@@ -19,9 +19,10 @@
 // module.exports = transpiledModules(nextConfig);
 
 /** @type {import('next').NextConfig} */
+ @type {import('next').NextConfig} 
 
 const nextConfig = {
-
+  distDir: 'dist', 
   async rewrites() {
     return [
       {
@@ -31,9 +32,9 @@ const nextConfig = {
     ];
   },
   images: {
-    domains: ['api.telebe360.com'],
+    domains: ['api.telebe360.com'], 
   },
 };
 
-const transpiledModules = require('next-transpile-modules')(['react-icons']);
+const transpiledModules = require('next-transpile-modules')(["react-icons"]);
 module.exports = transpiledModules(nextConfig);
