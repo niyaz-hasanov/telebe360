@@ -1,4 +1,4 @@
-import { NextApiRequest, NextApiResponse } from 'next';
+
 
 // Token ile şifre değiştirme API'si
 export default async function handler(req, res) {
@@ -32,3 +32,4 @@ export default async function handler(req, res) {
     return res.status(500).json({ message: 'Şifrə dəyişdirilərkən xəta baş verdi.' });
   }
 }
+
