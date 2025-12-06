@@ -11,7 +11,8 @@ import { MAINURL } from '../../utils/constants';
 export default function Home() {
   const [student, setStudent] = useState({});
   const [universityName, setUniversityName] = useState('');
-
+  const [isStudentVerified,setIsStudentVerified] = useState(false)
+  
   useEffect(() => {
     const fetchStudentData = async () => {
       try {
@@ -26,7 +27,7 @@ export default function Home() {
         const studentResponse = await axios.get(`${MAINURL}api/v1/students/me`, config);
         const studentData = studentResponse.data;
         setStudent(studentData);
-
+        setIsStudentVerified(studentData.is_student_verified)
         const universityResponse = await axios.get(`${MAINURL}api/v1/universities/${studentData.university_id}`, config);
         const universityData = universityResponse.data;
         setUniversityName(universityData.name);
@@ -38,7 +39,7 @@ export default function Home() {
 
     fetchStudentData();
   }, []);
-
+  const borderColor = isStudentVerified ? '#8F00FF' : 'red';
   return (
     <>
       <div className={css.body}>
@@ -50,7 +51,7 @@ export default function Home() {
         `}</style>
         <Head>
           <title>Tələbə360°</title>
-          <link rel="icon" href="/home/360minilogo.svg" />
+          <link rel="icon" href="/home/360minilogo.ico" />
         </Head>
 
         <div className={css.main}>
@@ -61,7 +62,9 @@ export default function Home() {
           <div className={css.mainul}>
             <ul className={css.proful}>
               <div className={css.profdiv}>
-                <span className={css.profmobspan}><img
+                <span  style={{
+            border: `3px solid ${borderColor}`,
+          }} className={css.profmobspan}><img
                   src={student.profile_img_path ? `${MAINURL}uploads/${student.profile_img_path}` : '/profile.jpg' }
                   width={0}
                   height={0}
@@ -157,7 +160,7 @@ export default function Home() {
                   className={css.id360mob}
                   alt='Technical Support Icon'
                 />
-                <p style={{ color: '#0057FF' }}>Texniki dəstək</p>
+                <p style={{ color: '#0057FF' }}>Əlaqə</p>
                 <FaChevronRight style={{ color: "#0057FF" }} className={css.chevron} />
               </Link>
               {/* <Link href='/settings/refere' className={css.profli}>

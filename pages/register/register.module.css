@@ -47,6 +47,7 @@
   margin-top: 1vw;
   position: relative; /* Add position relative for previous button positioning */
 }
+
 .form_top_div{
   display: flex;
   flex-direction: column;
@@ -84,6 +85,10 @@
 }
 .input, .inputFile, .inputSelect, .otpInput {
   width: 30vw;
+
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  
   height: 3vw; /* Set consistent height for all fields */
   border-radius: 10px;
   font-size: 1.3vw;
@@ -93,6 +98,9 @@
  
   border: transparent;
   box-sizing: border-box; /* Ensure padding is included in height */
+}
+.uniselect{
+  margin-top:2rem;
 }
 
 .inputFile {
@@ -196,6 +204,8 @@
 
 .inputSelect option {
   color: black; /* Ensure options text is visible */
+  white-space: wrap;
+  width:10rem;
 }
 
 .nextbut, .submitbut {
@@ -247,6 +257,10 @@
   border-radius: 10px;
   padding:10px;
 }
+.university_value{
+white-space: normal;
+  word-wrap: break-word;
+}
 
 @media only screen and (max-width: 800px) {
     .registerPart {
@@ -262,7 +276,9 @@
       padding: 2vw 4vw; /* Yeni padding değerleri */
       border-radius: 5vw; /* Daha büyük border-radius */
     }
-  
+      .uniselect{
+    width:88vw !important;
+}
     .input,
     .inputFile,
     .otpInput,

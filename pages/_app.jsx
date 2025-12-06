@@ -19,7 +19,6 @@ function MyApp({ Component, pageProps }) {
       navigator.serviceWorker
         .register('/service-worker.js')
         .then((registration) => {
-          console.log('Service Worker registered with scope:', registration.scope);
         })
         .catch((error) => {
           console.error('Service Worker registration failed:', error);
@@ -119,6 +118,7 @@ function MyApp({ Component, pageProps }) {
               toastOptions={{
                 duration: 5000,
               }}
+              limit={2} // Aynı anda en fazla 2 toast mesajı göster
             />
             {!noFooterRoutes.includes(router.pathname) && <Footer />}
           </ThemeProvider>

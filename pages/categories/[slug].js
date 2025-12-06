@@ -56,7 +56,7 @@ const CategoryPage = () => {
       `}</style>
       <Head>
       <title>{slug} </title>
-        <link rel="icon" href="/home/360minilogo.svg" />
+        <link rel="icon" href="/home/360minilogo.ico" />
       </Head>
     <div className={css.container}>
       <div className={css.up_banner}>

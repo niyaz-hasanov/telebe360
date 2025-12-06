@@ -103,7 +103,7 @@ const TicketPage = () => {
       `}</style>
       <Head>
         <title>{ticket.company.name}-{ticket.name} </title>
-        <link rel="icon" href="/home/360minilogo.svg" />
+        <link rel="icon" href="/home/360minilogo.ico" />
       </Head>
 
 

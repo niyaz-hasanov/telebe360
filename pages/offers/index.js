@@ -1,6 +1,5 @@
 import React from 'react';
 import css from './css.module.css'; 
-import ToggleMenu from '../../components/navbar&toggle/toggle_menu'
 import { useState } from 'react';
 import Image from 'next/image'
 import Head from 'next/head';
@@ -18,9 +17,8 @@ export default function Home (){
       `}</style>
 <Head>
         <title>Tələbə360°</title>
-        <link rel="icon" href="/home/360minilogo.svg" />
+        <link rel="icon" href="/home/360minilogo.ico" />
       </Head>
-     <div><ToggleMenu/></div>
 
      <div><Navbar/></div>
 

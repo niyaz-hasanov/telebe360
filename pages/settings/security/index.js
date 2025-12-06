@@ -57,7 +57,7 @@ export default function Home() {
 
         <Head>
           <title>Tələbə360°</title>
-          <link rel="icon" href="/home/360minilogo.svg" />
+          <link rel="icon" href="/home/360minilogo.ico" />
         </Head>
 
         <div className={css.main}>

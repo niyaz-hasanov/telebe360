@@ -141,9 +141,7 @@
     width:88vw;height:15vw;margin-left:-8vw;
 }
 
-.mobweekbest{
-    display:none;
-}
+
 .add2mob{
     display:none;
 }
@@ -164,37 +162,40 @@
    .ticket_table_div{
      align-items: center;
      justify-content: center;
-     margin-left:26vw;
+     padding-left:26vw;
    }
    .ticket_table_h2{
-    font-size:2.1vw;
-    margin-bottom:3vw;
-    margin-top:1vw;
+    font-size:2.1rem;
+    margin-bottom:3rem;
+    margin-top:1rem;
    
    }
-@media only screen and (max-width: 800px) {
+@media only screen and (max-width: 820px) {
     .ticket_table_div{
         align-items: center;
         justify-content: center;
-        margin-left:15vw;
+        padding-left:25vw;
+      
       }
       .ticket_table_h2{
-       font-size:6.5vw;
+       font-size:2rem;
+       white-space: nowrap;
        margin-bottom:-5vw;
        margin-top:0vw;
       
       }
     .main_container{
+        margin-left:0vw;
       gap:10vw;
+      display:flex;
+
       flex-direction: column;
      
    
      
  }
  
-    .table_div{
-        margin-left:-15.5vw;
-    }
+    
     .footer{
         display:none;
     }
@@ -318,9 +319,9 @@
  
    .mobilebanner{
     display:block;
-    width:80vw;
-    height:43vw;
-    margin-left:-10.5vw;
+     margin-left:1rem;
+     width:97%;
+ 
     
    }
    .banner{
@@ -345,4 +346,25 @@
     display:block;
     margin-left:0.5vw;
    }
+}
+@media only screen and (max-width: 380px){
+    .mobilebanner{
+        width:104vw;
+    }
+
+}
+@media only screen and (max-width: 360px){
+  .mobilebanner{
+    width:24.5rem;
+  }
+
+}
+@media only screen and (max-width: 340px) {
+ .ticket_table_div{
+   margin-left:3rem;
+ }
+ .mobilebanner{
+    width:122%;
+ }
+
 }

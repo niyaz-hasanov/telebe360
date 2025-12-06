@@ -13,7 +13,6 @@ export default function Login() {
 
   const TIMER_DURATION = 2 * 60; // 2 dakika = 120 saniye
 
-  // Sayfa yüklendiğinde `localStorage` kontrolü
   useEffect(() => {
     const savedEmail = localStorage.getItem("email");
     const savedExpiration = localStorage.getItem("expirationTime");
@@ -27,19 +26,15 @@ export default function Login() {
       const expirationTime = Number(savedExpiration);
 
       if (expirationTime > now) {
-        // Kalan süreyi hesapla
         const remainingTime = Math.floor((expirationTime - now) / 1000);
         setTimer(remainingTime);
         setIsButtonDisabled(true);
       } else {
-        // Süre geçmişse
         localStorage.removeItem("expirationTime");
-        localStorage.setItem("isButtonDisabled", false);
       }
     }
   }, []);
 
-  // Sayaç başlatma ve güncelleme
   useEffect(() => {
     if (timer > 0) {
       const countdown = setInterval(() => {
@@ -50,7 +45,6 @@ export default function Login() {
             clearInterval(countdown);
             setIsButtonDisabled(false);
             localStorage.removeItem("expirationTime");
-            localStorage.setItem("isButtonDisabled", false);
             return 0;
           }
 
@@ -68,17 +62,18 @@ export default function Login() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+  
+    // E-posta formatını kontrol et
+    if (!formData.email || !/^[\w-]+(\.[\w-]+)*@([\w-]+\.)+[a-zA-Z]{2,7}$/.test(formData.email)) {
+      toast.error("Düzgün email daxil etmədiniz");
+      return;
+    }
+  
     try {
-      setIsButtonDisabled(true);
-
-      const expirationTime = Date.now() + TIMER_DURATION * 1000; // Şu anki zamana 2 dakika ekle
-      localStorage.setItem("expirationTime", expirationTime);
-
-      setTimer(TIMER_DURATION);
-
       const formBody = new URLSearchParams();
       formBody.append("email", formData.email);
-
+  
+      // API isteği yap
       const response = await fetch("/api/auth/recovery", {
         method: "POST",
         headers: {
@@ -86,26 +81,35 @@ export default function Login() {
         },
         body: formBody.toString(),
       });
-
+  
       const data = await response.json();
-
+      console.log("Api cavabı", data);
+  
       if (response.ok) {
+        // API başarılıysa sayaç başlat ve localStorage işlemlerini yap
         toast.success(
           "Şifrə dəyişmə tələbiniz uğurla göndərildi. Verifikasiya maili üçün e-poçt qutunuzu yoxlayın."
         );
+  
         localStorage.setItem("email", formData.email);
+  
+        const expirationTime = Date.now() + TIMER_DURATION * 1000; // 2 dakika ekle
+        localStorage.setItem("expirationTime", expirationTime);
+  
+        setTimer(TIMER_DURATION);
+        setIsButtonDisabled(true);
       } else {
-        toast.error(
-          data.message ||
-            "Şifrə dəyişmə tələbinin göndərilməsi zamanı xəta baş verdi."
-        );
+        // API başarısızsa hata mesajını göster
+        toast.error(data.message || "Şifrə dəyişmə tələbinin göndərilməsi zamanı xəta baş verdi.");
       }
     } catch (error) {
+      console.error("Fetch Hatası:", error);
       toast.error("Xəta! İnternet qoşulmanızı yoxlayın");
     }
   };
+  
+  
 
-  // Geri sayımı dakika ve saniye formatında göster
   const formatTime = (seconds) => {
     const minutes = Math.floor(seconds / 60);
     const remainingSeconds = seconds % 60;
@@ -129,7 +133,7 @@ export default function Login() {
       `}</style>
       <Head>
         <title>Tələbə360°-a daxil olun</title>
-        <link rel="icon" href="/home/360minilogo.svg" />
+        <link rel="icon" href="/home/360minilogo.ico" />
       </Head>
 
       <AnimatePresence>
@@ -170,9 +174,7 @@ export default function Login() {
               <div className={css.button_div}>
                 <button
                   className={`${css.daxilol} ${
-                    isButtonDisabled
-                      ? css.disabledButton
-                      : css.enabledButton
+                    isButtonDisabled ? css.disabledButton : css.enabledButton
                   }`}
                   type="submit"
                   disabled={isButtonDisabled}

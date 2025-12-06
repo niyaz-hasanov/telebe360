@@ -8,10 +8,13 @@ import { APIURL, MAINURL } from '../../utils/constants'
 import toast from 'react-hot-toast';
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
+import Select from 'react-select';
+
 export default function Register() {
   const [formData, setFormData] = useState({
     fname: '',
     lname: '',
+    referalCode: '',
     birth_date: '',
     sex: '',
     email: '',
@@ -30,18 +33,11 @@ export default function Register() {
     uppercase: false,
     symbol: false,
   });
-  const [timer, setTimer] = useState(120); // 120 saniye = 2 dakika
+  const [timer, setTimer] = useState(120); // Başlangıçta 2 dakika (120 saniye)
+  const [isTimerRunning, setIsTimerRunning] = useState(false); // 120 saniye = 2 dakika
   const [isResendActive, setIsResendActive] = useState(false);
   const [universities, setUniversities] = useState([]);
-  useEffect(() => {
-    let countdown;
-    if (timer > 0) {
-      countdown = setTimeout(() => setTimer(timer - 1), 1000);
-    } else {
-      setIsResendActive(true); // Resend butonunu aktif yap
-    }
-    return () => clearTimeout(countdown);
-  }, [timer]);
+
   useEffect(() => {
     const fetchUniversities = async () => {
       try {
@@ -75,8 +71,8 @@ export default function Register() {
 
     // Yıl kontrolü
     const year = birth.getFullYear();
-    if (year < 1990) {
-      toast.error("İl 1990-dan kiçik ola bilməz!");
+    if (year < 1970) {
+      toast.error("Yaş 50-dən böyük ola bilməz!");
       return false;
     }
 
@@ -153,27 +149,18 @@ export default function Register() {
 
 
 
-  const handleOtpChange = (e, index) => {
-    const { value } = e.target;
-    if (/^\d*$/.test(value)) {
-      const newOtp = [...formData.otp];
-      newOtp[index] = value;
-      setFormData({ ...formData, otp: newOtp });
 
-      // Move to next input if current input is not empty
-      if (value && index < 3) {
-        document.getElementById(`otp-${index + 1}`).focus();
-      }
-    }
-  };
 
   const checkPasswordStrength = (password) => {
     return {
       length: password.length >= 8,
       uppercase: /[A-Z]/.test(password),
       symbol: /[^A-Za-z0-9]/.test(password),
+      noSpace: !/\s/.test(password), // Boşluk karakterinin olmaması gerekiyor
+      noQuestionMark: !/\?/.test(password), // '?' karakterinin olmaması gerekiyor
     };
   };
+
 
   const togglePasswordVisibility = () => {
     setPasswordVisible(!passwordVisible);
@@ -183,6 +170,21 @@ export default function Register() {
       // Bütün alanlar doldurulmuş mu?
       if (!formData.fname || !formData.lname || !formData.birth_date || formData.sex === '') {
         toast.error("Zəhmət olmasa bütün xanaları doldurun.");
+        return false;
+      }
+      if (formData.fname.length < 3 || formData.lname.length < 3) {
+        toast.error("Adınız ən azı 3 hərf olmalıdır.");
+        return false;
+      }
+
+      if (formData.password.includes('?')) {
+        toast.error("Şifrəniz '?' simvolunu əhatə etməməlidir.");
+        return false;
+      }
+
+      const allowedImageTypes = ['image/png', 'image/jpg', 'image/jpeg', 'image/svg+xml'];
+      if (formData.card && formData.card.type && !allowedImageTypes.includes(formData.card.type)) {
+        toast.error("Yalnız png, jpg, jpeg və svg şəkil formatları qəbul edilir.");
         return false;
       }
 
@@ -197,18 +199,42 @@ export default function Register() {
         return false; // Tarih geçerli değilse, formu geçemez
       }
     }
-
     if (activeDiv === 2) {
+      // Şifrenin gereksinimlerini kontrol et
       const isPasswordValid = Object.values(passwordRequirements).every((req) => req);
+
+      // Şifrede boşluk varsa hata mesajı
+      if (!passwordRequirements.noSpace) {
+        toast.error("Şifrədə boşluq ola bilməz!");
+        return false;
+      }
+
+      // Şifre tüm gereksinimleri karşılamıyorsa hata mesajı
       if (!isPasswordValid) {
         toast.error("Şifrəniz bütün tələbləri ödəməlidir!");
         return false;
       }
+      if (activeDiv === 3) {
+        if (!formData.university_id && !formData.card) {
+          toast.error("Zəhmət olmasa universitetinizi seçin və tələbə kartınızı yükləyin.");
+          return false;
+        }
+        if (!formData.university_id) {
+          toast.error("Zəhmət olmasa universitetinizi seçin.");
+          return false;
+        }
+        if (!formData.card) {
+          toast.error("Zəhmət olmasa tələbə kartınızı yükləyin.");
+          return false;
+        }
+      }
+
     }
+
 
     switch (activeDiv) {
       case 1:
-        return formData.fname && formData.lname && formData.birth_date && formData.sex !== '';
+        return formData.fname && formData.lname && formData.referalCode && formData.birth_date && formData.sex !== '';
       case 2:
         return formData.email && formData.password;
       case 3:
@@ -228,6 +254,7 @@ export default function Register() {
     formDataToSend.append('fname', formData.fname);
     formDataToSend.append('lname', formData.lname);
     formDataToSend.append('birth_date', formData.birth_date);
+    formDataToSend.append('referalCode', formData.referalCode);
     formDataToSend.append('sex', formData.sex); // Doğru değer gönderildiğinden emin olun
     formDataToSend.append('university_id', formData.university_id); // ID doğru mu?
     formDataToSend.append('email', formData.email);
@@ -243,7 +270,9 @@ export default function Register() {
       const result = await response.json();
       if (response.ok) {
         toast.success('Qeydiyyat sorğusu uğurla göndərildi! Zəhmət olmasa e-poçtunuza daxil olub, hesabınızı təsdiq edin.Təsdiq etdikdən sonra hesabınıza giriş edə bilərsiniz');
-        setActiveDiv(4); // Sunucu başarılıysa 4. div'e geç
+        setActiveDiv(4);
+        setIsTimerRunning(true); // Timer'ı başlat
+        startTimer();  // Sunucu başarılıysa 4. div'e geç
       } else if (response.status === 409) {
         toast.error(result.message || 'Bu email artıq qeydiyyatdan keçib.Zəhmət olmasa başqa email yoxlayın');
       }
@@ -253,22 +282,40 @@ export default function Register() {
         toast.error(result.message || 'Xəta baş verdi, bir daha cəhd edin.');
       }
     } catch (error) {
-      toast.error('Server ilə əlaqə qurulmadı.');
+      console.log('Server ilə əlaqə qurulmadı.');
     }
   };
 
+  const handleFileChange = (e) => {
+    const file = e.target.files[0];
+    if (file) {
+      // Yalnızca png, jpg, jpeg ve svg dosyalarına izin ver
+      const allowedTypes = ['image/png', 'image/jpg', 'image/jpeg', 'image/svg+xml'];
+      if (!allowedTypes.includes(file.type)) {
+        toast.error("Yalnız png, jpg, jpeg və svg şəkil formatları qəbul edilir.");
+        return;
+      }
+
+      // Dosya geçerli, önizlemeyi ayarla
+      setFormData(prevState => ({
+        ...prevState,
+        card: file,
+        imagePreview: URL.createObjectURL(file) // Resim önizlemesini göster
+      }));
+    }
+  };
 
   const handleResendVerification = async () => {
-    setTimer(120); // 2 dakika geri sayımı sıfırla
-    setIsResendActive(false); // Butonu tekrar pasif yap
+    setTimer(120); // Geri sayımı başlat (örneğin 10 saniye)
+    setIsTimerRunning(true); // Zamanlayıcıyı çalıştır
 
     try {
       const response = await fetch(`${APIURL}auth/resend-verification`, {
-        method: 'POST',
+        method: "POST",
         headers: {
-          'Content-Type': 'application/json',
+          "Content-Type": "application/json",
         },
-        body: JSON.stringify({ email: formData.email }), // Kullanıcının girdiği email'i ekleyin
+        body: JSON.stringify({ email: formData.email }),
       });
 
       if (response.ok) {
@@ -280,6 +327,23 @@ export default function Register() {
       toast.error("Xəta baş verdi. Zəhmət olmasa bir daha cəhd edin");
     }
   };
+  useEffect(() => {
+    let interval;
+    if (isTimerRunning && timer > 0) {
+      interval = setInterval(() => {
+        setTimer((prevTime) => prevTime - 1); // Timer'ı azalt
+      }, 1000);
+    } else if (timer === 0) {
+      setIsTimerRunning(false); // Timer sıfır olduğunda durdur
+    }
+
+    return () => clearInterval(interval); // Temizlik işlemi
+  }, [isTimerRunning, timer]);
+  const universityOptions = universities.map((u) => ({
+    value: u.id,      // API’den gelen id
+    label: u.name,    // API’den gelen name
+  }));
+
   return (
     <div className={css.body}>
       <style jsx global>{`
@@ -297,7 +361,7 @@ export default function Register() {
       `}</style>
       <Head>
         <title>Tələbə360°-a Qeydiyyat</title>
-        <link rel="icon" href="/home/360minilogo.svg" />
+        <link rel="icon" href="/home/360minilogo.ico" />
       </Head>
 
       <AnimatePresence>
@@ -332,18 +396,43 @@ export default function Register() {
                 placeholder="Soyadınız"
                 className={css.input}
               />
+
               <DatePicker
-                selected={formData.birth_date ? new Date(formData.birth_date) : ''}
-                onChange={(date) => setFormData({ ...formData, birth_date: date.toISOString().split('T')[0] })}
+                selected={formData.birth_date ? new Date(formData.birth_date) : null}
+                onChange={(date) => {
+                  if (date) {
+                    setFormData({
+                      ...formData,
+                      birth_date: date.toISOString().split('T')[0]
+                    });
+                  }
+                }}
+                onChangeRaw={(e) => {
+                  const raw = e.target.value;
+                  // 05082003 gibi girişleri parse et
+                  if (/^\d{8}$/.test(raw)) {
+                    const day = raw.slice(0, 2);
+                    const month = raw.slice(2, 4);
+                    const year = raw.slice(4);
+                    const formatted = `${year}-${month}-${day}`;
+                    const parsedDate = new Date(formatted);
+                    if (!isNaN(parsedDate.getTime())) {
+                      setFormData({
+                        ...formData,
+                        birth_date: parsedDate.toISOString().split('T')[0]
+                      });
+                    }
+                  }
+                }}
                 placeholderText="Doğum Tarixiniz"
                 className={css.input}
                 showMonthDropdown
                 showYearDropdown
                 scrollableYearDropdown
-                yearDropdownItemNumber={100} 
-                   dateFormat="dd-MM-yyyy"
-
+                yearDropdownItemNumber={100}
+                dateFormat="dd-MM-yyyy"
               />
+
               <select
                 name="sex"
                 value={formData.sex === true ? "male" : formData.sex === false ? "female" : "non-binary"}
@@ -357,7 +446,14 @@ export default function Register() {
                 <option value="male">Kişi</option>
                 <option value="female">Qadın</option>
               </select>
-
+              <input
+                type="text"
+                name="referalCode"
+                value={formData.referalCode}
+                onChange={handleChange}
+                placeholder="Referal Kod"
+                className={css.input}
+              />
               <button className={css.nextbut}
                 onClick={(e) => {
                   e.preventDefault();
@@ -365,7 +461,7 @@ export default function Register() {
 
                     setActiveDiv(2);
                   } else {
-                    toast.error("Zəhmət olmasa bütün xanaları doldurun.");
+
                   }
                 }}>➜ Növbəti</button>
             </form>
@@ -423,7 +519,8 @@ export default function Register() {
                 <li style={{ color: 'grey', listStyle: 'circle', color: passwordRequirements.length ? 'green' : 'red' }}>ən az 8 xanalı olmalıdır</li>
                 <li style={{ color: 'grey', listStyle: 'circle', color: passwordRequirements.uppercase ? 'green' : 'red' }}>ən az 1 böyük hərf</li>
                 <li style={{ color: 'grey', listStyle: 'circle', color: passwordRequirements.symbol ? 'green' : 'red' }}>ən az 1 simvol</li>
-                <li style={{ color: 'grey', listStyle: 'circle', }}>şifrədə ? simvolundan istifadə etməyin</li>
+                <li style={{ color: 'grey', listStyle: 'circle', color: passwordRequirements.noQuestionMark ? 'green' : 'red' }}>şifrədə ? simvolundan istifadə etməyin</li>
+                <li style={{ color: 'grey', listStyle: 'circle', color: passwordRequirements.noSpace ? 'green' : 'red', display: 'none' }}></li>
               </ul>
               <button className={css.nextbut}
                 onClick={(e) => {
@@ -431,7 +528,6 @@ export default function Register() {
                   if (validateForm()) {
                     setActiveDiv(3);
                   } else {
-                    toast.error("Zəhmət olmasa bütün xanaları doldurun.");
                   }
                 }}>➜ Növbəti</button>
             </form>
@@ -455,19 +551,86 @@ export default function Register() {
                 <p>Artıq hesabınız var? <a href='/login'>Daxil olun</a></p>
 
               </div>
-              <select
-                name="university_id"
-                value={formData.university_id}
-                onChange={handleChange}
-                className={css.input}
-              >
-                <option value="">Universitetiniz</option>
-                {universities.map(university => (
-                  <option key={university.id} value={university.id}>
-                    {university.name}
-                  </option>
-                ))}
-              </select>
+              <Select
+                className={css.uniselect}
+                classNamePrefix="uni"
+                placeholder="Universitetiniz"
+                options={universityOptions}
+                value={
+                  universityOptions.find(
+                    (opt) => String(opt.value) === String(formData.university_id)
+                  ) || null
+                }
+                onChange={(selectedOption) => {
+                  setFormData((prev) => ({
+                    ...prev,
+                    university_id: selectedOption ? selectedOption.value : '',
+                  }));
+                }}
+                components={{
+                  IndicatorSeparator: () => null,
+                }}
+                styles={{
+                  /* DIŞ KAPSAYICI: .uniselect genişliğini kullansın, büyümesin */
+                  container: (base) => ({
+                    ...base,
+                    width: '30vw',      // .uniselect'in width'i kadar
+                  }),
+                  control: (base, state) => ({
+                    ...base,
+                    minHeight: '3rem',
+                    borderRadius: '0.75rem',
+                    border: 'none',
+                    boxShadow: state.isFocused ? '0 0 0 2px #9977F4' : 'none',
+                    fontSize: '1.2rem',
+                    backgroundColor: 'white',
+                    display: 'flex',
+                    alignItems: 'center',
+                  }),
+                  valueContainer: (base) => ({
+                    ...base,
+                    padding: '0 1.2rem',
+                    overflow: 'hidden',   // önemli
+                    minWidth: 0,          // flex çocuklarının taşmasını engellemek için KRİTİK
+                  }),
+                  singleValue: (base) => ({
+                    ...base,
+                    maxWidth: '100%',
+                    overflow: 'hidden',
+                    textOverflow: 'ellipsis',
+                    whiteSpace: 'nowrap',
+                    minWidth: 0,
+                  }),
+                  placeholder: (base) => ({
+                    ...base,
+                    color: '#999',
+                    whiteSpace: 'nowrap',
+                    overflow: 'hidden',
+                    textOverflow: 'ellipsis',
+                  }),
+                  dropdownIndicator: (base) => ({
+                    ...base,
+                    paddingRight: '1rem',
+                    flexShrink: 0,
+                  }),
+                  menu: (base) => ({
+                    ...base,
+                    zIndex: 9999,
+                    fontSize: '1.2rem',
+                    width: '100%',
+                  }),
+                  option: (base, state) => ({
+                    ...base,
+                    whiteSpace: 'normal',
+                    wordWrap: 'break-word',
+                    padding: '0.6rem 1rem',
+                    backgroundColor: state.isFocused ? 'rgba(153, 119, 244, 0.15)' : 'white',
+                    color: 'black',
+                  }),
+                }}
+              />
+
+
               <div className={css.fileUploadDiv}>
                 <p className={css.fileUploadLabel}>Tələbə kartınız</p>
                 <label htmlFor="card">
@@ -481,7 +644,7 @@ export default function Register() {
                   type="file"
                   name="card"
                   id="card"
-                  onChange={handleChange}
+                  onChange={handleFileChange}
                   className={css.inputFile}
                 />
               </div>
@@ -492,7 +655,6 @@ export default function Register() {
                   if (validateForm()) {
                     await handleSubmit(e); // Yalnız sunucu isteği olumlu yanıt alırsa aktifDiv'i artıracak
                   } else {
-                    toast.error("Zəhmət olmasa bütün xanaları doldurun.");
                   }
                 }}
               >➜ Növbəti</button>
@@ -521,9 +683,8 @@ export default function Register() {
                 <span className={css.timer}><p>{formatTime(timer)}</p></span>
                 <button
                   onClick={handleResendVerification}
-                  disabled={!isResendActive}
-                  className={isResendActive ? css.activeButton : css.disabledButton}
-                  id={css.resend}
+                  className={isTimerRunning ? css.disabledButton : css.activeButton}
+                  disabled={isTimerRunning}
                 >
                   Verifikasiya mailini təkrar göndər
                 </button>

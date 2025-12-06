@@ -1,5 +1,5 @@
 import React from 'react';
-import css from './home.module.css'; 
+import css from './home.module.css';
 import { useState } from 'react';
 import Image from 'next/image'
 import Carousel from "../components/desk_carousel/carousel"
@@ -9,44 +9,49 @@ import Table4 from '../components/all_tickets_table_4/table'
 import DeskAddCarousel2 from '../components/desk_carousel_2/carousel'
 import MobAddCarousel2 from '../components/mobile_carousel_2/carousel'
 import Footer from '../components/footer/index'
-import Table from '../components/all_tickets_table_all/table'
+
 import Link from 'next/link';
-export default function Home (){
-    return(
-        <>
-     <div className={css.body}>
-         <style jsx global>{`
+export default function Home() {
+  return (
+    <>
+      <div className={css.body}>
+        <style jsx global>{`
             body {
               margin: 0;
-              background:#F2F3F2;
+              background:#F5F4F5;
             }
       `}</style>
-<Head>
-        <title>Tələbə360°</title>
-        <link rel="icon" href="/home/360minilogo.svg" />
-      </Head>
-    
+        <Head>
+          <title>Tələbə360°</title>
+          <link rel="icon" href="/home/360minilogo.ico" />
+        </Head>
 
- 
 
-     
-     </div>
-     <div className={css.main_container}>
-      <div className={css.banner}>
-        <Carousel/>
+
+
+
       </div>
-      <div className={css.mobilebanner}>
-        <MobileCarousel/>
-      </div>
-      <div className={css.ticket_table_div}><h2 className={css.ticket_table_h2}>Bütün biletlər</h2></div>
-     
-      <div className={css.table_div}><Table4/></div>
+      <div className={css.main_container}>
+        <div className={css.banner}>
+          <Carousel />
+        </div>
+        <div className={css.mobilebanner}>
+          <MobileCarousel />
+        </div>
+        
+      
+        <div className={css.ticket_table_div}>
+          <h2 className={css.ticket_table_h2}>Bütün biletlər</h2></div>
 
-    
-      <div className={css.add2desk}><DeskAddCarousel2/></div>
-      <div className={css.add2mob}><MobAddCarousel2/></div>
-      <div className={css.table_div}><Table/></div>
-     </div>
+        <div className={css.table_div}>
+          <Table4 />
+        </div>
+
+
+
+
+
+      </div>
 
       {/* <div className={css.categories_div}>
         <p>Kategoriyalar</p>
@@ -104,7 +109,7 @@ export default function Home (){
         
        </ul>
       </div> */}
-  
-     </>
-    )
+
+    </>
+  )
 }

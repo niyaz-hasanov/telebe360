@@ -19,7 +19,7 @@ const index = () => {
       `}</style>
       <Head>
         <title>Bildirişlər</title>
-        <link rel="icon" href="/home/360minilogo.svg" />
+        <link rel="icon" href="/home/360minilogo.ico" />
       </Head>
 
       <div className={css.notification_top_div}>

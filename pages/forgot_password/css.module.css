@@ -117,14 +117,27 @@
 }
 .button_div{
   display: 'flex'; justify-content: 'space-between'; align-items: 'center'; margin-top: 2vw;
-  
+
 }
+/* Yeni stil eklenecek */
 .disabledButton {
-    background-color: #ccc; /* Gri arka plan rengi */
-    color: #888; /* Gri metin rengi */
-    cursor: not-allowed; /* Fare işaretçisini engelle */
-    opacity: 0.5; /* Opaklığı düşür */
-  }
+  opacity: 0.5;
+  pointer-events: none; /* Buton tıklanamaz hale gelir */
+  cursor: not-allowed;
+}
+
+.enabledButton {
+  opacity: 1;
+  pointer-events: auto;
+  cursor: pointer;
+}
+
+.timerText {
+  font-size: 14px;
+  color: #ff0000; /* Zamanlayıcı metni kırmızı olabilir */
+  text-align: center;
+}
+
 
 .keyicon {
     position: absolute;

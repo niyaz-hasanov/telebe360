@@ -8,7 +8,7 @@
 .div{
     display:flex;
     flex-direction: column;
-    margin-left:-5vw;
+ 
  
 }
 .div .mobile_slider{
@@ -21,7 +21,6 @@
     display:none;
 }
 .down_banner{
-    margin-left:8vw;
 }
 .banner_mobile2{
  display:none;
@@ -29,6 +28,10 @@
 }
 
 @media only screen and (max-width: 800px){
+    .container{
+        margin:0;   
+        margin-left:3vw;
+    }
     .div .desktop_slider{
         display:none;
     }
@@ -36,14 +39,13 @@
         margin-left:-5vw;
     }
     .container h1{
-        text-align: left;
-        margin-left:30px;
      }
    .div .mobile_slider{
         display:block;
     }
     .banner_mobile{
         display:block;
+        width:98vw;
     }
     .banner_mobile2{
         margin-left:0.5vw;
@@ -54,9 +56,27 @@
         display:none;
     }
     .up_banner{
-        margin-left:-2vw;
+    
     }
     .table{
-        margin-left:-3vw;
+    
+    }
+}
+@media only screen and (max-width: 400px){
+    .banner_mobile{
+        width:106vw;
+    }
+    .container{
+        margin-left:0rem;
+        padding-left:1rem;
+    }
+}
+@media only screen and (max-width: 330px){
+      .banner_mobile{
+        width:120vw;
+    }
+    .container{
+        margin-left:0rem;
+        padding-left:1rem;
     }
 }

@@ -43,7 +43,7 @@ const TicketPage = () => {
       `}</style>
       <Head>
         <title>Biletlər</title>
-        <link rel="icon" href="/home/360minilogo.svg" />
+        <link rel="icon" href="/home/360minilogo.ico" />
       </Head>
       <h1>Kuponlarım</h1>
       <ul className={css.ticket_ul}>
@@ -63,6 +63,7 @@ const TicketPage = () => {
                     companyName: ticket.registrator.company.name,
                     discount: ticket.registrator.discount,
                     createdAt : ticket.created_at,
+                    companyLogoPath : ticket.registrator.company.logo_path,
                   })} 
                 >
                  Bilet
@@ -85,6 +86,7 @@ const TicketPage = () => {
           companyName={selectedTicket.companyName}
           createdAt={selectedTicket.createdAt}
           discount={selectedTicket.discount}
+          companyLogoPath={selectedTicket.companyLogoPath}
           onClose={() => setSelectedTicket(null)} 
         />
       )}

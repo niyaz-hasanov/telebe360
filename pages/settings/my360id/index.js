@@ -119,7 +119,7 @@ export default function Home() {
         `}</style>
         <Head>
           <title>Tələbə360°</title>
-          <link rel="icon" href="/home/360minilogo.svg" />
+          <link rel="icon" href="/home/360minilogo.ico" />
         </Head>
 
 
@@ -238,8 +238,8 @@ export default function Home() {
                       className={css.pp}
                     /></span>
                     <label htmlFor="actual-btn" className={css.li2_right_input} id={css.file}>
-                      <img src='https://img001.prntscr.com/file/img001/NIQRxo7vRAuboVftB8WnNA.png' />
-                      <p><b>Yükləmək üçün toxunun</b> SVG,PNG or JPG (max 800x400px)</p>
+                      <img src='/profile_uploadlogo.svg' />
+                      <p><b>Yükləmək üçün toxunun</b> SVG,PNG ya da JPG (max 800x400px)</p>
                     </label>
                     <input
                       className={css.li2_right_input}

@@ -2,7 +2,8 @@ import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
 import axios from 'axios';
 import styles from './VerifyEmail.module.css'; 
-import {APIURL} from '../../utils/constants'
+import { APIURL } from '../../utils/constants';
+
 const VerifyEmail = () => {
   const router = useRouter();
   const { token } = router.query; 
@@ -14,14 +15,19 @@ const VerifyEmail = () => {
       axios.get(`${APIURL}auth/${token}`)
         .then((response) => {
           if (response.status === 204) {
-            setMessage('Emailiniz uğurla təsdiqləndi!');
-            setIsSuccess(true); 
+            setMessage(`Emailiniz uğurla təsdiqləndi! Daxil ol səhifəsinə yönləndirilirsiniz.`);
+            setIsSuccess(true);
+
+            // Yönləndirmə üçün 3 saniyəlik gecikmə
+            setTimeout(() => {
+              router.push('/login');
+            }, 3000);
           }
         })
         .catch((error) => {
           if (error.response && error.response.status === 422) {
             setMessage('Emailinizin verifikasiyası prosesinde xəta baş verdi.');
-            setIsSuccess(false); 
+            setIsSuccess(false);
           } else {
             setMessage('Bir xəta baş verdi.');
             setIsSuccess(false);
