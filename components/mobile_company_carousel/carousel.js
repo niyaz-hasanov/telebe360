@@ -120,7 +120,13 @@ const Slider = ({ ticket }) => {
                   src={`${MAINURL}uploads/${ticket.company.logo_path}`}
                   alt={ticket.company.name}
                 />
+                
               </div>
+                <div className={css.card_text_div}>
+                  <h2>{ticket.company.name}</h2>
+                  <p>{ticket.name}</p>
+                </div>
+                <span className={css.discount_span}>{ticket.discount}%</span>
               {/* <Image
                 src={'/home/bookmark.svg'}
                 width={20} // Örnek boyut, gerekli boyutu ayarlayın
@@ -128,19 +134,33 @@ const Slider = ({ ticket }) => {
                 className={css.bookmark}
               /> */}
               <div className={css.card_bottom}>
-                <div className={css.card_text_div}>
-                  <h2>{ticket.company.name}</h2>
-                  <p>{ticket.name}</p>
-                </div>
+              
                 <div className={css.card_button_div}>
                   <div>
-                    <button id={css.but1}>{ticket.count}</button>
+                    <button id={css.but1}>
+                       <h2 className={css.say}>Say</h2>
+                      <div className={css.card_bottom_right}>
+                        <p>{ticket.count}</p>
+                        <img className={css.img} src='/ticket_ticketlogo.svg'/>
+                        </div>
+                    </button>
                     <button id={css.but2}>
-                      {calculateTimeLeft(ticket.end_time)}
+                      <h2 className={css.gun}>Gün</h2>
+                      <div className={css.card_bottom_right}>
+                      <p>{calculateTimeLeft(ticket.end_time)}</p>
+                      <img className={css.img}  src='/ticket_clocklogo.svg'/>
+                      </div>
                     </button>
                   </div>
+                  <button id={css.but3}>
+                     <h2 className={css.giymet}>Qiymət</h2>
+                      <div className={css.card_bottom_right}>
+                        <p>{ticket.price}</p>
+                        <img className={css.img}  src='/telebecoinlogo.svg'/>
+                        </div>
+                  </button>
                   <div>
-                    <button id={css.but3}>{ticket.discount}%</button>
+                    
                   </div>
                 </div>
               </div>

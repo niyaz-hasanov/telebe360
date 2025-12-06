@@ -3,20 +3,23 @@
 }
 
 .chevron_div {
-   margin-left:-19px;
-  box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+   margin-left:0px;
   background: white;
-  border-radius: 50%;
-  padding: 4px 0vw 4px 20px;
   display: flex;
-  z-index: 1199;
   align-items: center;
   justify-content: flex-end;
   margin-top:300px;
+ border-top:1px solid #E2E2E3;
+ border-bottom:1px solid #E2E2E3;
+border-right:1px solid #E2E2E3;
+  border-top-right-radius: 100px;
+  border-bottom-right-radius: 100px;
+ 
   
 }
-.bottom_div_img{
-  width:25px;
+.sidebar{
+  z-index:9999999;
+  position:relative;  
 }
 .fake{
   display:none;
@@ -33,9 +36,7 @@
   margin-bottom :1rem;
   z-index:-0;
 }
-.sidebar{
-  z-index:9999999;
-}
+
 .nav_div_left2{
   display:none;
 }
@@ -43,33 +44,122 @@
   display: flex;
   flex-wrap: wrap;
   align-items: center;
-  gap: 15px;
-  margin-left: 10px;
+  
+  gap:1rem;
+  position:absolute;
+   top:40rem;
+   left:1.4rem;
+
 }
 
+.closedDrawer .sidebar_bottom_div{
+
+  
+  position: absolute;
+  gap:0.2rem !important;
+  
+  
+}
+.openDrawer .sidebar_bottom_div {
+
+  position: absolute;
+  
+
+}
+
+
+.bottom_div_img{
+  pointer-events: auto;
+  -webkit-user-drag: none;
+  user-select: none;
+  width:1.3rem;
+}
 .layer {
      display:none;
 }
 
 .sidebar_360img {
-  width: 14rem;
+  pointer-events: auto;
+  -webkit-user-drag: none;
+  user-select: none;
+  width: 10rem;
+  
+
   height: auto;
  
 }
+.closedDrawer .sidebar_360img {
+  position: absolute;
+  left: 0.5rem;     /* örnek */
+  top: 1rem;       /* örnek */
+  margin-left:-4.7rem;
+  transition: all 0.3s ease;
+}
+
+/* Açık durum */
+.openDrawer .sidebar_360img {
+  position: absolute;
+  left:1rem;
+  top:1rem;
+
+  transform: scale(1);
+  transition: all 0.3s ease;
+}
+.closedDrawer .category {
+  position:absolute;
+  transition: all 0.3s ease;
+  left:0.5rem;
+  top:4rem;
+
+
+}
+
+/* Açık durum */
+.openDrawer .category {
+  position: absolute;
+  top:4rem;
+  left:0.5rem;
+
+  transition: all 0.3s ease;
+
+
+
+}
+.closedDrawer .logout {
+  position: absolute;
+    top:3.5rem;
+    left:-0.01rem;
+  transition: all 0.1s ease;
+}
+
+
+/* Açık durum */
+.openDrawer .logout {
+  position: relative;
+ 
+  transition: all 0.1s ease;
+}
+
+
 .sidebar_middle_text{
   display: flex;
   align-items: center;
   position:absolute;
-  top:0;left:38vw;
-  width:29vw;
-  font-size: 1.1rem;
-
+  top:0.5rem;left:15rem;
+  white-space: wrap;
+width:28em;
+  font-size: 1rem;
+ align-self: center;
+ justify-self: center;
   font-weight: 500;
 
 }
 .sidebar_middle_text img{
+  pointer-events: auto;
+  -webkit-user-drag: none;
+  user-select: none;
   width:1.1rem;
-  margin-top:0.2vw;
+  margin-top:0.2rem;
 }
 .sidebar_middle_text p{
   display: flex;
@@ -122,9 +212,7 @@
   display: flex;
   
 }
-.ticket_logo{
-  width:40px;
-}
+
 .favourites_div{
   display:flex;
   align-items: center;
@@ -139,14 +227,48 @@
 .nav_div_right{
   display: flex;
   align-items: center;
-  gap:20px;
+    gap:3rem;
+  font-weight: 500;
+  color:black;
   margin-right:30px;
 }
 .noti_and_ticket{
   display:flex;
+  flex-direction: column;
   align-items: center;
-  gap:5px
+  position:relative;
+
 }
+.noti_and_ticket a>img{
+   pointer-events: auto;
+  -webkit-user-drag: none;
+  user-select: none;
+  width:2.1rem
+}
+.noti_and_ticket p{
+  padding:0;
+  margin:0;
+  position:absolute;
+  font-size:0.8rem;
+  top:2.4rem;
+  white-space: nowrap;
+}
+.profile{
+   display:flex;
+  flex-direction: column;
+  align-items: center;
+  position:relative;
+  top:-0.2rem;
+  left:0.5rem;
+}
+#profile_p{
+  font-size:0.8rem;
+  position:absolute;
+  top:0.55rem;
+  
+}
+
+
 .mobile_fav{
   display:none;
 }
@@ -176,28 +298,94 @@
 }
 .nav_div_left{
   display: flex;
-  margin-left:7vw;
+  margin-left:7rem;
  
   align-items: center;
 }
 
+.sidebar_list{
+    display:flex; 
+    flex-direction: column;
+  
+  
+  
+}
+.sidebar_item{
+  color:black; display:flex; flex-direction: row;
+  align-items: center; gap:1.5rem;
+
+ padding:0px 0.1rem 0px 0.6rem;
+ border-radius:1rem;
+ width:110%;
+ 
+  transition: all 0.1s ease;
+}
+.closedDrawer .sidebar_item{
+  transition: all 0.3s ease;
+
+  width:3rem;
+}
+.telebe360text{
+  
+
+   color: rgb(255,130,1);
+
+
+}
+
+.sidebar_item:hover{
+    background: linear-gradient(180deg, #A763DD 0%, #F06BF2 100%);
+    color:white;
+}
+.sidebar_item_text{
+   font-weight:600;
+   font-size:16px;
+}
+.sidebar_item_text:hover{
+}
+.sidebar_item_icon{
+    width:1.7rem;
+   
+
+}
+#alloffersimg{
+    padding-top:1px;
+}
+
+.sidebar_item:hover .sidebar_item_icon{
+    -webkit-filter: invert(100%);
+    filter: invert(100%);
+}
+.sidebar_item:hover #crownimg{
+    filter: brightness(0) invert(1);
+    padding-top:5px;
+
+}
+.sidebar_item:hover .telebe360text{
+    color:white;
+}
 @media only screen and (max-width: 800px) {
   .sidebar_middle_text{
-    width:100%;
-    font-size:3.3vw;
-    top:18vw;
+    width:93%;
+    font-size:3vw;
+    top:13rem;
     bottom:0;
-    left:2vw;
+    left:2rem;
     justify-content: center;
    
   }
+  .sidebar_middle_text img{
+
+  width:3vw;
+  margin-top:0.2rem;
+}
   .sidebar_360img {
-    margin-left:1vw;
-    margin-top:1vw;
+    margin-left:1rem;
+    margin-top:1rem;
     width:9rem;
   }
   .appbar{
-    margin-bottom :-3vw;
+    margin-bottom :-3rem;
   }
 .nav_div_left2{
   display:block;
@@ -216,7 +404,7 @@
   }
   .navbar{
     display:flex; flex-direction: row;
-    margin-bottom:5vw;
+    margin-bottom:5rem;
   
   }
 .favourites_div{
@@ -224,9 +412,9 @@
 }
   .hamburger {
     display: block;
-    width:9vw;
+    width:2rem;
     left:-90px;
-    height:9vw;
+    height:2rem;
      z-index:99999999999999;
     align-self: center;
    
@@ -235,7 +423,7 @@
     
   }
   .search_input{
-    width:50vw;
+    width:50rem;
     height:40px;
     margin-left:5px;
     font-size:17px;
@@ -248,9 +436,8 @@
   
   }
   .loginButton{
-    font-size:4vw;
-    width:23vw;
-    margin-left:-6vw;
+   white-space: nowrap;
+   
   }
   
   .mobile_fav{
@@ -258,11 +445,11 @@
   
   }
   .mobile_fav img{
-    width:10vw;
+    width:10rem;
     margin-top:5px;
   }
   .ticket_logo{
-    width:10vw;
+    width:10rem;
   
     margin-right:5px;
   }
@@ -296,9 +483,7 @@
   }
 }
  
-@media only screen and (min-width: 800px){
-   
-}
+
 @media only screen and (min-width: 2340px){
   .logoClosed{
     transform: translateX(-90px);

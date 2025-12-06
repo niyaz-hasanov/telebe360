@@ -56,7 +56,7 @@ export default function BasicMenu({ profileImgPath, isStudentVerified }) {
       >
         <div
           style={{
-            border: `3px solid ${borderColor}`,
+            border: `0.01rem solid ${borderColor}`,
           }}
           className={css.ppdiv}
         >
@@ -72,37 +72,42 @@ export default function BasicMenu({ profileImgPath, isStudentVerified }) {
         anchorEl={anchorEl}
         open={open}
         onClose={handleClose}
+          disableScrollLock={true}
         MenuListProps={{
           'aria-labelledby': 'basic-button',
         }}
         className={css.bulanik}
+        PaperProps={{
+    sx: {
+      borderRadius: "1rem",   
+      overflow: "hidden",
+      shadowBox:'none'
+    }}}
       >
         <a href='/settings/my360id' className={css.a}>
-          <MenuItem className={css.dropdown_li} onClick={handleClose}>
+        
+          <MenuItem className={css.dropdown_li} onClick={handleClose} >
             <img src='/dropdown_id.svg' className={css.dropdownbtn} />
             <p className={css.dropdownp}>My360ID</p>
-            <img className={css.chevron} src='/chevroncol.svg' />
           </MenuItem>
         </a>
         <a href='/coming_soon' className={css.a}>
           <MenuItem className={css.dropdown_li} onClick={handleClose}>
             <img src='/dropdown_360.svg' className={css.dropdownbtn} />
             <p className={css.dropdownp}>360+</p>
-            <img className={css.chevron} src='/chevroncol.svg' />
           </MenuItem>
         </a>
         <a href='/settings' className={css.a}>
           <MenuItem className={css.dropdown_li} onClick={handleClose}>
             <img src='/dropdown_settings.svg' className={css.dropdownbtn} />
             <p className={css.dropdownp}>Tənzimləmələr</p>
-            <img className={css.chevron} src='/chevroncol.svg' />
           </MenuItem>
         </a>
         <a href='/technical_support' className={css.a}>
           <MenuItem className={css.dropdown_li} onClick={handleClose}>
             <img src='/dropdown_support.svg' className={css.dropdownbtn} />
             <p className={css.dropdownp}>Dəstək</p>
-            <img className={css.chevron} src='/chevroncol.svg' />
+            
           </MenuItem>
         </a>
 

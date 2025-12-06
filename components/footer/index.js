@@ -1,5 +1,7 @@
-import css from './css.module.css'
-export default function Navbar() {
+// components/footer/index.jsx
+import css from './css.module.css';
+import Feedback from '../feedback_modal/modal';
+export default function Footer() {
   const handleLoginClick = () => {
     window.open(
       'https://docs.google.com/forms/d/e/1FAIpQLSditFI3TYNQCBpO-OJXvoypfpTXFbBMBpFumOffomGRJcNPBg/viewform',
@@ -8,73 +10,102 @@ export default function Navbar() {
   };
 
   return (
-    <footer>
+    <footer className={css.footer}>
       <div className={css.footer_container}>
+        {/* SOL */}
         <div className={css.footer_left}>
-          <div className={css.footer_left_top}>
-            <ul className={css.footer_left_top_ul}>
-              <li className={css.li_first}>Əməkdaşlıq</li>
-              <li>Sosial şəbəkə</li>
-
-            </ul>
-            <ul className={css.footer_left_top_ul}>
-              <li className={css.li_first}>Haqqımızda</li>
-              <li>
-                <a
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  href='https://www.intechmain.com/' style={{ color: 'black' }}>
-                  InTech Main
-                </a>
-              </li>
-              <li>
-                <a
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  href='https://instagram.com/intech.academy/' style={{ color: 'black' }}>
-                  InTech Academy
-                </a>
-              </li>
-              <li></li>
-            </ul>
-            <ul className={css.footer_left_top_ul}>
-              <li className={css.li_first}>Dəstək</li>
-              <li>Təkliflər</li>
-              <li><a href='/technical_support' style={{ color: 'black' }}>Əlaqə</a></li>
-              <li></li>
-            </ul>
-            <span className={css.companybutton}>
-              <button onClick={handleLoginClick} className={css.loginButton}>
-                Şirkət qeydiyyatı
-              </button>
-            </span>
+          <div className={css.logo_block}>
+            <img src="/footer_360logo.svg" alt="Telebe360" />
           </div>
-          <div className={css.footer_left_bottom}>
-            <p className={css.sign}>© TELEBE360 MMC. All Rights Reserved. </p>
-            <ul className={css.footer_left_bottom_ul}>
-              <li>Privacy policy<span className={css.border_line}>|</span></li>
-              <li>Terms of use <span className={css.border_line}>|</span></li>
-              <li>FAQ <span className={css.border_line}>|</span></li>
-              <li>Contact Us <span className={css.border_line}>|</span></li>
-              <li>Site Map <span className={css.border_line}>|</span></li>
-              <li> Blog </li>
+
+          <ul className={css.social_list}>
+            <li>
+              <img className={css.social_icon} src="/Facebook.svg" alt="Facebook" />
+            </li>
+            <li>
+              <a
+                href="https://www.linkedin.com/company/telebe360/"
+                target="_blank"
+                rel="noreferrer"
+              >
+                <img className={css.social_icon} src="/Linkedinnew.svg" alt="LinkedIn" />
+              </a>
+            </li>
+            <li>
+              <a
+                href="https://www.instagram.com/telebe360/"
+                target="_blank"
+                rel="noreferrer"
+              >
+                <img className={css.social_icon} src="/Instagramnew.svg" alt="Instagram" />
+              </a>
+            </li>
+          </ul>
+
+          <p className={css.sign}>© TELEBE360 MMC. All Rights Reserved.</p>
+        </div>
+
+        {/* ORTA */}
+        <div className={css.footer_middle}>
+          <div className={css.footer_middle_top}>
+            <ul className={css.footer_column}>
+              <li className={css.li_first}>Partnership</li>
+              <li>Websites</li>
+              <li>Social Media</li>
+              <li>Branding</li>
+            </ul>
+
+            <ul className={css.footer_column}>
+              <li className={css.li_first}>About</li>
+              <li>
+                <a
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  href="https://www.intechmain.com/"
+                >
+                  Our Projects
+                </a>
+              </li>
+              <li>
+                <a
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  href="https://instagram.com/intech.academy/"
+                >
+                  Careers
+                </a>
+              </li>
+            </ul>
+
+            <ul className={css.footer_column}>
+              <li className={css.li_first}>Support</li>
+              <li>Support Request</li>
+              <li>
+                <a href="/technical_support">Contact</a>
+              </li>
+              <li>Feedback</li>
+            </ul>
+          </div>
+
+          <div className={css.footer_middle_bottom}>
+            <ul className={css.footer_middle_bottom_ul}>
+              <li>Terms of service<span className={css.border_line}> |</span></li>
+              <li>Privacy Policy<span className={css.border_line}> |</span></li>
+              <li>Terms of use<span className={css.border_line}> |</span></li>
+              <li>FAQ</li>
             </ul>
           </div>
         </div>
-        <div className={css.footer_right}>
-          <div className={css.app}>
-            <ul>
-              <li><img className={css.img} src='/Facebook.svg' /></li>
-              <li><img className={css.img} src='/Twitter.svg' /></li>
-              <li><img className={css.img} src='/Instagram.svg' /></li>
-              <li><img className={css.img} src='/LinkedIn.svg' /></li>
-              <li><img className={css.img} src='/Telegram.svg' /></li>
-              <li><img className={css.img} src='/TikTok.svg' /></li>
-            </ul>
-          </div>
 
+        {/* SAĞ */}
+        <div className={css.footer_right}>
+          <button onClick={handleLoginClick} className={css.loginButton}>
+            Şirkət qeydiyyatı
+          </button>
+          <Feedback/>
         </div>
       </div>
     </footer>
-  )
+  );
 }
+

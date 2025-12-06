@@ -1,13 +1,54 @@
-.mobcar{
-    width:100%;
-    height:100%;
+/* Ortak Embla stilleri (desktop + mobile) */
+.emblaViewport {
+  overflow: hidden;
+  width: 100%;
 }
-.mobcardiv{
-    width:100%;
-    
+
+.emblaContainer {
+  display: flex;
 }
-.carousel{
-    width:100vw;
-    margin-left:-5vw;
-   
+
+.emblaSlide {
+  position: relative;
+  flex: 0 0 100%; /* her slide tam genişlik */
+}
+
+/* Mobile slider ana wrapper */
+.emblaMobile {
+  position: relative;
+  width: 100%;
+}
+
+/* Mobil görsel */
+.mobcar {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+/* Mobil ok butonları – eski inline style’ın vw değerlerini kullandım */
+.arrowLeftMobile,
+.arrowRightMobile {
+  position: absolute;
+  top: 12vw;
+  z-index: 1;
+  background: rgba(128, 128, 128, 0.599);
+  border: none;
+  border-radius: 50vw;
+  width: 8vw;
+  height: 8vw;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: #fff;
+  font-size: 5vw;
+  cursor: pointer;
+}
+
+.arrowLeftMobile {
+  left: 2vw;
+}
+
+.arrowRightMobile {
+  right: 0vw;
 }

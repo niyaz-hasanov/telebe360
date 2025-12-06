@@ -6,7 +6,7 @@
    
 }
 .logoutbut img{
-   width:25px;
+   width:1.3rem;
 }
 #modal-modal-title{
     font-size:200% !important;
@@ -32,7 +32,7 @@
 }
 @media only screen and (max-width: 800px){
     .logoutbut img{
-        width:6vw;
+        width:1.5rem;
     }
     .butdiv{
         gap:20vw;

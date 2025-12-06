@@ -1,72 +1,85 @@
-import React, { useState, useEffect } from 'react';
-import "react-responsive-carousel/lib/styles/carousel.min.css";
-import { Carousel } from 'react-responsive-carousel';
+import React, { useState, useEffect, useCallback } from 'react';
+import useEmblaCarousel from 'embla-carousel-react';
 import { FaChevronRight, FaChevronLeft } from 'react-icons/fa';
 import css from './carousel.module.css';
-import Image from 'next/image';
 import { fetchSliderData } from '../../utils/banner/fetchSliderData';
-import {MAINURL} from '../../utils/constants'
+import { MAINURL } from '../../utils/constants';
+
 export default function DesktopSlider() {
-    const [slides, setSlides] = useState([]);
+  const [slides, setSlides] = useState([]);
 
-    useEffect(() => {
-        const fetchData = async () => {
-            const data = await fetchSliderData();
-            // type: true olan verileri filtrele
-            const filteredSlides = data.filter(item => item.type === true);
-            setSlides(filteredSlides);
-        };
+  const [emblaRef, emblaApi] = useEmblaCarousel({
+    loop: true,
+    align: 'start',
+    skipSnaps: false,
+  });
+  function getBannerImg(path) {
+    return path ? `${MAINURL}uploads/${path}` : '/noaddbanner.png';
+  }
 
-        fetchData();
-    }, []);
+  useEffect(() => {
+    const fetchData = async () => {
+      const data = await fetchSliderData();
+      const filteredSlides = data.filter(item => item.type === true);
+      setSlides(filteredSlides);
+    };
+    fetchData();
+  }, []);
 
-    return (
-        <Carousel
-            renderArrowPrev={(onClickHandler, hasPrev, label) =>
-                hasPrev && (
-                    <button type="button" onClick={onClickHandler} title={label} style={{position:'absolute',top:'5vw',left:'3vw',zIndex:'1',background:'rgba(128, 128, 128, 0.599)',border:'none',borderRadius:'50vw' ,width:'2.5vw',display:'flex',justifyContent:'center',alignItems:'center',height:'2.5vw',color:'white',fontSize:'1.5vw'}}>
-                        <FaChevronLeft/>
-                    </button>
-                )
-            }
-            renderArrowNext={(onClickHandler, hasNext, label) =>
-                hasNext && (
-                    <button type="button" onClick={onClickHandler} title={label} style={{position:'absolute',top:'5vw',right:'3vw',zIndex:'1',background:'rgba(128, 128, 128, 0.599)',border:'none',borderRadius:'50vw' ,width:'2.5vw',display:'flex',justifyContent:'center',alignItems:'center',height:'2.5vw',color:'white',fontSize:'1.5vw'}}>
-                        <FaChevronRight/>
-                    </button>
-                )
-            }
-            useKeyboardArrows={true}
-            swipeable={false}
-            showStatus={false}
-            showThumbs={false}
-            autoPlay={true}
-            infiniteLoop={true}
-            showArrows={true}
-            emulateTouch={true}
-            swipeScrollTolerance={80}
-            thumbWidth={0}
-            interval={5000}
-            transitionTime={1500}
-            showIndicators={false}
-            centerMode={false}
-            centerSlidePercentage={false}
-            selectedItem={0}
-            stopOnHover={true}
-            dynamicHeight={true}
-            className={css.carousel}
+  const scrollPrev = useCallback(() => {
+    if (!emblaApi) return;
+    emblaApi.scrollPrev();
+  }, [emblaApi]);
+
+  const scrollNext = useCallback(() => {
+    if (!emblaApi) return;
+    emblaApi.scrollNext();
+  }, [emblaApi]);
+
+  return (
+    <div className={css.embla}>
+
+      {/* Sol ok – sadece 1’den fazla slide varsa */}
+      {slides.length > 1 && (
+        <button
+          type="button"
+          onClick={scrollPrev}
+          className={css.arrowLeft}
         >
-            {slides.map((slide) => (
-                <div key={slide.id}>
-                    <img
-                        src={`${MAINURL}uploads/${slide.desktop_img_path}`} // Desktop için ilgili görsel
-                        alt={slide.name}
-                        width={0}
-                        height={0}
-                        className={css.deskcar}
-                    />
-                </div>
-            ))}
-        </Carousel>
-    );
+          <FaChevronLeft />
+        </button>
+      )}
+
+      {/* Sağ ok – sadece 1’den fazla slide varsa */}
+      {slides.length > 1 && (
+        <button
+          type="button"
+          onClick={scrollNext}
+          className={css.arrowRight}
+        >
+          <FaChevronRight />
+        </button>
+      )}
+
+      {/* Embla viewport */}
+      <div className={css.emblaViewport} ref={emblaRef}>
+        <div className={css.emblaContainer}>
+          {slides.map(slide => (
+            <div className={css.emblaSlide} key={slide.id}>
+              <img
+               alt={slide.name}
+                className={css.deskcar}
+                src={getBannerImg(slide.desktop_img_path)}
+               
+                onError={(e) => {
+                  e.currentTarget.onerror = null;
+                  e.currentTarget.src = '/noaddbanner.png';
+                }}
+              />
+            </div>
+          ))}
+        </div>
+      </div>
+    </div>
+  );
 }

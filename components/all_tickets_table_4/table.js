@@ -1,57 +1,35 @@
 import React, { useState, useEffect } from 'react';
-import "react-responsive-carousel/lib/styles/carousel.min.css";
-
 import css from './carousel.module.css';
 import Link from 'next/link';
 import { MAINURL } from '../../utils/constants';
+import { useColumns } from '../../hooks/useColums';
+import MobAddCarousel2 from '../mobile_carousel_2/carousel';
+import DeskAddCarousel2 from '../desk_carousel_2/carousel';
 
-// Süre hesaplama fonksiyonu
+
 const calculateTimeLeft = (end_time) => {
   const now = new Date();
   const endTime = new Date(end_time);
   const difference = endTime - now;
 
-  if (difference <= 0) {
-    return "Bitib";
-  }
+  if (difference <= 0) return 'Bitib';
 
-  const oneDayInMs = 1000 * 60 * 60 * 24; // 1 gün
-  const oneMonthInMs = 30 * oneDayInMs; // 30 gün = 1 ay
-  const oneYearInMs = 365 * oneDayInMs; // 365 gün = 1 yıl
-
-  // Yıl hesaplama
-  if (difference >= oneYearInMs) {
-    const years = Math.floor(difference / oneYearInMs);
-    return `${years} il`;
-  }
-
-  // Ay hesaplama
-  if (difference >= oneMonthInMs) {
-    const months = Math.floor(difference / oneMonthInMs);
-    return `${months} ay`;
-  }
-
-  // Gün hesaplama
-  const days = Math.floor(difference / oneDayInMs);
-  if (days > 0) {
-    return `${days} gün`;
-  }
-
-  // Saat, dakika ve saniye hesaplama
+  const days = Math.floor(difference / (1000 * 60 * 60 * 24));
   const hours = Math.floor((difference / (1000 * 60 * 60)) % 24);
   const minutes = Math.floor((difference / 1000 / 60) % 60);
   const seconds = Math.floor((difference / 1000) % 60);
 
+  if (days > 0) return `${days} `;
   if (hours > 0 || minutes > 0 || seconds > 0) {
-    return `${hours} : ${minutes} : ${seconds}`;
+    return `${hours}s : ${minutes}d`;
   }
-
-  return "Bitib";
+  return 'Bitib';
 };
 
-const Slider = () => {
+export default function TicketsSection() {
   const [tickets, setTickets] = useState([]);
   const [error, setError] = useState(null);
+  const cols = useColumns();        
 
   useEffect(() => {
     const fetchTickets = async () => {
@@ -64,69 +42,157 @@ const Slider = () => {
             )}`,
           },
         });
-        
+
         if (!response.ok) {
           throw new Error(`HTTP error! status: ${response.status}`);
         }
 
         const data = await response.json();
-        setTickets(data); // Adjust this if your API returns an object like { tickets: [] }
-      } catch (error) {
-        setError(error.message);
-        console.error('Error fetching tickets:', error);
+        setTickets(data);
+      } catch (err) {
+        setError(err.message);
       }
     };
 
     fetchTickets();
   }, []);
 
-  if (error) {
-    return <div>Error: {error}</div>;
-  }
+  if (error) return <div>Error: {error}</div>;
+  if (tickets.length === 0) return <div>Kupon yoxdur. Daha sonra təkrar cəhd edin</div>;
 
-  if (tickets.length === 0) {
-    return <div>Kupon yoxdur. Daha sonra təkrar cəhd edin</div>;
-  }
+  const cardsBeforeBanner = cols; 
 
-  // Tickets array'inin sadece ilk 4 elemanını alıyoruz
-  const ticketsToDisplay = tickets.slice(0, 4);  // 0. indeksten 4. indekse kadar olan elemanları al
+  const firstPart = tickets.slice(0, cardsBeforeBanner);
+  const restPart = tickets.slice(cardsBeforeBanner);
 
   return (
-    <div className={css.ticket_table}>
-      {ticketsToDisplay.map((ticket) => (
-        <Link style={{ color: 'black' }} key={ticket.id} href={`/tickets/${ticket.id}`}>
-        <div key={ticket.id} className={css.card_div}>
+    <>
+     
+      <div className={css.ticket_table}>
+        {firstPart.map(ticket => (
+           <Link style={{ color: 'black' }} href={`/tickets/${ticket.id}`}>
+          <div key={ticket.id} className={css.card_div}>
           
-            <div className={css.card_pp}>
-              <img
-                src={`${MAINURL}uploads/${ticket.company.logo_path}`}
-                alt={ticket.company.name}
-              />
-            </div>
-            
-            <div className={css.card_bottom}>
-              <div className={css.card_text_div}>
-                <h2>{ticket.company.name}</h2>
-                <p>{ticket.name}</p>
+           
+              <div className={css.card_top}>
+              <div className={css.card_pp}>
+                <img
+                  src={`${MAINURL}uploads/${ticket.company.logo_path}`}
+                  alt={ticket.company.name}
+                />
               </div>
-              <div className={css.card_button_div}>
-                <div>
-                  <button id={css.but1}>{ticket.count}</button>
-                  <button id={css.but2}>
-                    {calculateTimeLeft(ticket.end_time)} {/* Kalan süreyi hesapla */}
-                  </button>
+                  <div className={css.card_text_div}>
+                  <h2>{ticket.company.name}</h2>
+                  <p>{ticket.name}</p>
                 </div>
-                <div>
-                  <button id={css.but3}>{ticket.discount}%</button>
+                </div>
+                <div className={css.card_middle}>{ticket.discount}%</div>
+              <div className={css.card_bottom}>
+              
+                <div className={css.card_button_div}>
+                  <div>
+                    <button id={css.but1}>
+                      <h2 className={css.say}>Say</h2>
+                      <div className={css.card_bottom_right}>
+                        <p>{ticket.count}</p>
+                        <img src='/ticket_ticketlogo.svg'/>
+                        </div>
+                      </button>
+                  </div>
+                  <div >
+                    <button id={css.but2}>
+                      <h2 className={css.gun}>Gün</h2>
+                      <div className={css.card_bottom_right}>
+                      <p>{calculateTimeLeft(ticket.end_time)}</p>
+                      <img src='/ticket_clocklogo.svg'/>
+                      </div>
+                      </button>
+                      </div>
+                  <div>
+                    <button id={css.but3}>
+                      <h2 className={css.giymet}>Qiymət</h2>
+                      <div className={css.card_bottom_right}>
+                        <p>{ticket.price}</p>
+                        <img src='/telebecoinlogo.svg'/>
+                        </div>
+                        </button>
+                  </div>
                 </div>
               </div>
-            </div>
-          
-        </div>
-        </Link>
-      ))}
-    </div>
-  );
-};
+          </div>
+            </Link>
 
-export default Slider;
+        ))}
+      </div>
+
+     <div>      <div className={css.add2desk}>
+        <DeskAddCarousel2 />
+      </div>
+      <div className={css.add2mob}>
+       <MobAddCarousel2/>
+      </div>
+      </div>
+
+
+
+      {restPart.length > 0 && (
+        <div className={css.ticket_table}>
+          {restPart.map(ticket => (
+              <Link style={{ color: 'black' }} href={`/tickets/${ticket.id}`}>
+          <div key={ticket.id} className={css.card_div}>
+          
+           
+              <div className={css.card_top}>
+              <div className={css.card_pp}>
+                <img
+                  src={`${MAINURL}uploads/${ticket.company.logo_path}`}
+                  alt={ticket.company.name}
+                />
+              </div>
+                  <div className={css.card_text_div}>
+                  <h2>{ticket.company.name}</h2>
+                  <p>{ticket.name}</p>
+                </div>
+                </div>
+                <div className={css.card_middle}>{ticket.discount}%</div>
+              <div className={css.card_bottom}>
+              
+                <div className={css.card_button_div}>
+                  <div>
+                    <button id={css.but1}>
+                      <h2>Say</h2>
+                      <div className={css.card_bottom_right}>
+                        <p>{ticket.count}</p>
+                        <img src='/ticket_ticketlogo.svg'/>
+                        </div>
+                      </button>
+                  </div>
+                  <div >
+                    <button id={css.but2}>
+                      <h2>Gün</h2>
+                      <div className={css.card_bottom_right}>
+                      <p>{calculateTimeLeft(ticket.end_time)}</p>
+                      <img src='/ticket_clocklogo.svg'/>
+                      </div>
+                      </button>
+                      </div>
+                  <div>
+                    <button id={css.but3}>
+                      <h2>Qiymət</h2>
+                      <div className={css.card_bottom_right}>
+                        <p>{ticket.price}</p>
+                        <img src='/telebecoinlogo.svg'/>
+                        </div>
+                        </button>
+                  </div>
+                </div>
+              </div>
+          </div>
+            </Link>
+
+          ))}
+        </div>
+      )}
+    </>
+  );
+}

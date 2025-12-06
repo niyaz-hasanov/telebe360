@@ -1,10 +1,60 @@
-.carousel{
+.embla {
+  position: relative;
+  width: 100%;
+  margin-left:-2vw;
+  
+}
 
+/* Görünür alan */
+.emblaViewport {
+  overflow: hidden;
+  width: 100%;
+  
 }
-.deskcar{
-    width:100%;
-    height:100%;
+
+/* Slide’ları yan yana dizen container */
+.emblaContainer {
+  display: flex;
 }
-.carousel{
-    width:88vw;margin-left:-2vw;
+
+/* HER SLIDE tam genişlikte olsun */
+.emblaSlide {
+  position: relative;
+  
+  flex: 0 0 100%;   /* kritik satır */
+}
+
+/* Resmin kendisi */
+.deskcar {
+  width: 100%;
+  height: auto;
+  display: block;
+  
+}
+
+/* Ok butonları – istersen kendi stillerinle değiş */
+.arrowLeft,
+.arrowRight {
+  position: absolute;
+  top: 6vw;
+  z-index: 1;
+  background: rgba(128, 128, 128, 0.6);
+  border: none;
+  border-radius: 50vw;
+  width: 2.5vw;
+  height: 2.5vw;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: #fff;
+  font-size: 1.5vw;
+  cursor: pointer;
+}
+
+.arrowLeft {
+  left: 1.5vw;
+}
+
+.arrowRight {
+  right: 1.5vw;
 }

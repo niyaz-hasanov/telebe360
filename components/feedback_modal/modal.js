@@ -103,7 +103,7 @@ export default function BasicModal() {
   return (
     <div className={modalcss.logoutdiv}>
       <button onClick={handleToggle} className={css2.feedback}>Təkliflərinizi bildirin</button>
-      <button onClick={handleToggle} className={css2.feedback2}>Təklif </button>
+      <button onClick={handleToggle} className={css2.feedback2}>Təkliflərinizi bildirin </button>
       <Modal
         open={open}
         onClose={handleClose}

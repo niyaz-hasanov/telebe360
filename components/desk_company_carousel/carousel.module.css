@@ -1,115 +1,295 @@
 @import url('https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,100;0,9..40,200;0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;0,9..40,800;0,9..40,900;0,9..40,1000;1,9..40,100;1,9..40,200;1,9..40,300;1,9..40,400;1,9..40,500;1,9..40,600;1,9..40,700;1,9..40,800;1,9..40,900;1,9..40,1000&display=swap');
 
-.carousel{
-    width:85vw;
-    height:100%;
-    overflow:hidden;
-    display:flex;
-    flex-wrap: wrap; 
-    margin-left:-2vw;
+.ticket_table{
+    display: flex !important;
+    flex-wrap: wrap;
+      overflow: none;
+      white-space: nowrap;
+ 
+    margin-left:-5rem;
+gap:2rem;
+   justify-content: center;
+padding:0;
+
+     
 }
 .card_div{
-   border-radius:2vw;
-    width:24vw;
-    height:19vw;   
-    background:white;
-    box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
+   border-radius:1rem;
+    width:300px;
+    height:220px;   
+    box-shadow: rgba(0, 0, 0, 0.18) 0px 2px 4px;
+    background:#EEE8E2;
     position:relative;
+    padding-left:1rem;
+    padding-right:1rem;
+    padding-top:1rem;
+ 
 }
-.mobcardiv{
+
+.card_div::before,
+.card_div::after {
+  content: "";
+  position: absolute;
+  width: 2.5rem;
+  height: 3.5rem;
+  background: #F5F4F5;
+  top: 50%;
+  transform: translateY(-50%);
+  border-color:none;
+  border-radius: 1rem;
+  
 
 }
-.bookmark{
-    width:2.5vw;
-    height:2.5vw;
-    position:absolute;right:-9.5vw;
-    top:1vw;
+
+.card_div::before {
+  left: -20px;
+  border-right: 0.2px solid rgba(0, 0, 0, 0.18);
+
+
+}
+
+.card_div::after {
+  right: -20px;
+  border-left: 0.2px solid rgba(0, 0, 0, 0.18);
+
 }
 .card_pp img{
    width:100%;
+   pointer-events: auto;
+  -webkit-user-drag: none;
+  user-select: none;
  
 }
 .card_pp{
-    width:5.5vw;    height:5.5vw;
-    display:flex;
+    width:4.7rem;    height:4.7rem;
     align-items: center;
     justify-content: center;
     z-index:1;
     overflow:hidden;
-      position:absolute;
-      top:2vw;left:1vw;
-    border-radius:50vw;
-    border:0.125vw solid black;
+     margin-left:-0.5rem;
+    border-radius:50rem;
+}
+.card_top{
+    display:flex;
+   gap:1rem;
+    align-items: center;
+    color:#2F0D4A;
+}
+.card_middle{
+    padding:0px;
+    margin:0px;
+    margin-top:-2rem;
+    align-items: center;
+    justify-self: center;
+    font-size:4.5rem;
+    color:#2F0D4A;
+    font-weight:800;
 }
 .card_bottom{
     display:flex;
     flex-direction:column;
    position:absolute;
-   bottom:1vw;     font-family: 'DM Sans', sans-serif; 
+
 }
 .card_text_div{
     display:flex;
-    flex-direction: column;     font-family: 'DM Sans', sans-serif; 
-    align-items: left;margin-bottom:2vw;
+    flex-direction: column;    
     
 }
 .card_text_div h2{
     margin:0;
-    margin-left:1vw; font-family: 'DM Sans', sans-serif; 
-    display:flex;
-    font-size:1.5vw;
-    align-items:start;
+    padding:0;
+    font-size:1.3rem;
+    margin-bottom:-0.3rem;
 }
 .card_text_div p{
    
-    margin-left:1vw !important;
-    margin-top:0.2vw; font-family: 'DM Sans', sans-serif; 
-    font-size:1vw;font-weight: 500;
-    text-align:left;
+margin:0;
+padding:0;
+    font-size:0.9rem;font-weight: 500;
     
 
 }
 .card_button_div{
     display:flex;
-   
-    width:100%;
-}
+     width:100%;
+     gap:1rem;
+    }
+    
 .card_button_div button{
-    font-size:1vw;     font-family: 'DM Sans', sans-serif; font-weight: 600;
- 
+      font-weight: 500;
+   border:transparent;
+    background:transparent;
+   justify-content: center;
+     color:#2F0D4A;
+
+
 }
-.card_button_div>div{
+.card_button_div div{
     display:flex;
+    font-size:1rem;
 }
-#but1{
-    background:#E3E2E3;
-    color:black;
-   border-radius:0.5vw;border:transparent;
-   padding:1vw;
-   width:5.5vw;
-   margin-left:1vw;
-   margin-right:0vw;
-   display:flex;height:2.5vw;
-   align-items: center;justify-content: center;
-}
-#but2{
-    background:#FC6766;
-    color:white;
-   border-radius:0.5vw;border:transparent;
-   padding:1vw; display:flex;height:2.5vw;
-   align-items: center;justify-content: center;
-  width:6vw;margin-left:0.5vw;
-  
-}
-#but3{
-    background:#E3E2E3;
-    color:#B179F4;
-   border-radius:0.5vw;border:transparent;
-   padding:1vw;
-   display:flex;height:2.5vw;
-   align-items: center;justify-content: center;
-width:4.5vw;
-margin-left:5vw;font-size:1.2vw;
-   
+.card_button_section_div{
+    position:absolute;
 }
 
+.card_button_div h2{
+    font-weight: 300;   
+    margin-bottom:-0.7rem; 
+    font-size:0.8rem;
+    font-style: italic;
+    position:absolute;
+    bottom:2.7rem;
+    color:#B5B5AF;
+}
+
+#but1>p{
+    border-right:1px solid black;
+}
+
+#but1{
+    
+    display:flex;
+    flex-direction:column;
+    
+ margin-left:0;
+  height:2.5rem;
+}
+    
+#but2{
+    display:flex;
+    flex-direction:column;
+   display:flex;height:2.5rem;
+width:100%
+
+
+
+  
+}
+#but1 div>p{
+     padding-left:1rem;
+     
+  
+}
+#but2 div>p{
+     border-left:1px solid  #B5B5AF;
+     padding-left:1rem;
+  white-space: nowrap;
+
+     
+  
+}
+#but3 div>p{
+     border-left:1px solid #B5B5AF;
+     padding-left:1rem;
+
+  
+}
+.say{
+    padding-left:1rem;
+}
+.gun{
+    padding-left:1rem;
+}
+.giymet{
+    padding-left:1rem;
+}
+#but3{
+ display:flex;
+    flex-direction:column;
+   display:flex;height:2.5rem;
+
+
+   
+}
+#but3>p{
+    border-left:1px solid black;
+}
+.card_bottom_right{
+    display:flex;
+  flex-direction: row;
+  font-size:1.2rem;
+  gap:0.3rem;
+  
+
+}
+.card_bottom_right img{
+   margin:0;
+   padding:0;
+   pointer-events: auto;
+  -webkit-user-drag: none;
+  user-select: none;
+
+}
+.add2mob{
+    display:none;
+}
+
+@media only screen and (max-width: 800px)  {
+  .ticket_table{
+    margin:0;
+    padding:0;
+    width:100%;
+    padding-left:8.5vw;
+  
+  }
+  .add2desk{
+    display:none;
+  }
+  .add2mob{
+    display:block;
+    margin-left:9.5vw;
+    margin-top:2rem;
+    margin-bottom:2rem;
+    width:98vw;
+    
+  }
+
+}
+@media only screen and (max-width: 450px){
+  .ticket_table{
+    margin:0rem;
+    padding-left:13vw;
+  
+  }
+
+}
+@media only screen and (max-width: 400px){
+    .ticket_table{
+    margin:0rem;
+    padding-left:18vw;
+  
+  }
+  .add2mob{
+    width:98%;
+    margin-top:6vw;
+    margin-bottom:6vw;
+  }
+
+}
+@media only screen and (max-width: 360px){
+    .ticket_table{
+    margin:0rem;
+    padding-left:6.5rem;
+  
+  }
+  .add2mob{
+    width:25rem;
+    margin-top:6vw;
+    margin-bottom:6vw;
+  }
+
+}
+
+@media only screen and (max-width: 330px){
+  .ticket_table{
+    margin:0rem;
+    padding-left:8.5rem;
+  
+  }
+  .add2mob{
+    width:112%;
+    margin-left:13vw;
+  }
+
+}

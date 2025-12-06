@@ -11,8 +11,37 @@
     width:55vw;
     height:43vw;   
     background:white;
-    box-shadow: rgba(0, 0, 0, 0.16) 0px 10px 36px 0px, rgba(0, 0, 0, 0.06) 0px 0px 0px 1px;
     position:relative;
+    border:transparent;
+      background:#EEE8E2;
+}
+
+.card_div::before,
+.card_div::after {
+  content: "";
+  position: absolute;
+  width: 2.3rem;
+  height: 3rem;
+  background: #F5F4F5;
+  top: 50%;
+  transform: translateY(-50%);
+  border-color:none;
+  border-radius: 1rem;
+  
+
+}
+
+.card_div::before {
+  left: -20px;
+  border-right: 0.2px solid rgba(0, 0, 0, 0.18);
+
+
+}
+
+.card_div::after {
+  right: -20px;
+  border-left: 0.2px solid rgba(0, 0, 0, 0.18);
+
 }
 .mobcardiv{
 
@@ -27,6 +56,15 @@
    width:100%;
  
 }
+.discount_span{
+    display: inline-block;
+       font-weight: 500;
+       font-size:13vw;
+   border:transparent;
+    background:transparent;
+   justify-content: center;
+     color:#2F0D4A;
+}
 .card_pp{
     width:13vw;    height:13vw;
     display:flex;
@@ -37,7 +75,7 @@
       position:absolute;
       top:3vw;left:3vw;
     border-radius:50vw;
-    border:0.4vw solid black;
+    border:0.2vw solid black;
 }
 .card_bottom{
     display:flex;
@@ -48,7 +86,9 @@
 .card_text_div{
     display:flex;
     flex-direction: column;     font-family: 'DM Sans', sans-serif; 
-    align-items: left;margin-bottom:3vw;
+    align-items: left;
+    margin-left:15vw;
+    padding-top:5vw;
     
 }
 .card_text_div h2{
@@ -69,33 +109,64 @@
 .card_button_div{
     display:flex;
     justify-content:space-between;
-    width:100%;
+   width:50vw;
+   margin-bottom:-3vw;
 }
 .card_button_div button{
     font-size:3vw;     font-family: 'DM Sans', sans-serif; font-weight: 600;
     margin-left:3vw;
 }
+
 #but1{
-    background:#E3E2E3;
+  
     color:black;
    border-radius:1vw;border:transparent;
-   padding:1vw;
-   width:13vw;
+
+background:transparent;
+
    margin-right:0vw;
+   white-space: nowrap;
+}
+.card_bottom_right{
+    display:flex;
+}
+.card_bottom_right img{
+
+}
+#but1>h2{
+   color:#B5B5AF;
+   font-size:3vw;
+   font-weight:300;
+   margin-bottom:-2vw;
+   font-style:italic;
+}
+#but2>h2{
+   color:#B5B5AF;
+   margin-bottom:-2vw;
+   font-size:3vw;
+   font-weight:300;
+   font-style:italic;
+}
+#but3>h2{
+   margin-bottom:-2vw;
+   color:#B5B5AF;
+   font-size:3vw;
+   font-weight:300;
+   font-style:italic;
 }
 #but2{
-    background:#FC6766;
-    color:white;
+
+background:transparent;
+    
    border-radius:1vw;border:transparent;
-   padding:1vw;
-  width:15vw;
+   white-space: nowrap;
+
 }
 #but3{
-    background:#E3E2E3;
-    color:#B179F4;
+  
    border-radius:1vw;border:transparent;
-   padding:1vw;
-width:10vw;
-margin-left:9vw;
+
+background:transparent;
+
    
 }

@@ -1,9 +1,73 @@
-.deskcar{
-    width:100%;
-    height:100%;z-index:-1;
+/* === Embla ortak stilleri === */
+.emblaViewport {
+  overflow: hidden;
+  width: 100%;
+  
 }
-.carousel{
-    width:89vw;margin-left:-10.5vw;
-    margin-top:3vw;
-    margin-bottom:5vw;
+
+.emblaContainer {
+  display: flex;
+  
+}
+
+.emblaSlide {
+  flex: 0 0 100%; /* her slide tam genişlik */
+  position: relative;
+  
+}
+
+/* === Resim stili (senin istediğin gibi) === */
+.deskcar {
+  width: 100%;
+  z-index: -1;
+  object-fit: cover; /* öneri: resmin taşmasını engeller */
+  
+}
+
+/* === Eski carousel class'ının birebir karşılığı === */
+.carousel {
+  
+  margin-top: 3vw;
+  margin-bottom: 5vw;
+}
+
+/* === Bu sliderın özel wrapper'ı === */
+.emblaMain {
+  position: relative;
+  width: 90vw;           /* eski .carousel genişliğiyle tam uyum */
+  /* eski .carousel hizası */
+  margin-top: 3vw;
+  margin-bottom: 5vw;
+  margin-left: -3vw;
+
+  
+}
+
+/* === Oklar (desktop) === */
+.arrowLeftMain,
+.arrowRightMain {
+  position: absolute;
+  top: 50%;
+  z-index: 2;
+  
+  background: #dadada;
+  border: none;
+  border-radius: 50vw;
+  width: 2.5vw;
+  height: 2.5vw;
+  display: flex;
+  
+  justify-content: center;
+  align-items: center;
+  color: white;
+  font-size: 1.5vw;
+  cursor: pointer;
+}
+
+.arrowLeftMain {
+  left: 4vw;
+}
+
+.arrowRightMain {
+  right: 4vw;
 }

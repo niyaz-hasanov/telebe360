@@ -3,6 +3,7 @@
 *{
     font-family: 'DM Sans', sans-serif;
 }
+
 button{
     cursor: pointer;
 }
@@ -12,6 +13,16 @@ a{
 li{
     list-style:none;
 }
+html, body {
+  /* Scroll bar’ı gizle ama kaydırma kalsın */
+  scrollbar-width: none;      /* Firefox */
+  -ms-overflow-style: none;   /* Eski Edge/IE */
+}
+
+body::-webkit-scrollbar {
+  display: none;              /* Chrome, Safari, Opera */
+}
+
 .loading-spinner {
     
     position: fixed;

@@ -1,71 +1,83 @@
-import React, { useState, useEffect } from 'react';
-import "react-responsive-carousel/lib/styles/carousel.min.css";
-import { Carousel } from 'react-responsive-carousel';
+// MobileSlider.jsx / .tsx
+import React, { useState, useEffect, useCallback } from 'react';
+import useEmblaCarousel from 'embla-carousel-react';
 import { FaChevronRight, FaChevronLeft } from 'react-icons/fa';
 import css from './carousel.module.css';
-import Image from 'next/image';
-import { fetchSliderData } from '../../utils/banner/fetchSliderData'; // Veriyi çektiğin dosya
-import {MAINURL} from '../../utils/constants'
+import { fetchSliderData } from '../../utils/banner/fetchSliderData';
+import { MAINURL } from '../../utils/constants';
+
 export default function MobileSlider() {
-    const [slides, setSlides] = useState([]);
+    function getBannerImg(path) {
+      return path ? `${MAINURL}uploads/${path}` : '/noaddbannermobile.png';
+    }
+  
+  const [slides, setSlides] = useState([]);
 
-    useEffect(() => {
-        const fetchData = async () => {
-            const data = await fetchSliderData();
-            // type: true olan verileri filtrele
-            const filteredSlides = data.filter(item => item.type === true);
-            setSlides(filteredSlides);
-        };
+  const [emblaRef, emblaApi] = useEmblaCarousel({
+    loop: true,
+    align: 'start',
+    skipSnaps: false,
+  });
 
-        fetchData();
-    }, []);
+  useEffect(() => {
+    const fetchData = async () => {
+      const data = await fetchSliderData();
+      const filteredSlides = data.filter(item => item.type === true);
+      setSlides(filteredSlides);
+    };
 
-    return (
-        <Carousel
-            renderArrowPrev={(onClickHandler, hasPrev, label) =>
-                hasPrev && (
-                    <button type="button" onClick={onClickHandler} title={label} style={{position:'absolute',top:'18vw',left:'5vw',zIndex:'1',background:'rgba(128, 128, 128, 0.599)',border:'none',borderRadius:'50vw' ,width:'8vw',display:'flex',justifyContent:'center',alignItems:'center',height:'8vw',color:'white',fontSize:'5vw',}}>
-                        <FaChevronLeft/>
-                    </button>
-                )
-            }
-            renderArrowNext={(onClickHandler, hasNext, label) =>
-                hasNext && (
-                    <button type="button" onClick={onClickHandler} title={label} style={{position:'absolute',top:'18vw',right:'5vw',zIndex:'0',background:'rgba(128, 128, 128, 0.599)',border:'none',borderRadius:'50vw' ,width:'8vw',display:'flex',justifyContent:'center',alignItems:'center',height:'8vw',color:'white',fontSize:'5vw'}}>
-                        <FaChevronRight/>
-                    </button>
-                )
-            }
-            useKeyboardArrows={true}
-            swipeable={true}
-            showStatus={false}
-            showThumbs={false}
-            autoPlay={true}
-            infiniteLoop={true}
-            showArrows={true}
-            emulateTouch={true}
-            swipeScrollTolerance={5}
-            thumbWidth={100}
-            interval={5000}
-            transitionTime={1500}
-            showIndicators={false}
-            centerMode={false}
-            centerSlidePercentage={100}
-            selectedItem={0}
-            stopOnHover={false}
-            dynamicHeight={true}
-            className={css.carousel}
-        >
-            {slides.map((slide) => (
-                <div key={slide.id} className={css.mobcardiv}>
-                    <img
-                        src={`${MAINURL}uploads/${slide.mobile_img_path}`} // Mobile için ilgili görsel
-                        alt={slide.name}
-                        
-                        className={css.mobcar}
-                    />
-                </div>
-            ))}
-        </Carousel>
-    );
+    fetchData();
+  }, []);
+
+  const scrollPrev = useCallback(() => {
+    if (!emblaApi) return;
+    emblaApi.scrollPrev();
+  }, [emblaApi]);
+
+  const scrollNext = useCallback(() => {
+    if (!emblaApi) return;
+    emblaApi.scrollNext();
+  }, [emblaApi]);
+
+  return (
+    <div className={css.emblaMobile}>
+      {/* Sol ok */}
+      <button
+        type="button"
+        onClick={scrollPrev}
+        className={css.arrowLeftMobile}
+      >
+        <FaChevronLeft />
+      </button>
+
+      {/* Sağ ok */}
+      <button
+        type="button"
+        onClick={scrollNext}
+        className={css.arrowRightMobile}
+      >
+        <FaChevronRight />
+      </button>
+
+      {/* Embla viewport */}
+      <div className={css.emblaViewport} ref={emblaRef}>
+        <div className={css.emblaContainer}>
+          {slides.map(slide => (
+            <div className={css.emblaSlide} key={slide.id}>
+              <img
+               src={getBannerImg(slide.mobile_img_path)}
+               
+                onError={(e) => {
+                  e.currentTarget.onerror = null;
+                  e.currentTarget.src = '/noaddbannermobile.png';
+                }}
+                alt={slide.name}
+                className={css.mobcar}
+              />
+            </div>
+          ))}
+        </div>
+      </div>
+    </div>
+  );
 }
