@@ -236,12 +236,12 @@ export default function MiniDrawer() {
             <Image src="/Burger.svg" className={css.hamburger} width="0" height="0" alt="menu" />
           </IconButton>
 
-          <span className={css.nav_div_left2}>
+          {/* <span className={css.nav_div_left2}>
             <Link href="/">
               <img className={css.sidebar_360img} src="/wide360logo.svg" alt="Tələbə360" />
             </Link>
-          </span>
-
+          </span> */}
+     
           <span>
             {authenticated && !isLoadingProfile && isStudentVerified === false ? (
               <span className={css.sidebar_middle_text}>
@@ -256,10 +256,11 @@ export default function MiniDrawer() {
           <div className={css.nav_div_right}>
             {authenticated ? (
               <span className={css.noti_and_ticket}>
-                <a href="/my_tickets">
+                <a href="/telebecoin_info">
+                 <p>{coinCount}</p>
                   <img src="/navbar_telebecoin.svg" className={css.ticket_logo} alt="coins" />
                 </a>
-                <p>{coinCount} coin</p>
+               
               </span>
             ) : (
               <h1></h1>
@@ -270,7 +271,7 @@ export default function MiniDrawer() {
                 <a href="/my_tickets">
                   <img src="/navbar_ticket.svg" className={css.ticket_logo} alt="tickets" />
                 </a>
-                <p>Kuponlarım</p>
+            
               </span>
             ) : (
               <h1></h1>
@@ -283,7 +284,7 @@ export default function MiniDrawer() {
                     isStudentVerified={isStudentVerified}
                     profileImgPath={profileImgPath}
                   />
-                  <p id={css.profile_p}>Profil</p>
+               
                 </span>
               ) : (
                 <button onClick={handleLoginClick} className={css.loginButton}>

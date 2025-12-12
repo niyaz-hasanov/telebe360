@@ -1,12 +1,13 @@
 /* Arkaplan blur vs. için zaten sende var: .bulanik { ... } */
 
 .ticket {
-  background: #f4eee5;
+  background:white;
   border-radius: 1.5rem;
   overflow: hidden;
   display: flex;
   flex-direction: column;
     outline:'none';
+
 }
 
 /* Üst header */
@@ -14,8 +15,12 @@
 .ticketHeader {
   padding: 1.5rem 1rem 1.5rem 1rem;
   border-radius:1.5rem;
-  background: #f4eee5;
+  background: white;
   outline:'none';
+      border:1px solid #8f00ff;
+ 
+
+
 }
 
 .companyBox {
@@ -30,7 +35,7 @@
   width: 3.5rem;
   height: 3.5rem;
   border-radius: 50%;
-  background: #F7F4F5 ;
+  background: white ;
   border:1px solid black;
   
 
@@ -64,7 +69,12 @@
 
 .ticketBody {
   padding: 2rem 2rem 4rem 2rem;
-  background: #f4eee5;
+  background: white;
+      border-left:1px solid #8f00ff;
+      border-bottom:1px solid #8f00ff;
+      
+
+
   position: relative;
     outline:'none';
 }
@@ -154,7 +164,7 @@
 }
 
 .qrImage {
-  width: 8rem;
+  width: 12rem;
   height: auto;
 }
 

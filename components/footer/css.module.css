@@ -154,13 +154,80 @@
   color: #ffffff;
   box-shadow: 0 6px 16px #8F00FF;
 }
+.footer_section {
+  /* her kolon için wrapper */
+}
+
+.section_header {
+  background: none;
+  border: none;
+  padding: 0;
+  margin-bottom: 8px;
+  font-weight: 600;
+  color: #000;
+  font-size: 14px;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  cursor: default; /* desktop’ta tıklanmasa da olur */
+}
+
+.chevron {
+  display: none; /* desktop’ta ok görünmesin */
+  font-size: 12px;
+  transition: transform 0.2s ease;
+}
+
+.chevron_open {
+  transform: rotate(180deg);
+}
+
+/* Desktop default: listeler açık */
+.footer_column {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  font-size: 14px;
+  color: #555;
+}
+.register_text{
+  display:none;
+}
 
 /* RESPONSIVE */
 
 @media (max-width: 840px) {
   
     .footer{
-    width:103vw;
+      height:130vh;
+   
+  }
+  .footer_container{
+    position:relative;
+  }
+  .logo_block{
+    position:absolute;
+    bottom:-8vw;
+  }
+  .register_text{
+    display:block;
+    margin:0;
+    color:#4D4950;
+    font-size:0.8rem;
+  }
+  .social_list{
+    position:absolute;
+    right:5vw;
+    bottom:-8vw;
+    gap:5vw;
+  }
+  .footer_middle_bottom_ul{
+    position:absolute;
+    bottom:-27vw;
+    font-size:0.8rem;
+    font-weight:600;
+    left:3vw;
   }
   .footer_container {
     flex-direction: column;
@@ -178,136 +245,56 @@
   .footer_right {
     align-self: flex-start;
     flex-direction: column;
-    position:absolute;
-    right:0;
     
     
   }
   .sign{
     position:absolute;
-    bottom:6vw;
+    bottom:-25vw;
+    font-weight: 600;
   }
 }
 
 
-@media (max-width: 600px) {
+@media (max-width: 800px) {
   .footer_middle_top {
     flex-direction: column;
-    align-items: flex-start;
+    align-items: stretch;
+    gap: 0;
+    border-bottom:1px solid #4D4950;
+    padding-bottom:2vw;
+    margin-top:0vw;
+    padding-top:0vw;
   }
-  
 
-  .footer_middle_bottom_ul {
-    justify-content: flex-start;
+  .section_header {
+    cursor: pointer;
+    padding: 12px 0;
+   width:95vw;
+    margin-bottom: 0;
   }
-  .sign{
-    position:absolute; 
-    bottom:3rem;
+
+  .chevron {
+    display: inline-block; /* mobile’da oku göster */
   }
- 
+
+  .footer_column {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.25s ease;
+    padding-left: 0;
+  }
+
+  .footer_column.open {
+    max-height: 300px; /* içerik sayına göre büyük bir değer */
+    margin-top: 6px;
+    padding-left:3vw;
+
+  }
 }
-
-@media only screen and (max-width: 400px){
-     .footer{
-        width:26rem;
-        height:23rem;
-        
-     
-    }
-    .footer{
-        padding-left:1rem;
-        padding-top:1rem;
-        padding-right:1rem;
-    }
-  .footer_container{
-    
-  }
-  
-    .footer_middle{
-        flex-direction:row
-    }
-    
-      .companybutton{
-        position :absolute;
-        left:54vw;
-        z-index:999;
-        top:35vw;
-      }
-    .footer_left_top{
-        font-size:3vw;
-      
-        
-        position: relative;
-    }
-    .footer_middle{
-        display: flex;
-        flex-direction: column  ;
-    }
-    .footer_middle_top{
-        flex-direction: row;
-        white-space: nowrap;
-        
-    }
-    .logo_block img{
-        width:8rem; 
-    }
-    .social_icon{
-        width:1.5rem;
-    }
-   
-    .footer_middle_bottom{
-      margin-bottom:2rem;
-      
-    }
-  
-    
-    .footer_column{
-        font-size: 0.8rem;
-        white-space: wrap;
-    }
-    .footer_container{
-        padding-top:2vw;
-        padding-left:1vw; border-top-left-radius:10vw;
-        border-top-right-radius:10vw;
-  
-    }
-    .footer_left_bottom{
-        font-size:2vw;
-        border:none;    font-weight:800;align-self: flex-end;
-       margin-inline-start: 30vw;
-    }
-    .footer_left_bottom_ul{
-        display:none;
-    }
-
-    
-    
-    .app{
-        position:relative;
-    }
-    .app ul{
-        display:flex;
-        position:relative;
-      
-        width:45vw;        gap:3vw;
-        align-items: center;
-        justify-content: center;
-    }
-    .app ul li{
-    }
-    .img{
-        width:8vw;
-    }
-    .sign{
-       position:absolute; 
-       left:6vw;
-       bottom:10vw;color:black;
-       
-    }
-    .footer_middle_bottom_ul{
-        position:absolute; bottom:8vw;
-        left:1.5rem;
-        
-    }
-   
+@media (max-width: 350px) {
+ .footer_middle_bottom_ul{
+  bottom:-38vw;
+  left:5vw;
+ }
 }

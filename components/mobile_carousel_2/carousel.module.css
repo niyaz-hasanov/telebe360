@@ -2,6 +2,8 @@
 .emblaViewport {
   overflow: hidden;
   width: 100%;
+  margin-top:6vw;
+  margin-bottom:6vw;
 }
 
 .emblaContainer {
@@ -30,7 +32,7 @@
 .arrowLeftMobile,
 .arrowRightMobile {
   position: absolute;
-  top: 18vw;
+  top: 14vw;
   z-index: 1;
   background: rgba(128, 128, 128, 0.599);
   border: none;
@@ -50,5 +52,5 @@
 }
 
 .arrowRightMobile {
-  right: 0vw;
+  right: 2vw;
 }

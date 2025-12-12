@@ -17,8 +17,8 @@
  
 }
 .ppdiv{
-    width: 2.1rem; 
-    height: 2.1rem;
+    width: 3rem; 
+    height: 3rem;
     border-radius: 50%; 
     overflow: hidden; 
     position: relative; 
@@ -42,7 +42,7 @@
   
     border:none;
    display: flex;
-   background:#F2F3F2;
+   background:transparent;
 }
 .dropdownp{
     font-weight: 600; font-size:14px; ;

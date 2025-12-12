@@ -2,7 +2,7 @@
 .emblaViewport {
   overflow: hidden;
   width: 100%;
-  
+    width: 91vw;  
 }
 
 .emblaContainer {
@@ -34,11 +34,11 @@
 /* === Bu sliderın özel wrapper'ı === */
 .emblaMain {
   position: relative;
-  width: 90vw;           /* eski .carousel genişliğiyle tam uyum */
+         /* eski .carousel genişliğiyle tam uyum */
   /* eski .carousel hizası */
   margin-top: 3vw;
   margin-bottom: 5vw;
-  margin-left: -3vw;
+
 
   
 }
@@ -65,9 +65,11 @@
 }
 
 .arrowLeftMain {
-  left: 4vw;
+  left: 1vw;
+  top:40%;
 }
 
 .arrowRightMain {
-  right: 4vw;
+  right: 2vw;
+  top:40%;
 }

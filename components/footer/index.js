@@ -1,12 +1,58 @@
 // components/footer/index.jsx
+import { useState } from 'react';
 import css from './css.module.css';
 import Feedback from '../feedback_modal/modal';
+
+const SECTIONS = [
+  {
+    title: 'Partnership',
+    links: [
+      { label: 'Websites', href: '#' },
+      { label: 'Social Media', href: '#' },
+      { label: 'Branding', href: '#' },
+    ],
+  },
+  {
+    title: 'About',
+    links: [
+      {
+        label: 'Our project',
+        href: 'https://www.intechmain.com/',
+        external: true,
+      },
+      {
+        label: 'Careers',
+        href: 'https://instagram.com/intech.academy/',
+        external: true,
+      },
+    ],
+  },
+  {
+    title: 'Support',
+    links: [
+      { label: 'Support Request', href: '#' },
+      { label: 'Contact', href: '/technical_support' },
+      { label: 'Feedback', href: '#' },
+    ],
+  },
+];
+
 export default function Footer() {
+  // ❗ Artık tek index değil, her section için ayrı state tutuyoruz
+  const [openSections, setOpenSections] = useState({}); // {0: true, 1: false, ...}
+
   const handleLoginClick = () => {
     window.open(
       'https://docs.google.com/forms/d/e/1FAIpQLSditFI3TYNQCBpO-OJXvoypfpTXFbBMBpFumOffomGRJcNPBg/viewform',
       '_blank'
     );
+  };
+
+  const toggleSection = (index) => {
+    setOpenSections((prev) => ({
+      ...prev,
+      [index]: !prev[index], // sadece tıklananı tersine çeviriyoruz
+    }));
   };
 
   return (
@@ -48,50 +94,64 @@ export default function Footer() {
         {/* ORTA */}
         <div className={css.footer_middle}>
           <div className={css.footer_middle_top}>
-            <ul className={css.footer_column}>
-              <li className={css.li_first}>Partnership</li>
-              <li>Websites</li>
-              <li>Social Media</li>
-              <li>Branding</li>
-            </ul>
+            {SECTIONS.map((section, index) => {
+              const isOpen = !!openSections[index];
 
-            <ul className={css.footer_column}>
-              <li className={css.li_first}>About</li>
-              <li>
-                <a
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  href="https://www.intechmain.com/"
-                >
-                  Our Projects
-                </a>
-              </li>
-              <li>
-                <a
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  href="https://instagram.com/intech.academy/"
-                >
-                  Careers
-                </a>
-              </li>
-            </ul>
+              return (
+                <div key={section.title} className={css.footer_section}>
+                  {/* Başlık (desktop: normal, mobile: accordion butonu) */}
+                  <button
+                    type="button"
+                    className={css.section_header}
+                    onClick={() => toggleSection(index)}
+                  >
+                    <span>{section.title}</span>
+                    <span
+                      className={`${css.chevron} ${
+                        isOpen ? css.chevron_open : ''
+                      }`}
+                    >
+                      <img src="/footer_chevron_down.svg" alt="" />
+                    </span>
+                  </button>
 
-            <ul className={css.footer_column}>
-              <li className={css.li_first}>Support</li>
-              <li>Support Request</li>
-              <li>
-                <a href="/technical_support">Contact</a>
-              </li>
-              <li>Feedback</li>
-            </ul>
+                  <ul
+                    className={`${css.footer_column} ${
+                      isOpen ? css.open : ''
+                    }`}
+                  >
+                    {section.links.map((link) => (
+                      <li key={link.label}>
+                        {link.href ? (
+                          <a
+                            href={link.href}
+                            target={link.external ? '_blank' : undefined}
+                            rel={link.external ? 'noreferrer' : undefined}
+                          >
+                            {link.label}
+                          </a>
+                        ) : (
+                          link.label
+                        )}
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              );
+            })}
           </div>
 
           <div className={css.footer_middle_bottom}>
             <ul className={css.footer_middle_bottom_ul}>
-              <li>Terms of service<span className={css.border_line}> |</span></li>
-              <li>Privacy Policy<span className={css.border_line}> |</span></li>
-              <li>Terms of use<span className={css.border_line}> |</span></li>
+              <li>
+                Terms of service<span className={css.border_line}> |</span>
+              </li>
+              <li>
+                Privacy Policy<span className={css.border_line}> |</span>
+              </li>
+              <li>
+                Terms of use<span className={css.border_line}> |</span>
+              </li>
               <li>FAQ</li>
             </ul>
           </div>
@@ -99,13 +159,14 @@ export default function Footer() {
 
         {/* SAĞ */}
         <div className={css.footer_right}>
+          <p className={css.register_text}>Şirkət hesabınızla qeydiyyatdan keçin!</p>
           <button onClick={handleLoginClick} className={css.loginButton}>
             Şirkət qeydiyyatı
           </button>
-          <Feedback/>
+          <p className={css.register_text}>Rəy və təkliflərinizi bizimlə bölüşün!</p>
+          <Feedback />
         </div>
       </div>
     </footer>
   );
 }
-

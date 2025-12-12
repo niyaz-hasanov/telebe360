@@ -139,7 +139,7 @@ export default function TicketsSection() {
         <div className={css.ticket_table}>
           {restPart.map(ticket => (
               <Link style={{ color: 'black' }} href={`/tickets/${ticket.id}`}>
-          <div key={ticket.id} className={css.card_div}>
+            <div key={ticket.id} className={css.card_div}>
           
            
               <div className={css.card_top}>
@@ -160,7 +160,7 @@ export default function TicketsSection() {
                 <div className={css.card_button_div}>
                   <div>
                     <button id={css.but1}>
-                      <h2>Say</h2>
+                      <h2 className={css.say}>Say</h2>
                       <div className={css.card_bottom_right}>
                         <p>{ticket.count}</p>
                         <img src='/ticket_ticketlogo.svg'/>
@@ -169,7 +169,7 @@ export default function TicketsSection() {
                   </div>
                   <div >
                     <button id={css.but2}>
-                      <h2>Gün</h2>
+                      <h2 className={css.gun}>Gün</h2>
                       <div className={css.card_bottom_right}>
                       <p>{calculateTimeLeft(ticket.end_time)}</p>
                       <img src='/ticket_clocklogo.svg'/>
@@ -178,7 +178,7 @@ export default function TicketsSection() {
                       </div>
                   <div>
                     <button id={css.but3}>
-                      <h2>Qiymət</h2>
+                      <h2 className={css.giymet}>Qiymət</h2>
                       <div className={css.card_bottom_right}>
                         <p>{ticket.price}</p>
                         <img src='/telebecoinlogo.svg'/>

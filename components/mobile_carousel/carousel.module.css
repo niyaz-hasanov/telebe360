@@ -30,7 +30,7 @@
 .arrowLeftMobile,
 .arrowRightMobile {
   position: absolute;
-  top: 12vw;
+  top: 14vw;
   z-index: 1;
   background: rgba(128, 128, 128, 0.599);
   border: none;
@@ -50,5 +50,5 @@
 }
 
 .arrowRightMobile {
-  right: 0vw;
+  right: 2vw;
 }

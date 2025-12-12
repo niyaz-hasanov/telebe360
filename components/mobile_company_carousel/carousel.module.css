@@ -13,34 +13,62 @@
     background:white;
     position:relative;
     border:transparent;
-      background:#EEE8E2;
+      background:white;
+      border:1px solid #BF7AF5;
 }
+
 
 .card_div::before,
 .card_div::after {
   content: "";
   position: absolute;
-  width: 2.3rem;
-  height: 3rem;
-  background: #F5F4F5;
+  width: 2.5rem;
+  height: 3.1rem;
+
+  
   top: 50%;
   transform: translateY(-50%);
   border-color:none;
-  border-radius: 1rem;
+
   
 
 }
 
+
 .card_div::before {
   left: -20px;
-  border-right: 0.2px solid rgba(0, 0, 0, 0.18);
+   border: 0.8px solid transparent;
+   border-radius:1rem;
+   background: 
+    linear-gradient(#F5F4F5, #F5F4F5) padding-box, /* içerisi */
+    linear-gradient(
+      to right,
+      #F5F4F5 0%,
+      #F5F4F5 48%,
+      #BF7AF5 48%,
+      #BF7AF5 100%
+    ) border-box; /* border gradyanı */
+        
 
 
 }
 
 .card_div::after {
   right: -20px;
-  border-left: 0.2px solid rgba(0, 0, 0, 0.18);
+  border: 0.8px solid transparent;
+   border-radius:1rem;
+   background: 
+    linear-gradient(#F5F4F5, #F5F4F5) padding-box, /* içerisi */
+    linear-gradient(
+      to right,
+     #BF7AF5 0%,
+      #BF7AF5  52%,
+      #F5F4F5  52%,
+        #F5F4F5  100%
+    ) border-box; /* border gradyanı */
+        
+
+
 
 }
 .mobcardiv{
@@ -169,4 +197,16 @@ background:transparent;
 background:transparent;
 
    
+}
+@media only screen and (max-width: 400px)  {
+    
+     #but1 .card_bottom_right img{
+    width:1rem;
+  }
+     #but2 .card_bottom_right img{
+    width:1rem;
+  }
+  #but3 .card_bottom_right img{
+    width:1rem;
+  }
 }

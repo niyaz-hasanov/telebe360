@@ -106,7 +106,7 @@ export default function BasicModal({
           {/* ÜST KISIM – MARKA */}
                    <img src='/ticket_dash.svg'/>
           {/* DELİK / KESİK ÇİZGİ */}
-          <div className={modalcss.ticketDivider} />
+   
 
           {/* ALT KISIM – BİLET GÖVDESİ */}
           <div className={modalcss.ticketBody}>
