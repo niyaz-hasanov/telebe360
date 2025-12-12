@@ -70,7 +70,9 @@ export default function TicketsSection() {
      
       <div className={css.ticket_table}>
         {firstPart.map(ticket => (
-           <Link style={{ color: 'black' }} href={`/tickets/${ticket.id}`}>
+
+           <Link    key={ticket.id}
+           style={{ color: 'black' }} className={css.card_wrapper} href={`/tickets/${ticket.id}`}>
           <div key={ticket.id} className={css.card_div}>
           
            
@@ -138,7 +140,7 @@ export default function TicketsSection() {
       {restPart.length > 0 && (
         <div className={css.ticket_table}>
           {restPart.map(ticket => (
-              <Link style={{ color: 'black' }} href={`/tickets/${ticket.id}`}>
+              <Link style={{ color: 'black' }} href={`/tickets/${ticket.id}`}  className={css.card_wrapper}>
             <div key={ticket.id} className={css.card_div}>
           
            
@@ -163,7 +165,7 @@ export default function TicketsSection() {
                       <h2 className={css.say}>Say</h2>
                       <div className={css.card_bottom_right}>
                         <p>{ticket.count}</p>
-                        <img src='/ticket_ticketlogo.svg'/>
+                        <img className={css.ticket_img} src='/ticket_ticketlogo.svg'/>
                         </div>
                       </button>
                   </div>
@@ -172,7 +174,7 @@ export default function TicketsSection() {
                       <h2 className={css.gun}>Gün</h2>
                       <div className={css.card_bottom_right}>
                       <p>{calculateTimeLeft(ticket.end_time)}</p>
-                      <img src='/ticket_clocklogo.svg'/>
+                      <img className={css.ticket_img} src='/ticket_clocklogo.svg'/>
                       </div>
                       </button>
                       </div>
@@ -181,7 +183,7 @@ export default function TicketsSection() {
                       <h2 className={css.giymet}>Qiymət</h2>
                       <div className={css.card_bottom_right}>
                         <p>{ticket.price}</p>
-                        <img src='/telebecoinlogo.svg'/>
+                        <img className={css.ticket_img} src='/telebecoinlogo.svg'/>
                         </div>
                         </button>
                   </div>

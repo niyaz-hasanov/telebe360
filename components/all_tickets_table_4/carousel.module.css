@@ -7,80 +7,39 @@
       white-space: nowrap;
  
   width:100%;
-gap:2rem;
+gap:0rem;
    justify-content: center;
 padding:0;
 
      
 }
 .card_div{
-   border-radius:1rem;
-   /* border:0.8px solid #BF7AF5;  <-- bunu sil */
-   width:300px;
-   height:14rem;   
-   background:white;          /* kənardakı fon rəngi */
-   position:relative;
-   padding-left:1rem;
-   padding-right:1rem;
-   padding-top:1rem;
-
-   border:0.8px solid #BF7AF5;
-}
+ width: 100%;
+  height: 100%;
+  position: relative;
+   overflow: visible;
 
 
-.card_div::before,
-.card_div::after {
-  content: "";
-  position: absolute;
-  width: 2.5rem;
-  height: 3.1rem;
+  padding-left: 1.5rem;
+  padding-top: 2rem;
 
-  
-  top: 50%;
-  transform: translateY(-50%);
-  border-color:none;
-
-  
-
-}
-
-
-.card_div::before {
-  left: -20px;
-   border: 0.8px solid transparent;
-   border-radius:1rem;
-   background: 
-    linear-gradient(#F5F4F5, #F5F4F5) padding-box, /* içerisi */
-    linear-gradient(
-      to right,
-      #F5F4F5 0%,
-      #F5F4F5 48%,
-      #BF7AF5 48%,
-      #BF7AF5 100%
-    ) border-box; /* border gradyanı */
-        
+  background: transparent;   /* önemli */
+  border: none;              /* önemli */
+  box-shadow: none;     
 
 
 }
 
-.card_div::after {
-  right: -20px;
-  border: 0.8px solid transparent;
-   border-radius:1rem;
-   background: 
-    linear-gradient(#F5F4F5, #F5F4F5) padding-box, /* içerisi */
-    linear-gradient(
-      to right,
-     #BF7AF5 0%,
-      #BF7AF5  52%,
-      #F5F4F5  52%,
-        #F5F4F5  100%
-    ) border-box; /* border gradyanı */
-        
-
+.card_wrapper{
+ display: inline-block;
+  width: 20rem;
+  height:16rem;
+  background-position: center;
+  background: url("/ticket_design.svg") center / 100% 100% no-repeat;
 
 
 }
+
 .card_pp img{
    width:100%;
    pointer-events: auto;
@@ -89,13 +48,13 @@ padding:0;
  
 }
 .card_pp{
-    width:4.7rem;    height:4.7rem;
+    width:4rem;    height:4rem;
     align-items: center;
     justify-content: center;
     z-index:1;
     overflow:hidden;
-     margin-left:-0.5rem;
     border-radius:50rem;
+    margin-left:1vw;
 }
 .card_top{
     display:flex;
@@ -106,7 +65,7 @@ padding:0;
 .card_middle{
     padding:0px;
     margin:0px;
-    margin-top:-2rem;
+    margin-top:-1rem;
     align-items: center;
     justify-self: center;
     font-size:4.5rem;
@@ -209,7 +168,7 @@ width:100%
 }
 #but3 div>p{
      border-left:1px solid #B5B5AF;
-     padding-left:1.5rem;
+     padding-left:1rem;
 
   
 }
@@ -220,7 +179,7 @@ width:100%
     padding-left:1.5rem;
 }
 .giymet{
-    padding-left:1.5rem;
+    padding-left:1rem;
 }
 #but3{
  display:flex;
@@ -273,284 +232,38 @@ width:100%
    .card_div{
    }
 }
-@media only screen and (max-width: 660px){
-   .card_div{
-    width:15rem;
-    height:13rem;
+@media only screen and (max-width: 685px){
+    .ticket_table{
+        gap:1vw;
+    }
+   .card_wrapper{
+    position:relative;
+    width:45vw;
+    background-image: url("/ticket_design_mobil.svg");
+    background-size: 100% 100%;
+    background-position: center;
+    background-repeat: no-repeat;
    }
+   /*BLƏƏƏƏT*/
    
-#but1>p{
-    border-right:1px solid black;
-}
-
-#but1{
-    
-    display:flex;
-    flex-direction:column;
-    
- margin-left:0;
-  height:2.5rem;
-}
-    
-#but2{
-    display:flex;
-    flex-direction:column;
-   display:flex;height:2.5rem;
-width:100%
-
-
-
-  
-}
-#but1 div>p{
-     padding-left:0.5rem;
-     
-  
-}
-#but2 div>p{
-     border-left:1px solid  #B5B5AF;
-     padding-left:0.5rem;
-  white-space: nowrap;
-
-     
-  
-}
-#but3 div>p{
-     border-left:1px solid #B5B5AF;
-     padding-left:0.5rem;
-
-  
-}
-.say{
-    padding-left:0.5rem;
-}
-.gun{
-    padding-left:0.5rem;
-}
-.giymet{
-    padding-left:0.5rem;
-}
-#but3{
- display:flex;
-    flex-direction:column;
-   display:flex;height:2.5rem;
-
-
-   
-}
-.card_button_div{
-    display:flex;
-    
-     gap:0rem;
-     margin-left:-1rem;
-    }
-    
-#but3>p{
-    border-left:1px solid black;
-}
-}
-@media only screen and (max-width: 525px){
-  .card_div{
-    width:14rem;
-  }
-}
- @media only screen and (max-width: 490px){
-  .card_div{
-    width:13rem;
-  }
-  
-.card_text_div p{
-   
-margin:0;
-padding:0;
-    font-size:0.7rem;font-weight: 500;
-    
-
-}
-.card_button_div{
-    display:flex;
-    
-     gap:0rem;
-     margin-left:-2rem;
-    }
-    
-.card_button_div button{
-      font-weight: 500;
-   border:transparent;
-    background:transparent;
-   justify-content: center;
-     color:#2F0D4A;
-
-
-}
-.card_button_div div{
-    display:flex;
-    font-size:1rem;
-}
-.card_button_section_div{
-    position:absolute;
-}
-
-.card_button_div h2{
-    font-weight: 300;   
-    margin-bottom:-0.7rem; 
-    font-size:0.7rem;
-    font-style: italic;
-    position:absolute;
-    bottom:2.7rem;
-    color:#B5B5AF;
-}
-
-#but1>p{
-    border-right:1px solid black;
-}
-
-#but1{
-    
-    display:flex;
-    flex-direction:column;
-    
- margin-left:0;
-  height:2.5rem;
-}
-    
-#but2{
-    display:flex;
-    flex-direction:column;
-   display:flex;height:2.5rem;
-width:100%
-
-
-
-  
-}
-#but1 div>p{
-     padding-left:1rem;
-     
-  
-}
-#but2 div>p{
-     border-left:1px solid  #B5B5AF;
-     padding-left:1rem;
-  white-space: nowrap;
-
-     
-  
-}
-#but3 div>p{
-     border-left:1px solid #B5B5AF;
-     padding-left:1rem;
-
-  
-}
-.say{
-    padding-left:1rem;
-}
-.gun{
-    padding-left:1rem;
-}
-.giymet{
-    padding-left:1rem;
-}
-#but3{
- display:flex;
-    flex-direction:column;
-   display:flex;height:2.5rem;
-
-
-   
-}
-#but3>p{
-    border-left:1px solid black;
-}
-.card_bottom_right{
-    display:flex;
-  flex-direction: row;
-  font-size:1.2rem;
-  gap:0.3rem;
-  
-
-}
-.card_bottom_right img{
-   margin:0;
-   padding:0;
-   width:1rem;
-   pointer-events: auto;
-  -webkit-user-drag: none;
-  user-select: none;
-
-}
- }
-@media only screen and (max-width: 450px){
-  .ticket_table{
-    margin:0rem;
-  
-  }
-
-
 
 .card_div{
-   border-radius:0.5rem;
-    width:11.5rem;
-    height:9.5rem;   
-    box-shadow: rgba(0, 0, 0, 0.18) 0px 2px 4px;
-    background:white;
-    position:relative;
-    padding-left:1rem;
-    padding-right:1rem;
-    padding-top:1rem;
- 
-}
+ width: 100%;
+  height: 100%;
+  position: static;
+   overflow: visible;
+   
 
-.card_div::before,
-.card_div::after {
-  content: "";
-  position: absolute;
-  width: 2rem;
-  height:1.8rem;
-  background: #F5F4F5;
-  top: 50%;
-  transform: translateY(-50%);
-  border-color:none;
-  border-radius: 0.5rem;
-  
 
-}
-
-.card_div::before {
-  left: -20px;
-   border: 0.8px solid transparent;
-   background: 
-    linear-gradient(#F5F4F5, #F5F4F5) padding-box, /* içerisi */
-    linear-gradient(
-      to right,
-      #F5F4F5 0%,
-      #F5F4F5 60%,
-      #BF7AF5 50%,
-      #BF7AF5 100%
-    ) border-box; /* border gradyanı */
-        
+  background: transparent;   /* önemli */
+  border: none;              /* önemli */
+  box-shadow: none;     
 
 
 }
 
-.card_div::after {
-  right: -20px;
-  border: 0.8px solid transparent;
-   background: 
-    linear-gradient(#F5F4F5, #F5F4F5) padding-box, /* içerisi */
-    linear-gradient(
-      to right,
-     #BF7AF5 0%,
-      #BF7AF5  0.8rem,
-      #F5F4F5  40%,
-        #F5F4F5  100%
-    ) border-box; /* border gradyanı */
-        
 
 
-
-}
 .card_pp img{
    width:100%;
    pointer-events: auto;
@@ -559,27 +272,26 @@ width:100%
  
 }
 .card_pp{
-    width:2.5rem;    height:2.5rem;
+    width:10vw;    height:10vw;
     align-items: center;
     justify-content: center;
     z-index:1;
     overflow:hidden;
-     margin-left:-0.5rem;
-    border-radius:50rem;
+    border-radius:50vw;
 }
 .card_top{
     display:flex;
-   gap:1rem;
+   gap:1vw;
     align-items: center;
     color:#2F0D4A;
 }
 .card_middle{
     padding:0px;
     margin:0px;
-    margin-top:0rem;
     align-items: center;
     justify-self: center;
-    font-size:2.5rem;
+    font-size:11vw;
+    height:10vw;
     color:#2F0D4A;
     font-weight:800;
 }
@@ -597,22 +309,21 @@ width:100%
 .card_text_div h2{
     margin:0;
     padding:0;
-    font-size:1.2rem;
-    margin-bottom:-0.3rem;
+    font-size:3vw;
+    margin-bottom:-0.3vw;
 }
 .card_text_div p{
    
 margin:0;
 padding:0;
-    font-size:0.7rem;font-weight: 500;
+    font-size:2vw;font-weight: 500;
     
 
 }
 .card_button_div{
     display:flex;
-    
-     gap:0rem;
-     margin-left:-2rem;
+     width:100%;
+     gap:1vw;
     }
     
 .card_button_div button{
@@ -626,7 +337,7 @@ padding:0;
 }
 .card_button_div div{
     display:flex;
-    font-size:0.7rem;
+    font-size:1vw;
 }
 .card_button_section_div{
     position:absolute;
@@ -634,11 +345,11 @@ padding:0;
 
 .card_button_div h2{
     font-weight: 300;   
-    margin-bottom:-0.7rem; 
-    font-size:0.7rem;
+    margin-bottom:5vw; 
+    font-size:2vw;
     font-style: italic;
     position:absolute;
-    bottom:2.7rem;
+    bottom:3vw;
     color:#B5B5AF;
 }
 
@@ -652,13 +363,14 @@ padding:0;
     flex-direction:column;
     
  margin-left:0;
-  height:2.5rem;
+ 
+  height:2.5vw;
 }
     
 #but2{
     display:flex;
     flex-direction:column;
-   display:flex;height:2.5rem;
+   display:flex;height:2.5vw;
 width:100%
 
 
@@ -666,37 +378,40 @@ width:100%
   
 }
 #but1 div>p{
-     padding-left:1rem;
+     font-size:2vw;
      
   
 }
 #but2 div>p{
      border-left:1px solid  #B5B5AF;
-     padding-left:1rem;
+     padding-left:1.5vw;
   white-space: nowrap;
+     font-size:2vw;
+
 
      
   
 }
 #but3 div>p{
      border-left:1px solid #B5B5AF;
-     padding-left:1rem;
+     padding-left:1.5vw;
+     font-size:2vw;
 
   
 }
 .say{
-    padding-left:1rem;
+    padding-left:1vw;
 }
 .gun{
-    padding-left:1rem;
+    padding-left:1.5vw;
 }
 .giymet{
-    padding-left:1rem;
+    padding-left:1.5vw;
 }
 #but3{
  display:flex;
     flex-direction:column;
-   display:flex;height:2.5rem;
+   display:flex;height:2.5vw;
 
 
    
@@ -707,15 +422,14 @@ width:100%
 .card_bottom_right{
     display:flex;
   flex-direction: row;
-  font-size:1.2rem;
-  gap:0.3rem;
+  font-size:2vw;
+  gap:0.3vw;
   
 
 }
 .card_bottom_right img{
    margin:0;
    padding:0;
-   width:1rem;
    pointer-events: auto;
   -webkit-user-drag: none;
   user-select: none;
@@ -723,615 +437,54 @@ width:100%
 }
 
 }
-@media only screen and (max-width: 410px){
-  .ticket_table{
-    margin:0rem;
-  
+@media only screen and (max-width: 685px){
+  .card_wrapper{
+    width:45vw;
+    aspect-ratio: 21 / 16;             /* desktop oranına benzer; istersen svg oranına göre değiştir */
+    height: auto;                       /* yükseklik sabitlenmesin */
+    background: url("/ticket_design_mobil.svg") center / 100% 100% no-repeat;
   }
 
-
-
-.card_div{
-   border-radius:0.5rem;
-    width:11rem;
-    height:9.5rem;   
-    box-shadow: rgba(0, 0, 0, 0.18) 0px 2px 4px;
-    background:white;
-    position:relative;
-    padding-left:1rem;
-    padding-right:1rem;
-    padding-top:1rem;
- 
-}
-
-.card_div::before,
-.card_div::after {
-  content: "";
-  position: absolute;
-  width: 2rem;
-  height:1.8rem;
-  background: #F5F4F5;
-  top: 50%;
-  transform: translateY(-50%);
-  border-color:none;
-  border-radius: 0.5rem;
-  
-
-}
-
-.card_div::before {
-  left: -20px;
-   border: 0.8px solid transparent;
-   background: 
-    linear-gradient(#F5F4F5, #F5F4F5) padding-box, /* içerisi */
-    linear-gradient(
-      to right,
-      #F5F4F5 0%,
-      #F5F4F5 60%,
-      #BF7AF5 50%,
-      #BF7AF5 100%
-    ) border-box; /* border gradyanı */
-        
-
-
-}
-
-.card_div::after {
-  right: -20px;
-  border: 0.8px solid transparent;
-   background: 
-    linear-gradient(#F5F4F5, #F5F4F5) padding-box, /* içerisi */
-    linear-gradient(
-      to right,
-     #BF7AF5 0%,
-      #BF7AF5  0.8rem,
-      #F5F4F5  40%,
-        #F5F4F5  100%
-    ) border-box; /* border gradyanı */
-        
-
-
-
-}
-.card_pp img{
-   width:100%;
-   pointer-events: auto;
-  -webkit-user-drag: none;
-  user-select: none;
- 
-}
-.card_pp{
-    width:2.5rem;    height:2.5rem;
-    align-items: center;
-    justify-content: center;
-    z-index:1;
-    overflow:hidden;
-     margin-left:-0.5rem;
-    border-radius:50rem;
-}
-.card_top{
-    display:flex;
-   gap:5px;
-    align-items: center;
-    color:#2F0D4A;
-}
-.card_middle{
-    padding:0px;
-    margin:0px;
-    margin-top:0rem;
-    align-items: center;
-    justify-self: center;
-    font-size:2.5rem;
-    color:#2F0D4A;
-    font-weight:800;
-}
-.card_bottom{
-    display:flex;
-    flex-direction:column;
-   position:absolute;
-
-}
-.card_text_div{
-    display:flex;
-    flex-direction: column;    
-    
-}
-.card_text_div h2{
-    margin:0;
-    padding:0;
-    font-size:1.2rem;
-    margin-bottom:-0.3rem;
-}
-.card_text_div p{
-   
-margin:0;
-padding:0;
-    font-size:0.7rem;font-weight: 500;
-    
-
-}
-.card_button_div{
-    display:flex;
-    
-     gap:0rem;
-     margin-left:-2rem;
-    }
-    
-.card_button_div button{
-      font-weight: 500;
-   border:transparent;
-    background:transparent;
-   justify-content: center;
-     color:#2F0D4A;
-
-
-}
-.card_button_div div{
-    display:flex;
-    font-size:0.7rem;
-}
-.card_button_section_div{
-    position:absolute;
-}
-
-.card_button_div h2{
-    font-weight: 300;   
-    margin-bottom:-0.7rem; 
-    font-size:0.7rem;
-    font-style: italic;
-    position:absolute;
-    bottom:2.7rem;
-    color:#B5B5AF;
-}
-
-#but1>p{
-    border-right:1px solid black;
-}
-
-#but1{
-    
-    display:flex;
-    flex-direction:column;
-    
- margin-left:0;
-  height:2.5rem;
-}
-    
-#but2{
-    display:flex;
-    flex-direction:column;
-   display:flex;height:2.5rem;
-width:100%
-
-
-
-  
-}
-#but1 div>p{
-     padding-left:0.8rem;
-     
-  
-}
-#but2 div>p{
-     border-left:1px solid  #B5B5AF;
-     padding-left:0.8rem;
-  white-space: nowrap;
-
-     
-  
-}
-#but3 div>p{
-     border-left:1px solid #B5B5AF;
-     padding-left:0.8rem;
-
-  
-}
-.say{
-    padding-left:0.8rem;
-}
-.gun{
-    padding-left:0.8rem;
-}
-.giymet{
-    padding-left:0.8rem;
-}
-#but3{
- display:flex;
-    flex-direction:column;
-   display:flex;height:2.5rem;
-
-
-   
-}
-#but3>p{
-    border-left:1px solid black;
-}
-.card_bottom_right{
-    display:flex;
-  flex-direction: row;
-  font-size:1.2rem;
-  gap:0.3rem;
-  
-
-}
-.card_bottom_right img{
-   margin:0;
-   padding:0;
-   width:1rem;
-   pointer-events: auto;
-  -webkit-user-drag: none;
-  user-select: none;
-
-}
-
-}
-@media only screen and (max-width: 395px){
-  
-
-
-
-.card_div{
-   border-radius:0.5rem;
-    width:10rem;
-    height:9.5rem;   
-    box-shadow: rgba(0, 0, 0, 0.18) 0px 2px 4px;
-    background:white;
-    position:relative;
-    padding-left:1rem;
-    padding-right:1rem;
-    padding-top:1rem;
- 
-}
-
-.card_pp{
-    width:2.5rem;    height:2.5rem;
-    align-items: center;
-    justify-content: center;
-    z-index:1;
-    overflow:hidden;
-     margin-left:-0.5rem;
-    border-radius:50rem;
-}
-.card_top{
-    display:flex;
-   gap:5px;
-    align-items: center;
-    color:#2F0D4A;
-}
-.card_middle{
-    padding:0px;
-    margin:0px;
-    margin-top:0rem;
-    align-items: center;
-    justify-self: center;
-    font-size:2.4rem;
-    color:#2F0D4A;
-    font-weight:800;
-}
-.card_bottom{
-    display:flex;
-    flex-direction:column;
-   position:absolute;
-
-}
-.card_text_div{
-    display:flex;
-    flex-direction: column;    
-    
-}
-.card_text_div h2{
-    margin:0;
-    padding:0;
-    font-size:1.2rem;
-    margin-bottom:-0.3rem;
-}
-.card_text_div p{
-   
-margin:0;
-padding:0;
-    font-size:0.6rem;font-weight: 500;
-    
-
-}
-.card_button_div{
-    display:flex;
-    
-     gap:0rem;
-     margin-left:-2rem;
-    }
-    
-.card_button_div button{
-      font-weight: 500;
-   border:transparent;
-    background:transparent;
-   justify-content: center;
-     color:#2F0D4A;
-
-
-}
-.card_button_div div{
-    display:flex;
-    font-size:0.6rem;
-}
-.card_button_section_div{
-    position:absolute;
-}
-
-.card_button_div h2{
-    font-weight: 300;   
-    margin-bottom:-0.7rem; 
-    font-size:0.6rem;
-    font-style: italic;
-    position:absolute;
-    bottom:2.7rem;
-    color:#B5B5AF;
-}
-
-#but1>p{
-    border-right:1px solid black;
-}
-
-#but1{
-    
-    display:flex;
-    flex-direction:column;
-    
- margin-left:0.6vw;
-  height:2.5rem;
-}
-    
-#but2{
-    display:flex;
-    flex-direction:column;
-   display:flex;height:2.5rem;
-width:100%
-
-
-
-  
-}
-#but1 div>p{
-     padding-left:0.6rem;
-     
-  
-}
-#but2 div>p{
-     border-left:1px solid  #B5B5AF;
-     padding-left:0.6rem;
-  white-space: nowrap;
-
-     
-  
-}
-#but3 div>p{
-     border-left:1px solid #B5B5AF;
-     padding-left:0.6rem;
-
-  
-}
-.say{
-    padding-left:0.6rem;
-}
-.gun{
-    padding-left:0.6rem;
-}
-.giymet{
-    padding-left:0.6rem;
-}
-#but3{
- display:flex;
-    flex-direction:column;
-   display:flex;height:2.5rem;
-
-
-   
-}
-#but3>p{
-    border-left:1px solid black;
-}
-.card_bottom_right{
-    display:flex;
-  flex-direction: row;
-  font-size:1.1rem;
-  gap:0.3rem;
-  
-
-}
-.card_bottom_right img{
-   margin:0;
-   padding:0;
-   width:1rem;
-   pointer-events: auto;
-  -webkit-user-drag: none;
-  user-select: none;
-
-}
-
-}
-@media only screen and (max-width: 360px){
-  
-
-  .ticket_table{
-    gap:1rem;
+  .card_div{
+    position: relative;                 /* 🔥 absolute child'lar için referans */
+    width: 100%;
+    height: 100%;
+    padding:3vw;       /* 🔥 kartın iç boşluğu */
+    display: grid;                      /* 🔥 kaymayı bitirir */
+    grid-template-rows: auto 1fr auto;  /* top / middle / bottom */
+    row-gap: 1.5vw;
   }
 
-.card_div{
-   border-radius:0.5rem;
-    width:8.5rem;
-    height:7rem;   
-    box-shadow: rgba(0, 0, 0, 0.18) 0px 2px 4px;
-    background:white;
-    position:relative;
-    padding-left:0.7rem;
-    padding-right:0.2rem;
-    padding-top:0.2rem;
- 
-}
+  .card_top{
+    align-self: start;
+  }
 
-.card_pp{
-    width:2.5rem;    height:2.5rem;
-    align-items: center;
-    justify-content: center;
-    z-index:1;
-    overflow:hidden;
-     margin-left:-0.5rem;
-    border-radius:50rem;
-}
-.card_top{
-    display:flex;
-   gap:5px;
-    align-items: center;
-    color:#2F0D4A;
-}
-.card_middle{
-    padding:0px;
-    margin:0px;
-    margin-top:0rem;
-    align-items: center;
+  .card_middle{
+    align-self: center;                 /* ortada sabit */
     justify-self: center;
-    font-size:2rem;
-    color:#2F0D4A;
-    font-weight:800;
-}
-.card_bottom{
-    display:flex;
-    flex-direction:column;
-   position:absolute;
-
-}
-.card_text_div{
-    display:flex;
-    flex-direction: column;    
-    
-}
-.card_text_div h2{
-    margin:0;
-    padding:0;
-    font-size:0.9rem;
-    margin-bottom:-0.3rem;
-}
-.card_text_div p{
-   
-margin:0;
-padding:0;
-    font-size:0.6rem;font-weight: 500;
-    
-
-}
-.card_button_div{
-    display:flex;
-    
-     gap:0rem;
-     margin-left:-2rem;
-    }
-    
-.card_button_div button{
-      font-weight: 500;
-   border:transparent;
-    background:transparent;
-   justify-content: center;
-     color:#2F0D4A;
-
-
-}
-.card_button_div div{
-    display:flex;
-    font-size:0.5rem;
-    margin-top:-0.4rem;
-}
-.card_button_section_div{
-    position:absolute;
-}
-
-.card_button_div h2{
-    font-weight: 300;   
-    margin-bottom:-0.7rem; 
-    font-size:0.5rem;
-    font-style: italic;
-    position:absolute;
-    bottom:2.5rem;
-    color:#B5B5AF;
-}
-
-#but1>p{
-    border-right:1px solid black;
-}
-
-#but1{
-    
-    display:flex;
-    flex-direction:column;
-    
- margin-left:5vw;
-  height:2.5rem;
-}
-    
-#but2{
-    display:flex;
-    flex-direction:column;
-   display:flex;height:2.5rem;
-width:100%
-
-
-
-  
-}
-#but1 div>p{
-     padding-left:0.2rem;
-   
-     
-  
-}
-#but2 div>p{
-     border-left:1px solid  #B5B5AF;
-     padding-left:0.2rem;
-  white-space: nowrap;
-
-     
-  
-}
-#but3 div>p{
-     border-left:1px solid #B5B5AF;
-     padding-left:0.2rem;
-
-  
-}
-.say{
-    padding-left:0.2rem;
-}
-.gun{
-    padding-left:0.2rem;
-}
-.giymet{
-    padding-left:0.2rem;
-}
-#but3{
- display:flex;
-    flex-direction:column;
-   display:flex;height:2.5rem;
-
-
-   
-}
-#but3>p{
-    border-left:1px solid black;
-}
-.card_bottom_right{
-    display:flex;
-  flex-direction: row;
-  font-size:1.1rem;
-  gap:0.3rem;
-  
-
-}
-.card_bottom_right img{
    margin:0;
-   padding:0;
-   width:0.8rem;
-   pointer-events: auto;
-  -webkit-user-drag: none;
-  user-select: none;
+   margin-top:-15vw;
+  }
 
-}
-
+  .card_bottom{
+    position: static;                   /* 🔥 absolute KAPAT */
+    width: 100%;
+  }
+  
+  .card_button_div{
+    width: 100%;
+    margin-top:-4.5vw;
+    justify-content: space-between;
+    gap: 1vw;
+  }
+  
+  #but1 .card_bottom_right img{
+    width:4vw !important;
+  }
+  #but2 .card_bottom_right img{
+    width:4vw !important;
+  }
+  #but3 .card_bottom_right img{
+    width:4vw !important;
+  }
 }

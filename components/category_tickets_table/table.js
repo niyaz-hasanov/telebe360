@@ -48,6 +48,7 @@ const Slider = ({ tickets }) => {
             key={ticket.id}
             style={{ color: 'black' }}
             href={`/tickets/${ticket.id}`}
+            className={css.card_wrapper}
           >
             <div className={css.card_div}>
               <div className={css.card_top}>
@@ -121,6 +122,7 @@ const Slider = ({ tickets }) => {
               key={ticket.id}
               style={{ color: 'black' }}
               href={`/tickets/${ticket.id}`}
+              className={css.card_wrapper}
             >
               <div className={css.card_div}>
                 <div className={css.card_top}>
