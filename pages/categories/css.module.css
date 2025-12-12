@@ -1,6 +1,10 @@
 .container{
-   margin-left:10vw;
+
    margin-top:0vw;
+   display: flex;
+   flex-direction: column;
+   align-items: center;
+   justify-content: center;
 }
 .container h1{
    text-align: center;
@@ -8,14 +12,21 @@
 .div{
     display:flex;
     flex-direction: column;
+    align-items: center;
+    justify-content: center;
+  margin-left:5vw;
  
- 
+}
+.banner_desktop{
+     width:91vw;
+    margin-left:5vw;
 }
 .div .mobile_slider{
     display:none;
 }
+
 .table{
-    margin-left:3vw;
+   
 }
 .banner_mobile{
     display:none;
@@ -27,16 +38,16 @@
      
 }
 
+
 @media only screen and (max-width: 800px){
     .container{
         margin:0;   
-        margin-left:3vw;
     }
     .div .desktop_slider{
         display:none;
     }
     .div{
-        margin-left:-5vw;
+      margin-left:-1vw;
     }
     .container h1{
      }
@@ -48,7 +59,7 @@
         width:98vw;
     }
     .banner_mobile2{
-        margin-left:0.5vw;
+   
         display:block;
          
     }
@@ -60,23 +71,5 @@
     }
     .table{
     
-    }
-}
-@media only screen and (max-width: 400px){
-    .banner_mobile{
-        width:106vw;
-    }
-    .container{
-        margin-left:0rem;
-        padding-left:1rem;
-    }
-}
-@media only screen and (max-width: 330px){
-      .banner_mobile{
-        width:120vw;
-    }
-    .container{
-        margin-left:0rem;
-        padding-left:1rem;
     }
 }

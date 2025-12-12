@@ -207,6 +207,9 @@
   white-space: wrap;
   width:10rem;
 }
+#gender_input{
+ 
+}
 
 .nextbut, .submitbut {
   background-color: #9977F4;
@@ -260,6 +263,41 @@
 .university_value{
 white-space: normal;
   word-wrap: break-word;
+}
+#referal{
+  position:relative;
+}
+#infoicon{
+  position:absolute;
+  width:1.8vw;
+  right:1vw; 
+  top:2.5vw;
+ 
+}
+#infoiconspan{
+
+}
+#info_bubble{
+  display:none;
+  position:absolute;
+  right:0;
+  bottom:2.3rem;
+  background:#F7F7F7;
+  color:grey;
+  font-size:16px;
+  width:15rem;
+  text-align: left;
+  border-radius:1rem;
+  padding:1rem;
+  transition:1s;
+}
+#infoicon:hover{
+  cursor:pointer;
+
+}
+#infoiconspan:hover #info_bubble{
+  display:block;
+
 }
 
 @media only screen and (max-width: 800px) {

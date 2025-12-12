@@ -8,6 +8,7 @@ import axios from 'axios';
 import Cookies from 'js-cookie'; 
 import { MAINURL } from '../../utils/constants'; 
 
+
 export default function Home() {
   const [student, setStudent] = useState({});
   const [universityName, setUniversityName] = useState('');

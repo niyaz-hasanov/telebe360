@@ -15,6 +15,9 @@ export default function Home() {
   const [email, setEmail] = useState('');
   const [profileImgPath, setProfileImgPath] = useState('');
   const [universityName, setUniversityName] = useState('');
+  const [referralCode, setReferralCode] = useState('');
+
+
   const [showTooltip, setShowTooltip] = useState(false);
   const [showTooltip2, setShowTooltip2] = useState(false);
   const [isVerified, setIsVerified] = useState(true);
@@ -38,7 +41,7 @@ export default function Home() {
         setEmail(data.email);
         setProfileImgPath(data.profile_img_path);
         setIsVerified(data.is_student_verified);
-
+        setReferralCode(data.referal_code);
         const universityResponse = await axios.get(`${APIURL}universities/${data.university_id}`, {
           headers: {
             Authorization: `Bearer ${token}`,

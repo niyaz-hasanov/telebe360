@@ -18,7 +18,11 @@ export default function Home() {
         <style jsx global>{`
             body {
               margin: 0;
+             
               background:#F5F4F5;
+              padding:0;
+              display:flex;
+              flex-direction:column;
             }
       `}</style>
         <Head>
@@ -41,11 +45,12 @@ export default function Home() {
         
       
         <div className={css.ticket_table_div}>
-          <h2 className={css.ticket_table_h2}>Bütün biletlər</h2></div>
-
-        <div className={css.table_div}>
+          <h2 className={css.ticket_table_h2}>Bütün kuponlar</h2>
+           <div className={css.table_div}>
           <Table4 />
-        </div>
+        </div></div>
+
+       
 
 
 

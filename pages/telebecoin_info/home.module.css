@@ -1,0 +1,29 @@
+.main_container {
+  width: 100vw;
+  margin-top:-8vw;
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: #F5F4F5;
+  overflow: hidden;
+}
+
+.fullscreen_image {
+  width: 100%;
+  height: auto;          /* şəkilin tamamı görünsün */
+  object-fit: contain;   /* şəkil KƏSİLMƏSİN */
+  display: block;
+}
+#link{
+    position:absolute;
+    left:8vw;
+    top:185%;
+    color:transparent;
+    background:transparent;
+    width:20vw;
+    height:10vw;
+}
+#link:hover{
+    cursor:pointer;
+}

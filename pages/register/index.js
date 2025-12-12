@@ -3,8 +3,8 @@ import React, { useState, useEffect } from 'react';
 import Head from 'next/head';
 import { motion, AnimatePresence } from 'framer-motion';
 import css from './register.module.css';
-import { FaEye, FaEyeSlash } from 'react-icons/fa';
-import { APIURL, MAINURL } from '../../utils/constants'
+import { FaEye } from 'react-icons/fa';
+import { APIURL, MAINURL } from '../../utils/constants';
 import toast from 'react-hot-toast';
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
@@ -14,7 +14,7 @@ export default function Register() {
   const [formData, setFormData] = useState({
     fname: '',
     lname: '',
-    referalCode: '',
+    referal_code: '',
     birth_date: '',
     sex: '',
     email: '',
@@ -22,7 +22,6 @@ export default function Register() {
     university_id: '',
     card: null,
     imagePreview: null,
-
   });
 
   const [activeDiv, setActiveDiv] = useState(1);
@@ -32,18 +31,20 @@ export default function Register() {
     length: false,
     uppercase: false,
     symbol: false,
+    noSpace: true,
+    noQuestionMark: true,
   });
-  const [timer, setTimer] = useState(120); // Başlangıçta 2 dakika (120 saniye)
-  const [isTimerRunning, setIsTimerRunning] = useState(false); // 120 saniye = 2 dakika
-  const [isResendActive, setIsResendActive] = useState(false);
+  const [timer, setTimer] = useState(120);
+  const [isTimerRunning, setIsTimerRunning] = useState(false);
   const [universities, setUniversities] = useState([]);
+  const [isSubmitting, setIsSubmitting] = useState(false); // API request zamanı multi-click qarşısı
 
   useEffect(() => {
     const fetchUniversities = async () => {
       try {
         const response = await fetch(`${APIURL}universities/`);
         const data = await response.json();
-        setUniversities(data); // Assuming `data` is an array
+        setUniversities(data);
       } catch (error) {
         console.error('Error fetching universities:', error);
       }
@@ -55,28 +56,24 @@ export default function Register() {
   const isValidBirthDate = (birthDate) => {
     const birth = new Date(birthDate);
 
-    // Gün kontrolü
     const day = birth.getDate();
     if (day > 31) {
       toast.error("Gün 31-dən böyük ola bilməz!");
       return false;
     }
 
-    // Ay kontrolü
-    const month = birth.getMonth() + 1; // getMonth() 0'dan başladığı için 1 ekliyoruz
+    const month = birth.getMonth() + 1;
     if (month > 12) {
       toast.error("Ay 12-dən böyük ola bilməz!");
       return false;
     }
 
-    // Yıl kontrolü
     const year = birth.getFullYear();
     if (year < 1970) {
       toast.error("Yaş 50-dən böyük ola bilməz!");
       return false;
     }
 
-    // Eğer bütün kontroller geçtiyse, doğum tarihi geçerlidir.
     return true;
   };
 
@@ -85,48 +82,58 @@ export default function Register() {
     const secs = seconds % 60;
     return `${minutes}:${secs < 10 ? '0' : ''}${secs}`;
   };
+
   const checkAge = (birthDate) => {
     const today = new Date();
     const birth = new Date(birthDate);
     const age = today.getFullYear() - birth.getFullYear();
     const monthDifference = today.getMonth() - birth.getMonth();
     const dayDifference = today.getDate() - birth.getDate();
-    return age > 17 || (age === 17 && (monthDifference > 0 || (monthDifference === 0 && dayDifference >= 0)));
+    return (
+      age > 17 ||
+      (age === 17 &&
+        (monthDifference > 0 ||
+          (monthDifference === 0 && dayDifference >= 0)))
+    );
+  };
+
+  const checkPasswordStrength = (password) => {
+    return {
+      length: password.length >= 8,
+      uppercase: /[A-Z]/.test(password),
+      symbol: /[^A-Za-z0-9]/.test(password),
+      noSpace: !/\s/.test(password),
+      noQuestionMark: !/\?/.test(password),
+    };
   };
 
   const handleChange = (e) => {
     const { name, value, type, files } = e.target;
 
-    // fname ve lname için harf kontrolü
     if (name === 'fname' || name === 'lname') {
       const regex = /^[A-Za-zÇçəƏĞğİıÖöŞşÜü\s]*$/;
       if (!regex.test(value)) {
         toast.error('Ad və soyad yalnız hərflərdən ibarət olmalıdır!');
-        return; // Geçersiz girdi olduğunda işlemi durdur
+        return;
       }
-
     }
 
     if (type === 'file' && name === 'card') {
       const file = files[0];
-      // Resmi yüklerken imagePreview'e resmin URL'sini ekliyoruz
       setFormData({
         ...formData,
         [name]: file,
-        imagePreview: URL.createObjectURL(file), // Resmi yükledikten sonra önizleme için URL oluşturuyoruz
+        imagePreview: URL.createObjectURL(file),
       });
-    }
-
-
-    else if (name === 'sex') {
-      const isMale = value === "male";
+    } else if (name === 'sex') {
+      const isMale = value === 'male';
       setFormData({ ...formData, [name]: isMale });
     } else {
       setFormData({ ...formData, [name]: value });
 
       if (name === 'birth_date') {
         if (!checkAge(value)) {
-          return; // Tarih değiştiğinde yaş kontrolü başarısızsa form geçişini engelle
+          return;
         }
       }
 
@@ -134,40 +141,30 @@ export default function Register() {
         const requirements = checkPasswordStrength(value);
         setPasswordRequirements(requirements);
 
-        // Şifre gücünü renk ile göster
         setPasswordStrength(
-          requirements.length && requirements.uppercase && requirements.symbol
+          requirements.length &&
+            requirements.uppercase &&
+            requirements.symbol &&
+            requirements.noSpace &&
+            requirements.noQuestionMark
             ? 'strong'
-            : requirements.length && (requirements.uppercase || requirements.symbol)
-              ? 'medium'
-              : 'weak'
+            : requirements.length &&
+              (requirements.uppercase || requirements.symbol)
+            ? 'medium'
+            : 'weak'
         );
       }
     }
   };
 
-
-
-
-
-
-  const checkPasswordStrength = (password) => {
-    return {
-      length: password.length >= 8,
-      uppercase: /[A-Z]/.test(password),
-      symbol: /[^A-Za-z0-9]/.test(password),
-      noSpace: !/\s/.test(password), // Boşluk karakterinin olmaması gerekiyor
-      noQuestionMark: !/\?/.test(password), // '?' karakterinin olmaması gerekiyor
-    };
-  };
-
-
   const togglePasswordVisibility = () => {
     setPasswordVisible(!passwordVisible);
   };
+
+  // VALIDASYALAR – yeni step sıralamasına uyğun
   const validateForm = () => {
+    // Step 1: personal info
     if (activeDiv === 1) {
-      // Bütün alanlar doldurulmuş mu?
       if (!formData.fname || !formData.lname || !formData.birth_date || formData.sex === '') {
         toast.error("Zəhmət olmasa bütün xanaları doldurun.");
         return false;
@@ -177,8 +174,28 @@ export default function Register() {
         return false;
       }
 
-      if (formData.password.includes('?')) {
-        toast.error("Şifrəniz '?' simvolunu əhatə etməməlidir.");
+      if (!checkAge(formData.birth_date)) {
+        toast.error("Qeydiyyat üçün ən az 17 yaşında olmalısınız!");
+        return false;
+      }
+
+      if (!isValidBirthDate(formData.birth_date)) {
+        return false;
+      }
+    }
+
+    // Step 2: universitet + kart
+    if (activeDiv === 2) {
+      if (!formData.university_id && !formData.card) {
+        toast.error("Zəhmət olmasa universitetinizi seçin və tələbə kartınızı yükləyin.");
+        return false;
+      }
+      if (!formData.university_id) {
+        toast.error("Zəhmət olmasa universitetinizi seçin.");
+        return false;
+      }
+      if (!formData.card) {
+        toast.error("Zəhmət olmasa tələbə kartınızı yükləyin.");
         return false;
       }
 
@@ -187,161 +204,172 @@ export default function Register() {
         toast.error("Yalnız png, jpg, jpeg və svg şəkil formatları qəbul edilir.");
         return false;
       }
+    }
 
-      // Yaş kontrolü
-      if (!checkAge(formData.birth_date)) {
-        toast.error("Qeydiyyat üçün ən az 17 yaşında olmalısınız!");
+    // Step 3: email + şifrə
+    if (activeDiv === 3) {
+      if (!formData.email) {
+        toast.error("Zəhmət olmasa emailinizi daxil edin.");
         return false;
       }
 
-      // Yeni doğum tarihi kontrolü
-      if (!isValidBirthDate(formData.birth_date)) {
-        return false; // Tarih geçerli değilse, formu geçemez
+      if (!formData.password) {
+        toast.error("Zəhmət olmasa şifrənizi daxil edin.");
+        return false;
       }
-    }
-    if (activeDiv === 2) {
-      // Şifrenin gereksinimlerini kontrol et
+
+      if (formData.password.includes('?')) {
+        toast.error("Şifrəniz '?' simvolunu əhatə etməməlidir.");
+        return false;
+      }
+
       const isPasswordValid = Object.values(passwordRequirements).every((req) => req);
 
-      // Şifrede boşluk varsa hata mesajı
       if (!passwordRequirements.noSpace) {
         toast.error("Şifrədə boşluq ola bilməz!");
         return false;
       }
 
-      // Şifre tüm gereksinimleri karşılamıyorsa hata mesajı
       if (!isPasswordValid) {
         toast.error("Şifrəniz bütün tələbləri ödəməlidir!");
         return false;
       }
-      if (activeDiv === 3) {
-        if (!formData.university_id && !formData.card) {
-          toast.error("Zəhmət olmasa universitetinizi seçin və tələbə kartınızı yükləyin.");
-          return false;
-        }
-        if (!formData.university_id) {
-          toast.error("Zəhmət olmasa universitetinizi seçin.");
-          return false;
-        }
-        if (!formData.card) {
-          toast.error("Zəhmət olmasa tələbə kartınızı yükləyin.");
-          return false;
-        }
-      }
-
     }
 
-
+    // Son check – required fieldlər
     switch (activeDiv) {
       case 1:
-        return formData.fname && formData.lname && formData.referalCode && formData.birth_date && formData.sex !== '';
+        return (
+          formData.fname &&
+          formData.lname &&
+          formData.birth_date &&
+          formData.sex !== ''
+        );
       case 2:
-        return formData.email && formData.password;
-      case 3:
         return formData.university_id && formData.card;
+      case 3:
+        // referal kodu sizdə optional kimi görünür, isdəsəniz bura && formData.referal_code da əlavə edə bilərsiz
+        return formData.email && formData.password;
       default:
         return false;
     }
   };
 
+const handleSubmit = async (e) => {
+  e.preventDefault();
+  if (isSubmitting) return;
 
+  const formDataToSend = new FormData();
+  formDataToSend.append('fname', formData.fname);
+  formDataToSend.append('lname', formData.lname);
+  formDataToSend.append('birth_date', formData.birth_date);
+  formDataToSend.append('referal_code', formData.referal_code);
+  formDataToSend.append('sex', formData.sex);
+  formDataToSend.append('university_id', formData.university_id);
+  formDataToSend.append('email', formData.email);
+  formDataToSend.append('password', formData.password);
+  formDataToSend.append('card', formData.card);
 
+  try {
+    setIsSubmitting(true);
+    const response = await fetch(`${APIURL}auth/sign-up`, {
+      method: 'POST',
+      body: formDataToSend,
+    });
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
+    const result = await response.json();
 
-    const formDataToSend = new FormData();
-    formDataToSend.append('fname', formData.fname);
-    formDataToSend.append('lname', formData.lname);
-    formDataToSend.append('birth_date', formData.birth_date);
-    formDataToSend.append('referalCode', formData.referalCode);
-    formDataToSend.append('sex', formData.sex); // Doğru değer gönderildiğinden emin olun
-    formDataToSend.append('university_id', formData.university_id); // ID doğru mu?
-    formDataToSend.append('email', formData.email);
-    formDataToSend.append('password', formData.password);
-    formDataToSend.append('card', formData.card); // File olarak gönderildiğinden emin olun
-
-    try {
-      const response = await fetch(`${APIURL}auth/sign-up`, {
-        method: 'POST',
-        body: formDataToSend,
-      });
-
-      const result = await response.json();
-      if (response.ok) {
-        toast.success('Qeydiyyat sorğusu uğurla göndərildi! Zəhmət olmasa e-poçtunuza daxil olub, hesabınızı təsdiq edin.Təsdiq etdikdən sonra hesabınıza giriş edə bilərsiniz');
-        setActiveDiv(4);
-        setIsTimerRunning(true); // Timer'ı başlat
-        startTimer();  // Sunucu başarılıysa 4. div'e geç
-      } else if (response.status === 409) {
-        toast.error(result.message || 'Bu email artıq qeydiyyatdan keçib.Zəhmət olmasa başqa email yoxlayın');
-      }
-      else if (response.status === 422) {
-        toast.error(result.message || 'Gözlənilməyən növ məlumatlar göndərilməsinə görə xəta! Zəhmət olmasa qeydiyyat qaydalarına riayət edin!');
-      } else {
-        toast.error(result.message || 'Xəta baş verdi, bir daha cəhd edin.');
-      }
-    } catch (error) {
-      console.log('Server ilə əlaqə qurulmadı.');
+    if (response.ok) {
+      toast.success(
+        'Qeydiyyat sorğusu uğurla göndərildi! Zəhmət olmasa e-poçtunuza daxil olub, hesabınızı təsdiq edin. Təsdiq etdikdən sonra hesabınıza giriş edə bilərsiniz'
+      );
+      setActiveDiv(4);
+      setIsTimerRunning(true);
+      setTimer(120);
+    } 
+   
+    else if (result?.detail === 'Referal code is invalid') {
+      toast.error('Referal kod yanlışdır. Zəhmət olmasa düzgün kod daxil edin və ya boş buraxın.');
+      // Burada activeDiv 3-də qalır, 4-ə keçmir
+    } 
+    else if (response.status === 409) {
+      toast.error(
+        result.message ||
+          'Bu email artıq qeydiyyatdan keçib. Zəhmət olmasa başqa email yoxlayın'
+      );
+    } else if (response.status === 422) {
+      toast.error(
+        result.message ||
+          'Gözlənilməyən növ məlumatlar göndərilməsinə görə xəta! Zəhmət olmasa qeydiyyat qaydalarına riayət edin!'
+      );
+    } else {
+      toast.error(result.message || 'Xəta baş verdi, bir daha cəhd edin.');
     }
-  };
+  } catch (error) {
+    console.log('Server ilə əlaqə qurulmadı.', error);
+    toast.error('Server ilə əlaqə qurulmadı.');
+  } finally {
+    setIsSubmitting(false);
+  }
+};
+
 
   const handleFileChange = (e) => {
     const file = e.target.files[0];
     if (file) {
-      // Yalnızca png, jpg, jpeg ve svg dosyalarına izin ver
       const allowedTypes = ['image/png', 'image/jpg', 'image/jpeg', 'image/svg+xml'];
       if (!allowedTypes.includes(file.type)) {
         toast.error("Yalnız png, jpg, jpeg və svg şəkil formatları qəbul edilir.");
         return;
       }
 
-      // Dosya geçerli, önizlemeyi ayarla
-      setFormData(prevState => ({
+      setFormData((prevState) => ({
         ...prevState,
         card: file,
-        imagePreview: URL.createObjectURL(file) // Resim önizlemesini göster
+        imagePreview: URL.createObjectURL(file),
       }));
     }
   };
 
   const handleResendVerification = async () => {
-    setTimer(120); // Geri sayımı başlat (örneğin 10 saniye)
-    setIsTimerRunning(true); // Zamanlayıcıyı çalıştır
+    setTimer(120);
+    setIsTimerRunning(true);
 
     try {
       const response = await fetch(`${APIURL}auth/resend-verification`, {
-        method: "POST",
+        method: 'POST',
         headers: {
-          "Content-Type": "application/json",
+          'Content-Type': 'application/json',
         },
         body: JSON.stringify({ email: formData.email }),
       });
 
       if (response.ok) {
-        toast.success("Verifikasiya e-maili uğurla göndərildi!");
+        toast.success('Verifikasiya e-maili uğurla göndərildi!');
       } else {
-        toast.error("Verifikasiya e-maili göndərilə bilmədi!");
+        toast.error('Verifikasiya e-maili göndərilə bilmədi!');
       }
     } catch (error) {
-      toast.error("Xəta baş verdi. Zəhmət olmasa bir daha cəhd edin");
+      toast.error('Xəta baş verdi. Zəhmət olmasa bir daha cəhd edin');
     }
   };
+
   useEffect(() => {
     let interval;
     if (isTimerRunning && timer > 0) {
       interval = setInterval(() => {
-        setTimer((prevTime) => prevTime - 1); // Timer'ı azalt
+        setTimer((prevTime) => prevTime - 1);
       }, 1000);
     } else if (timer === 0) {
-      setIsTimerRunning(false); // Timer sıfır olduğunda durdur
+      setIsTimerRunning(false);
     }
 
-    return () => clearInterval(interval); // Temizlik işlemi
+    return () => clearInterval(interval);
   }, [isTimerRunning, timer]);
+
   const universityOptions = universities.map((u) => ({
-    value: u.id,      // API’den gelen id
-    label: u.name,    // API’den gelen name
+    value: u.id,
+    label: u.name,
   }));
 
   return (
@@ -365,6 +393,7 @@ export default function Register() {
       </Head>
 
       <AnimatePresence>
+        {/* STEP 1: Ad, soyad, doğum tarixi, cinsiyyət */}
         {activeDiv === 1 && (
           <motion.div
             key="register_part1"
@@ -377,8 +406,9 @@ export default function Register() {
             <form className={css.registerFormDiv}>
               <div className={css.form_top_div}>
                 <h2 className={css.daxiltxt}>Başlayın</h2>
-                <p>Artıq hesabınız var? <a href='/login'>Daxil olun</a></p>
-
+                <p>
+                  Artıq hesabınız var? <a href="/login">Daxil olun</a>
+                </p>
               </div>
               <input
                 type="text"
@@ -403,13 +433,12 @@ export default function Register() {
                   if (date) {
                     setFormData({
                       ...formData,
-                      birth_date: date.toISOString().split('T')[0]
+                      birth_date: date.toISOString().split('T')[0],
                     });
                   }
                 }}
                 onChangeRaw={(e) => {
                   const raw = e.target.value;
-                  // 05082003 gibi girişleri parse et
                   if (/^\d{8}$/.test(raw)) {
                     const day = raw.slice(0, 2);
                     const month = raw.slice(2, 4);
@@ -419,7 +448,7 @@ export default function Register() {
                     if (!isNaN(parsedDate.getTime())) {
                       setFormData({
                         ...formData,
-                        birth_date: parsedDate.toISOString().split('T')[0]
+                        birth_date: parsedDate.toISOString().split('T')[0],
                       });
                     }
                   }
@@ -435,38 +464,46 @@ export default function Register() {
 
               <select
                 name="sex"
-                value={formData.sex === true ? "male" : formData.sex === false ? "female" : "non-binary"}
+                value={
+                  formData.sex === true
+                    ? 'male'
+                    : formData.sex === false
+                    ? 'female'
+                    : 'non-binary'
+                }
                 onChange={(e) => {
-                  const value = e.target.value === "male" ? true : e.target.value === "female" ? false : null;
+                  const value =
+                    e.target.value === 'male'
+                      ? true
+                      : e.target.value === 'female'
+                      ? false
+                      : null;
                   setFormData({ ...formData, sex: value });
                 }}
                 className={css.input}
+                id={css.gender_input}
               >
                 <option value="non-binary">Cinsiyyətiniz</option>
                 <option value="male">Kişi</option>
                 <option value="female">Qadın</option>
               </select>
-              <input
-                type="text"
-                name="referalCode"
-                value={formData.referalCode}
-                onChange={handleChange}
-                placeholder="Referal Kod"
-                className={css.input}
-              />
-              <button className={css.nextbut}
+
+              <button
+                className={css.nextbut}
                 onClick={(e) => {
                   e.preventDefault();
                   if (validateForm()) {
-
                     setActiveDiv(2);
-                  } else {
-
                   }
-                }}>➜ Növbəti</button>
+                }}
+              >
+                ➜ Növbəti
+              </button>
             </form>
           </motion.div>
         )}
+
+        {/* STEP 2: Universitet + tələbə kartı (DEYİŞDİRİLMİŞ) */}
         {activeDiv === 2 && (
           <motion.div
             key="register_part2"
@@ -477,80 +514,21 @@ export default function Register() {
             className={css.registerPart}
           >
             {activeDiv > 1 && (
-              <button className={css.prevbut} onClick={() => setActiveDiv(activeDiv - 1)}>🡠</button>
+              <button
+                className={css.prevbut}
+                onClick={() => setActiveDiv(activeDiv - 1)}
+              >
+                🡠
+              </button>
             )}
             <form className={css.registerFormDiv}>
               <div className={css.form_top_div}>
                 <h2 className={css.daxiltxt}>Başlayın</h2>
-                <p>Artıq hesabınız var? <a href='/login'>Daxil olun</a></p>
-
+                <p>
+                  Artıq hesabınız var? <a href="/login">Daxil olun</a>
+                </p>
               </div>
 
-              <input
-                type="email"
-                name="email"
-                value={formData.email}
-                onChange={handleChange}
-                placeholder="Emailiniz"
-                className={css.input}
-              />
-              <div className={css.passwordDiv}>
-                <img src='/key.svg' className={css.keyicon} />
-                <input
-                  type={passwordVisible ? "text" : "password"}
-                  name="password"
-                  value={formData.password}
-                  onChange={handleChange}
-                  placeholder="Şifrəniz"
-                  className={css.input}
-                  id={css.password_input}
-                />
-                <span onClick={togglePasswordVisibility} className={css.eyeIcon}>
-                  {passwordVisible ? <img src='eye.svg' className={css.eye} /> : <FaEye className={css.eye} />}
-                </span>
-                <div>
-                  <p>Şifrənizin gücü</p>
-                  <div className={css.passwordStrengthBar} style={{ width: passwordStrength === 'strong' ? '100%' : passwordStrength === 'medium' ? '66%' : '33%', backgroundColor: passwordStrength === 'strong' ? 'green' : passwordStrength === 'medium' ? 'orange' : 'red' }}></div>
-                </div>
-              </div>
-              <p>Şifrəniz aşağıdakıları əhatə etməlidir:</p>
-
-              <ul className={css.passwordRequirements}>
-                <li style={{ color: 'grey', listStyle: 'circle', color: passwordRequirements.length ? 'green' : 'red' }}>ən az 8 xanalı olmalıdır</li>
-                <li style={{ color: 'grey', listStyle: 'circle', color: passwordRequirements.uppercase ? 'green' : 'red' }}>ən az 1 böyük hərf</li>
-                <li style={{ color: 'grey', listStyle: 'circle', color: passwordRequirements.symbol ? 'green' : 'red' }}>ən az 1 simvol</li>
-                <li style={{ color: 'grey', listStyle: 'circle', color: passwordRequirements.noQuestionMark ? 'green' : 'red' }}>şifrədə ? simvolundan istifadə etməyin</li>
-                <li style={{ color: 'grey', listStyle: 'circle', color: passwordRequirements.noSpace ? 'green' : 'red', display: 'none' }}></li>
-              </ul>
-              <button className={css.nextbut}
-                onClick={(e) => {
-                  e.preventDefault();
-                  if (validateForm()) {
-                    setActiveDiv(3);
-                  } else {
-                  }
-                }}>➜ Növbəti</button>
-            </form>
-          </motion.div>
-        )}
-        {activeDiv === 3 && (
-          <motion.div
-            key="register_part3"
-            initial={{ opacity: 0, x: 100 }}
-            animate={{ opacity: 1, x: 0 }}
-            exit={{ opacity: 0, x: -100 }}
-            transition={{ duration: 0.4 }}
-            className={css.registerPart}
-          >
-            {activeDiv > 1 && (
-              <button className={css.prevbut} onClick={() => setActiveDiv(activeDiv - 1)}>🡠</button>
-            )}
-            <form className={css.registerFormDiv}>
-              <div className={css.form_top_div}>
-                <h2 className={css.daxiltxt}>Başlayın</h2>
-                <p>Artıq hesabınız var? <a href='/login'>Daxil olun</a></p>
-
-              </div>
               <Select
                 className={css.uniselect}
                 classNamePrefix="uni"
@@ -571,10 +549,9 @@ export default function Register() {
                   IndicatorSeparator: () => null,
                 }}
                 styles={{
-                  /* DIŞ KAPSAYICI: .uniselect genişliğini kullansın, büyümesin */
                   container: (base) => ({
                     ...base,
-                    width: '30vw',      // .uniselect'in width'i kadar
+                    width: '30vw',
                   }),
                   control: (base, state) => ({
                     ...base,
@@ -590,8 +567,8 @@ export default function Register() {
                   valueContainer: (base) => ({
                     ...base,
                     padding: '0 1.2rem',
-                    overflow: 'hidden',   // önemli
-                    minWidth: 0,          // flex çocuklarının taşmasını engellemek için KRİTİK
+                    overflow: 'hidden',
+                    minWidth: 0,
                   }),
                   singleValue: (base) => ({
                     ...base,
@@ -624,19 +601,20 @@ export default function Register() {
                     whiteSpace: 'normal',
                     wordWrap: 'break-word',
                     padding: '0.6rem 1rem',
-                    backgroundColor: state.isFocused ? 'rgba(153, 119, 244, 0.15)' : 'white',
+                    backgroundColor: state.isFocused
+                      ? 'rgba(153, 119, 244, 0.15)'
+                      : 'white',
                     color: 'black',
                   }),
                 }}
               />
-
 
               <div className={css.fileUploadDiv}>
                 <p className={css.fileUploadLabel}>Tələbə kartınız</p>
                 <label htmlFor="card">
                   <img
                     className={css.uploadIcon}
-                    src={formData.imagePreview || '/telebe_input.svg'} // Eğer bir resim yüklendiyse, yüklenen resmi gösteriyoruz
+                    src={formData.imagePreview || '/telebe_input.svg'}
                     alt="Upload Icon"
                   />
                 </label>
@@ -648,19 +626,176 @@ export default function Register() {
                   className={css.inputFile}
                 />
               </div>
+
               <button
                 className={css.nextbut}
-                onClick={async (e) => {
+                onClick={(e) => {
                   e.preventDefault();
                   if (validateForm()) {
-                    await handleSubmit(e); // Yalnız sunucu isteği olumlu yanıt alırsa aktifDiv'i artıracak
-                  } else {
+                    setActiveDiv(3);
                   }
                 }}
-              >➜ Növbəti</button>
+              >
+                ➜ Növbəti
+              </button>
             </form>
           </motion.div>
         )}
+
+        {/* STEP 3: Email + şifrə (DEYİŞDİRİLMİŞ) */}
+        {activeDiv === 3 && (
+          <motion.div
+            key="register_part3"
+            initial={{ opacity: 0, x: 100 }}
+            animate={{ opacity: 1, x: 0 }}
+            exit={{ opacity: 0, x: -100 }}
+            transition={{ duration: 0.4 }}
+            className={css.registerPart}
+          >
+            {activeDiv > 1 && (
+              <button
+                className={css.prevbut}
+                onClick={() => setActiveDiv(activeDiv - 1)}
+              >
+                🡠
+              </button>
+            )}
+            <form className={css.registerFormDiv}>
+              <div className={css.form_top_div}>
+                <h2 className={css.daxiltxt}>Başlayın</h2>
+                <p>
+                  Artıq hesabınız var? <a href="/login">Daxil olun</a>
+                </p>
+              </div>
+
+              <input
+                type="email"
+                name="email"
+                value={formData.email}
+                onChange={handleChange}
+                placeholder="Emailiniz"
+                className={css.input}
+              />
+              <span id={css.referal}>
+                <input
+                  type="text"
+                  name="referal_code"
+                  value={formData.referal_code}
+                  onChange={handleChange}
+                  placeholder="Referal Kod"
+                  className={css.input}
+                  id={css.referal}
+                />
+                <span id={css.infoiconspan}>
+                  <img id={css.infoicon} src="/info.svg" />
+                  <span id={css.info_bubble}>
+                    Dostunun səni dəvət etməsi ilə əldə olunan unikal koddur. Bu
+                    kodu daxil etməklə həm sən, həm də dostun bonus xallar
+                    qazana bilər. Əgər referal kodunuz yoxdursa, bu bölməni boş
+                    buraxa bilərsiniz
+                  </span>
+                </span>
+              </span>
+
+              <div className={css.passwordDiv}>
+                <img src="/key.svg" className={css.keyicon} />
+                <input
+                  type={passwordVisible ? 'text' : 'password'}
+                  name="password"
+                  value={formData.password}
+                  onChange={handleChange}
+                  placeholder="Şifrəniz"
+                  className={css.input}
+                  id={css.password_input}
+                />
+                <span
+                  onClick={togglePasswordVisibility}
+                  className={css.eyeIcon}
+                >
+                  {passwordVisible ? (
+                    <img src="eye.svg" className={css.eye} />
+                  ) : (
+                    <FaEye className={css.eye} />
+                  )}
+                </span>
+                <div>
+                  <p>Şifrənizin gücü</p>
+                  <div
+                    className={css.passwordStrengthBar}
+                    style={{
+                      width:
+                        passwordStrength === 'strong'
+                          ? '100%'
+                          : passwordStrength === 'medium'
+                          ? '66%'
+                          : '33%',
+                      backgroundColor:
+                        passwordStrength === 'strong'
+                          ? 'green'
+                          : passwordStrength === 'medium'
+                          ? 'orange'
+                          : 'red',
+                    }}
+                  ></div>
+                </div>
+              </div>
+              <p>Şifrəniz aşağıdakıları əhatə etməlidir:</p>
+
+              <ul className={css.passwordRequirements}>
+                <li
+                  style={{
+                    listStyle: 'circle',
+                    color: passwordRequirements.length ? 'green' : 'red',
+                  }}
+                >
+                  ən az 8 xanalı olmalıdır
+                </li>
+                <li
+                  style={{
+                    listStyle: 'circle',
+                    color: passwordRequirements.uppercase ? 'green' : 'red',
+                  }}
+                >
+                  ən az 1 böyük hərf
+                </li>
+                <li
+                  style={{
+                    listStyle: 'circle',
+                    color: passwordRequirements.symbol ? 'green' : 'red',
+                  }}
+                >
+                  ən az 1 simvol
+                </li>
+                <li
+                  style={{
+                    listStyle: 'circle',
+                    color: passwordRequirements.noQuestionMark
+                      ? 'green'
+                      : 'red',
+                  }}
+                >
+                  şifrədə ? simvolundan istifadə etməyin
+                </li>
+              </ul>
+
+              <button
+                className={css.nextbut}
+                onClick={(e) => {
+                  e.preventDefault();
+                  if (validateForm()) {
+                    // Burdan sonra yalnız API OK cavabı gəlsə 4-cü stepe keçəcək
+                    handleSubmit(e);
+                  }
+                }}
+                disabled={isSubmitting}
+              >
+                {isSubmitting ? 'Göndərilir...' : '➜ Növbəti'}
+              </button>
+            </form>
+          </motion.div>
+        )}
+
+        {/* STEP 4: Mail verifikasiyası */}
         {activeDiv === 4 && (
           <motion.div
             key="register_part4"
@@ -671,25 +806,34 @@ export default function Register() {
             className={css.registerPart}
           >
             {activeDiv > 1 && (
-              <button className={css.prevbut} onClick={() => setActiveDiv(activeDiv - 1)}>🡠</button>
+              <button
+                className={css.prevbut}
+                onClick={() => setActiveDiv(activeDiv - 1)}
+              >
+                🡠
+              </button>
             )}
             <form onSubmit={handleSubmit} className={css.registerFormDiv}>
               <div className={css.form_top_div}>
                 <h2 className={css.daxiltxt}>Başlayın</h2>
-                <p>Mail təsdiqi etdiniz? <a href='/login'>Daxil olun</a></p>
-
+                <p>
+                  Mail təsdiqi etdiniz? <a href="/login">Daxil olun</a>
+                </p>
               </div>
               <div className={css.validationDiv}>
-                <span className={css.timer}><p>{formatTime(timer)}</p></span>
+                <span className={css.timer}>
+                  <p>{formatTime(timer)}</p>
+                </span>
                 <button
                   onClick={handleResendVerification}
-                  className={isTimerRunning ? css.disabledButton : css.activeButton}
+                  className={
+                    isTimerRunning ? css.disabledButton : css.activeButton
+                  }
                   disabled={isTimerRunning}
                 >
                   Verifikasiya mailini təkrar göndər
                 </button>
               </div>
-
             </form>
           </motion.div>
         )}

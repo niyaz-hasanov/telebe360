@@ -64,7 +64,73 @@
 .comingsoon{
   
 }
+.references_content {
+  display: flex;
+  margin-top:2vw;
+  padding-bottom:1vw;
+  margin-left:2.5rem;
+  padding-left:0.5rem;
+  align-items: center;
+  justify-content: space-between;
+  margin-right:5vw;
+  padding-right:1vw;
+border-bottom:1px solid #828282
+}
+
+
+.referral_title {
+  margin: 0;
+  font-size: 1.1vw;
+}
+
+.referral_code_btn {
+  border: none;
+  outline: none;
+  background: #ffffff;
+  border-radius: 9999px;
+  padding: 0.5vw 1vw;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5vw;
+  font-size:1vw;
+  border-radius: 0.3rem;
+  cursor: pointer;
+}
+
+.referral_code_text {
+  color: #8F00FF;
+  font-weight: 500;
+}
+.referral_copy_icon{
+    width:1.2vw;
+}
+/* mobil görünüm üçün */
+
+
 @media only screen and (max-width: 800px) {
+    .references_content{
+         align-items: flex-start;
+         border:none;
+         margin:0;
+         padding:0;
+       
+         background: white;
+         margin-left:-7vw;
+         padding:2vw;
+         border-radius:0.7rem;
+         width:98%;
+        flex-direction: column;
+    }
+    .referral_title{
+        font-size: 3vw;
+        font-weight: 600;
+    }
+    .referral_code_btn{
+        font-size:3vw;
+    }
+    .referral_copy_icon{
+        width:3vw;
+    }
     .comingsoon{
         left:0%; position:absolute;
         right:4%;

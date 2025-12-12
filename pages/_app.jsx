@@ -73,6 +73,7 @@ function MyApp({ Component, pageProps }) {
     '/ticket_burn/[id]',
     '/forgot_password',
      '/forgot_password/change_password/[token]'
+     
   ];
 
   const noFooterRoutes = [
