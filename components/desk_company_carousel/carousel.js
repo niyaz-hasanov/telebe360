@@ -151,61 +151,58 @@ const Slider = ({ ticket }) => {
       dynamicHeight={false}
       className={css.carousel}
     >
-      {companyTickets.map(ticket => (
-        <div key={ticket.id} className={css.mobcardiv}>
-          <Link style={{ color: 'black' }} href={`/tickets/${ticket.id}`}>
-           <div key={ticket.id} className={css.card_div}>
-          
-           
-              <div className={css.card_top}>
-              <div className={css.card_pp}>
-                <img
-                  src={`${MAINURL}uploads/${ticket.company.logo_path}`}
-                  alt={ticket.company.name}
-                />
-              </div>
-                  <div className={css.card_text_div}>
-                  <h2>{ticket.company.name}</h2>
-                  <p>{ticket.name}</p>
-                </div>
-                </div>
-                <div className={css.card_middle}>{ticket.discount}%</div>
-              <div className={css.card_bottom}>
-              
-                <div className={css.card_button_div}>
-                  <div>
-                    <button id={css.but1}>
-                      <h2 className={css.say}>Say</h2>
-                      <div className={css.card_bottom_right}>
-                        <p>{ticket.count}</p>
-                        <img src='/ticket_ticketlogo.svg'/>
-                        </div>
-                      </button>
-                  </div>
-                  <div >
-                    <button id={css.but2}>
-                      <h2 className={css.gun}>Gün</h2>
-                      <div className={css.card_bottom_right}>
-                      <p>{calculateTimeLeft(ticket.end_time)}</p>
-                      <img src='/ticket_clocklogo.svg'/>
-                      </div>
-                      </button>
-                      </div>
-                  <div>
-                    <button id={css.but3}>
-                      <h2 className={css.giymet}>Qiymət</h2>
-                      <div className={css.card_bottom_right}>
-                        <p>{ticket.price}</p>
-                        <img src='/telebecoinlogo.svg'/>
-                        </div>
-                        </button>
-                  </div>
-                </div>
-              </div>
+    {companyTickets.map((ticket) => (
+  <div key={ticket.id} className={css.mobcardiv}>
+    <Link href={`/tickets/${ticket.id}`} className={css.card_wrapper} style={{ color: "black" }}>
+      <div className={css.card_div}>
+        <div className={css.card_top}>
+          <div className={css.card_pp}>
+            <img
+              src={`${MAINURL}uploads/${ticket.company.logo_path}`}
+              alt={ticket.company.name}
+            />
           </div>
-          </Link>
+
+          <div className={css.card_text_div}>
+            <h2>{ticket.company.name}</h2>
+            <p>{ticket.name}</p>
+          </div>
         </div>
-      ))}
+
+        <div className={css.card_middle}>{ticket.discount}%</div>
+
+        <div className={css.card_bottom}>
+          <div className={css.card_button_div}>
+            <button id={css.but1}>
+              <h2 className={css.say}>Say</h2>
+              <div className={css.card_bottom_right}>
+                <p>{ticket.count}</p>
+                <img src="/ticket_ticketlogo.svg" />
+              </div>
+            </button>
+
+            <button id={css.but2}>
+              <h2 className={css.gun}>Gün</h2>
+              <div className={css.card_bottom_right}>
+                <p>{calculateTimeLeft(ticket.end_time)}</p>
+                <img src="/ticket_clocklogo.svg" />
+              </div>
+            </button>
+
+            <button id={css.but3}>
+              <h2 className={css.giymet}>Qiymət</h2>
+              <div className={css.card_bottom_right}>
+                <p>{ticket.price}</p>
+                <img src="/telebecoinlogo.svg" />
+              </div>
+            </button>
+          </div>
+        </div>
+      </div>
+    </Link>
+  </div>
+))}
+
     </Carousel>
   );
 };

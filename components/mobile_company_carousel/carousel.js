@@ -113,7 +113,9 @@ const Slider = ({ ticket }) => {
     >
       {companyTickets.map(ticket => (
         <div key={ticket.id} className={css.mobcardiv}>
-          <Link style={{ color: 'black' }} key={ticket.id} href={`/tickets/${ticket.id}`}>
+          <Link style={{ color: 'black' }} key={ticket.id} href={`/tickets/${ticket.id}`}
+            className={css.card_wrapper_mob}
+          >
             <div className={css.card_div}>
               <div className={css.card_pp}>
                 <img

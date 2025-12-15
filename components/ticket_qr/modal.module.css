@@ -17,7 +17,6 @@
   border-radius:1.5rem;
   background: white;
   outline:'none';
-      border:1px solid #8f00ff;
  
 
 
@@ -29,6 +28,7 @@
   gap: 0.75rem;
   padding-left:1rem;
     outline:'none';
+    
 }
 
 .companyLogo {
@@ -70,10 +70,7 @@
 .ticketBody {
   padding: 2rem 2rem 4rem 2rem;
   background: white;
-      border-left:1px solid #8f00ff;
-      border-bottom:1px solid #8f00ff;
-      
-
+  
 
   position: relative;
     outline:'none';
@@ -83,6 +80,7 @@
 
 .innerCard {
   background: #ffffff;
+  
   border-radius: 1.1rem;
   padding: 1rem 1.1rem;
   margin-bottom: 1.5rem;

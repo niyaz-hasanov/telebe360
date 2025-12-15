@@ -1,86 +1,36 @@
 @import url('https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,100;0,9..40,200;0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;0,9..40,800;0,9..40,900;0,9..40,1000;1,9..40,100;1,9..40,200;1,9..40,300;1,9..40,400;1,9..40,500;1,9..40,600;1,9..40,700;1,9..40,800;1,9..40,900;1,9..40,1000&display=swap');
-
-.ticket_table{
-    display: flex !important;
-    flex-wrap: wrap;
-      overflow: none;
-      white-space: nowrap;
- 
-    margin-left:-5rem;
-gap:2rem;
-   justify-content: center;
-padding:0;
-
-     
-}
-.card_div{
- border-radius:1rem;
-   /* border:0.8px solid #BF7AF5;  <-- bunu sil */
-   width:300px;
-   height:14rem;   
-   background:white;          /* kənardakı fon rəngi */
-   position:relative;
-   padding-left:1rem;
-   padding-right:1rem;
-   padding-top:1rem;
-
-   border:0.8px solid #BF7AF5;
- 
+.ticket_table {
+  display: flex !important;
+  flex-wrap: wrap;
+  justify-content: center;
+  width: 100%;
+  padding: 0;
 }
 
-.card_div::before,
-.card_div::after {
-  content: "";
-  position: absolute;
-  width: 2.5rem;
-  height: 3.1rem;
-
-  
-  top: 50%;
-  transform: translateY(-50%);
-  border-color:none;
-
-  
-
+/* 🔥 arkaplan burada */
+.card_wrapper {
+  display: inline-block;
+  width: 20rem;
+  height: 16rem;
+  background: url("/ticket_design.svg") center / 100% 100% no-repeat;
+  text-decoration: none;
 }
 
+/* 🔥 iç içerik transparan */
+.card_div {
+  width: 100%;
+  height: 100%;
+  position: relative;
 
-.card_div::before {
-  left: -20px;
-   border: 0.8px solid transparent;
-   border-radius:1rem;
-   background: 
-    linear-gradient(#F5F4F5, #F5F4F5) padding-box, /* içerisi */
-    linear-gradient(
-      to right,
-      #F5F4F5 0%,
-      #F5F4F5 48%,
-      #BF7AF5 48%,
-      #BF7AF5 100%
-    ) border-box; /* border gradyanı */
-        
+  background: transparent;
+  border: none;
+  box-shadow: none;
 
-
+  padding-left: 1.5rem;
+  padding-top: 2rem;
+  padding-right: 1rem;
 }
 
-.card_div::after {
-  right: -20px;
-  border: 0.8px solid transparent;
-   border-radius:1rem;
-   background: 
-    linear-gradient(#F5F4F5, #F5F4F5) padding-box, /* içerisi */
-    linear-gradient(
-      to right,
-     #BF7AF5 0%,
-      #BF7AF5  52%,
-      #F5F4F5  52%,
-        #F5F4F5  100%
-    ) border-box; /* border gradyanı */
-        
-
-
-
-}
 .card_pp img{
    width:100%;
    pointer-events: auto;
@@ -88,13 +38,15 @@ padding:0;
   user-select: none;
  
 }
+#but2 .card_bottom_right img{
+  width:1.5rem;
+}
 .card_pp{
     width:4.7rem;    height:4.7rem;
     align-items: center;
     justify-content: center;
     z-index:1;
     overflow:hidden;
-     margin-left:-0.5rem;
     border-radius:50rem;
 }
 .card_top{
@@ -188,7 +140,6 @@ padding:0;
     display:flex;
     flex-direction:column;
    display:flex;height:2.5rem;
-width:100%
 
 
 
