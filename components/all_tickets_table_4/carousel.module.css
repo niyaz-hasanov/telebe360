@@ -29,10 +29,15 @@ padding:0;
 
 
 }
+.card_wrapper:hover{
+  transform: scale(110%);
+}
 
 .card_wrapper{
  display: inline-block;
   width: 20rem;
+    transition: filter 0.3s ease, transform 0.3s ease;
+
   height:16rem;
   background-position: center;
   background: url("/ticket_design.svg") center / 100% 100% no-repeat;

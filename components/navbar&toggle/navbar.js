@@ -88,7 +88,7 @@ const AppBar = styled(MuiAppBar, {
   }),
   [theme.breakpoints.down('sm')]: {
     marginLeft: 0,
-    display: open ? 'none' : 'block',
+   
   },
 }));
 
@@ -404,13 +404,13 @@ export default function MiniDrawer() {
               />
             </Link>
 
-            {authenticated ? (
+            {/* {authenticated ? (
               <span className={css.logout}>
                 <Logout />
               </span>
             ) : (
               <h1 className={css.fake}></h1>
-            )}
+            )} */}
           </div>
         </Drawer>
 

@@ -13,6 +13,7 @@ const style = {
   alignItems: 'center',
   top: '50%',
   left: '50%',
+  
   transform: 'translate(-50%, -50%)',
   width: '40%',
   bgcolor: '#F4F4F4',

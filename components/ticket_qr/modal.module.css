@@ -1,219 +1,170 @@
-/* Arkaplan blur vs. için zaten sende var: .bulanik { ... } */
-
-.ticket {
-  background:white;
-  border-radius: 1.5rem;
+/* Ticket background container */
+.ticketBg {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 342 / 528; /* SVG ticket proporasiyası (lazım olsa dəyişərik) */
+  background: url("/qr_ticket_design.svg") center / cover no-repeat;
+  border-radius: 24px;
   overflow: hidden;
-  display: flex;
-  flex-direction: column;
-    outline:'none';
-
 }
 
-/* Üst header */
-
-.ticketHeader {
-  padding: 1.5rem 1rem 1.5rem 1rem;
-  border-radius:1.5rem;
-  background: white;
-  outline:'none';
- 
-
-
-}
-
-.companyBox {
+/* Company (yuxarı sol hissə) */
+.companyArea {
+  position: absolute;
+  top: 22px;
+  left: 22px;
+  right: 22px;
   display: flex;
   align-items: center;
-  gap: 0.75rem;
-  padding-left:1rem;
-    outline:'none';
-    
+  gap: 12px;
 }
 
-.companyLogo {
-  width: 3.5rem;
-  height: 3.5rem;
-  border-radius: 50%;
-  background: white ;
-  border:1px solid black;
-  
-
-  display: flex;
-  align-items: center;
-  justify-content: center;
+.companyLogoWrap {
+  width: 36px;
+  height: 36px;
+  border-radius: 999px;
+  overflow: hidden;
+  background: #fff;
 }
 
-.companyLogoText {
-  font-weight: 600;
-  color: #8f00ff;
+.companyLogoImg {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
 }
 
 .companyName {
-  font-size: 1.3rem;
-  font-weight: 600;
-  color: #4a186d;
+  font-size: 20px;
+  font-weight: 700;
+  color: #2f0d4a;
 }
 
-/* Kesik çizgi + yan delikler */
+/* User info white card (dashed xəttin altına oturt) */
+.userCard {
+  position: absolute;
+  top: 150px;   /* ⬅️ bunu dizayna görə tənzimləyəcəksən */
+  left: 22px;
+  right: 22px;
 
-.ticketDivider {
-  position: relative;
-  height: 1.3rem;
-  margin: 0 1.3rem;
+  background: rgba(255, 255, 255, 0.95);
+  border-radius: 18px;
+  padding: 14px;
 }
 
-
-
-/* Gövde */
-
-.ticketBody {
-  padding: 2rem 2rem 4rem 2rem;
-  background: white;
-  
-
-  position: relative;
-    outline:'none';
-}
-
-/* İç beyaz kart */
-
-.innerCard {
-  background: #ffffff;
-  
-  border-radius: 1.1rem;
-  padding: 1rem 1.1rem;
-  margin-bottom: 1.5rem;
-}
-
-.innerHeader {
-  margin-bottom: 0.4rem;
-}
-
-.labelBlock {
-  display: flex;
-  flex-direction: column;
-  gap: 0.4rem;
-}
-
+/* Texts */
 .labelGrey {
-  font-size: 1rem;
+  font-size: 16px;
   color: #b2afb0;
 }
 
 .nameRow {
   display: flex;
   align-items: center;
-  gap: 0.6rem;
+  gap: 10px;
+  margin-top: 8px;
 }
 
 .avatarWrap {
-  width: 2.3rem;
-  height: 2.3rem;
-  border-radius: 50%;
+  width: 34px;
+  height: 34px;
+  border-radius: 999px;
+  overflow: hidden;
+  background: #fff;
   border: 1px solid #8f00ff;
   padding: 2px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background: #ffffff;
 }
 
 .avatarImg {
   width: 100%;
   height: 100%;
-  border-radius: 50%;
   object-fit: cover;
+  border-radius: 999px;
 }
 
 .fullName {
-  font-size: 1.1rem;
-  font-weight: 600;
-  color: #222;
+  font-size: 18px;
+  font-weight: 700;
+  color: #111;
 }
-
-/* Alt info satırı */
 
 .infoRow {
   display: flex;
   justify-content: space-between;
-  gap: 1rem;
-  margin-top: 0.7rem;
+  gap: 14px;
+  margin-top: 14px;
 }
 
 .infoCol {
   display: flex;
   flex-direction: column;
-  gap: 0.15rem;
+  gap: 4px;
 }
 
 .infoValue {
-  font-size: 1rem;
-  font-weight: 500;
+  font-size: 16px;
+  font-weight: 700;
   color: #191919;
 }
 
-/* QR */
-
+/* QR area (dizayndakı aşağı orta hissə) */
 .qrWrapper {
+  position: absolute;
+  left: 50%;
+  bottom: 110px; /* ⬅️ bunu dizayna görə tənzimləyəcəksən */
+  transform: translateX(-50%);
   display: flex;
   justify-content: center;
-  margin-top: 1.3rem;
 }
 
 .qrImage {
-  width: 12rem;
+  width: 190px;
   height: auto;
 }
 
-/* Alt marka */
-
-.ticketBrand {
+/* Brand bottom right/center (dizayna görə) */
+.brandBottom {
   position: absolute;
-  right: -1rem;
-  bottom: 0.9rem;
-  display: flex;
-  align-items: center;
-  gap: 0.3rem;
-  font-size: 1rem;
-}
-.ticketBrand img{
-  width:9rem;
+  right: 16px;
+  bottom: 16px;
 }
 
-.brandText {
-  font-weight: 500;
-  color: #111111;
+.brandBottom img {
+  width: 140px;
 }
 
-.brandBadge {
-  padding: 0.15rem 0.55rem;
-  border-radius: 999px;
-  background: #111111;
-  color: #ffffff;
-  font-size: 0.8rem;
-  font-weight: 600;
-}
-
-/* ------------- */
-/* Responsive    */
-/* ------------- */
-
+/* Mobile */
 @media (max-width: 480px) {
-  .ticket {
-    border-radius: 1.2rem;
+
+
+  .companyArea {
+    top: 18px;
+    left: 16px;
+    right: 16px;
   }
 
-  .ticketHeader,
-  .ticketBody {
-    padding-inline: 1rem;
+  .companyName {
+    font-size: 16px;
   }
 
-  .innerCard {
-    padding-inline: 0.9rem;
+  .userCard {
+    left: 16px;
+    right: 16px;
+    padding: 12px;
+    top: 30vw; /* mobil tənzim */
   }
 
+  
+    .qrWrapper{
+      top:80vw;
+      position:relative;
+
+    }
   .qrImage {
-    width: 6rem;
+    width: 9rem;
+    
+  }
+
+  .brandBottom img {
+    width: 120px;
   }
 }

@@ -5,6 +5,7 @@ import Modal from '@mui/material/Modal';
 import Cookies from 'js-cookie';
 import modalcss from './modal.module.css';
 import { APIURL } from '../../utils/constants';
+import zIndex from '@mui/material/styles/zIndex';
 
 const style = {
   position: 'absolute',

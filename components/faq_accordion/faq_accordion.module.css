@@ -1,0 +1,78 @@
+.faqBox {
+  margin-top: 24px;
+  background: #ffffff;
+  width: 70rem;
+  border-radius: 16px;
+  padding: 8px 0;
+}
+
+.faqHeader {
+  width: 100%;
+  background: transparent;
+  border: none;
+  padding: 18px 24px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  cursor: pointer;
+  font-size: 16px;
+  font-weight: 500;
+  text-align: left;
+}
+
+.faqHeader:hover {
+  background: #f9fafb;
+}
+
+.faqArrow {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 24px;
+  height: 24px;
+  flex: 0 0 24px;
+  transition: transform 0.3s ease;
+}
+
+.faqArrowOpen {
+  transform: rotate(180deg);
+}
+
+/* ✅ ANİMASİYA BURDA */
+.faqContent {
+  padding: 0 24px;
+  padding-left: 3rem;
+  color: #6b7280;
+  font-size: 15px;
+  line-height: 1.6;
+
+  max-height: 0;
+  overflow: hidden;
+  opacity: 0;
+
+  transition:  opacity 0.25s ease, padding-bottom 0.25s ease;
+  padding-bottom: 0;
+}
+
+.open {
+  max-height: 220px; /* cavabların uzunluğuna görə 300/400 də edə bilərsən */
+  opacity: 1;
+  padding-bottom: 16px;
+}
+@media (max-width: 768px) {
+  .faqBox {
+    width: 92%;
+    border-radius: 14px;
+  }
+
+  .faqHeader {
+    padding: 14px 16px;
+    font-size: 15px;
+  }
+
+  .faqContent {
+    padding: 0 16px;
+    padding-left: 1.25rem;
+    font-size: 14px;
+  }
+}

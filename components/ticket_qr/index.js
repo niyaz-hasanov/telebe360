@@ -1,25 +1,24 @@
 "use client";
 
-import Box from '@mui/material/Box';
-import Modal from '@mui/material/Modal';
-import PropTypes from 'prop-types';
-import modalcss from './modal.module.css';
-import { APIURL, MAINURL } from '@/utils/constants';
-import React, { useState, useEffect } from 'react';
-import axios from 'axios';
-import Cookies from 'js-cookie';
+import Box from "@mui/material/Box";
+import Modal from "@mui/material/Modal";
+import PropTypes from "prop-types";
+import modalcss from "./modal.module.css";
+import { APIURL, MAINURL } from "@/utils/constants";
+import React, { useEffect, useMemo, useState } from "react";
+import axios from "axios";
+import Cookies from "js-cookie";
 
 const outerBoxStyle = {
-  position: 'absolute',
-  top: '50%',
-  left: '50%',
-  outline: 'none',
-  transform: 'translate(-50%, -50%)',
-  width: 'min(420px, 90vw)',   // dikey ticket, responsive
-  border: 'transparent',
-  bgcolor: 'transparent',
-  hover:'none',
-  boxShadow: 'none',
+  position: "absolute",
+  top: "50%",
+  left: "50%",
+  outline: "none",
+  transform: "translate(-50%, -50%)",
+  width: "min(420px, 92vw)",
+  border: "transparent",
+  bgcolor: "transparent",
+  boxShadow: "none",
 };
 
 export default function BasicModal({
@@ -28,16 +27,16 @@ export default function BasicModal({
   discount,
   onClose,
   createdAt,
-  companyLogoPath
+  companyLogoPath,
+  endTime,
 }) {
   const open = Boolean(qrCode);
   const [student, setStudent] = useState({});
-  const [universityName, setUniversityName] = useState('');
 
   useEffect(() => {
     const fetchStudentData = async () => {
       try {
-        const accessToken = Cookies.get('access_token');
+        const accessToken = Cookies.get("access_token");
         if (!accessToken) return;
 
         const config = {
@@ -47,36 +46,27 @@ export default function BasicModal({
         };
 
         const studentResponse = await axios.get(`${APIURL}students/me`, config);
-        const studentData = studentResponse.data;
-        setStudent(studentData);
-
-        if (studentData.university_id) {
-          const universityResponse = await axios.get(
-            `${APIURL}universities/${studentData.university_id}`,
-            config
-          );
-          const universityData = universityResponse.data;
-          setUniversityName(universityData.name);
-        }
+        setStudent(studentResponse.data);
       } catch (error) {
-        console.error('Error fetching student or university data:', error);
+        console.error("Error fetching student:", error);
       }
     };
 
     fetchStudentData();
   }, []);
 
-  const fullName = `${student.fname || ''} ${student.lname || ''}`.trim() || '-';
+  const fullName = useMemo(() => {
+    return `${student.fname || ""} ${student.lname || ""}`.trim() || "-";
+  }, [student]);
 
-  // Tarih formatı: 22.11.2025
-  let formattedDate = '-';
-  if (createdAt) {
+  const formattedDate = useMemo(() => {
+    if (!createdAt) return "-";
     const d = new Date(createdAt);
-    const day = String(d.getDate()).padStart(2, '0');
-    const month = String(d.getMonth() + 1).padStart(2, '0');
+    const day = String(d.getDate()).padStart(2, "0");
+    const month = String(d.getMonth() + 1).padStart(2, "0");
     const year = d.getFullYear();
-    formattedDate = `${day}.${month}.${year}`;
-  }
+    return `${day}.${month}.${year}`;
+  }, [createdAt]);
 
   return (
     <Modal
@@ -87,78 +77,66 @@ export default function BasicModal({
       className={modalcss.bulanik}
     >
       <Box sx={outerBoxStyle}>
-         <div className={modalcss.ticketHeader}>
-            <div className={modalcss.companyBox}>
-              <div className={modalcss.companyLogo}>
-              
-                <span className={modalcss.companyLogoText}>
-                  <img  src={`${MAINURL}uploads/${companyLogoPath}`} 
-                  className={modalcss.companyLogo}
-                             alt={companyName} />
-                </span>
-              </div>
-              <span className={modalcss.companyName}>{companyName}</span>
+        {/* ✅ TEK DIV: background ticket design */}
+        <div className={modalcss.ticketBg}>
+          {/* Company */}
+          <div className={modalcss.companyArea}>
+            <div className={modalcss.companyLogoWrap}>
+              <img
+                src={`${MAINURL}uploads/${companyLogoPath}`}
+                alt={companyName}
+                className={modalcss.companyLogoImg}
+              />
             </div>
-  
+            <div className={modalcss.companyName}>{companyName}</div>
           </div>
 
-        <div className={modalcss.ticket}>
-          {/* ÜST KISIM – MARKA */}
-                   <img src='/ticket_dash.svg'/>
-          {/* DELİK / KESİK ÇİZGİ */}
-   
-
-          {/* ALT KISIM – BİLET GÖVDESİ */}
-          <div className={modalcss.ticketBody}>
-            {/* İç beyaz kart: kullanıcı bilgisi */}
-            <div className={modalcss.innerCard}>
-              <div className={modalcss.innerHeader}>
-                <div className={modalcss.labelBlock}>
-                  <span className={modalcss.labelGrey}>Ad soyad :</span>
-                  <div className={modalcss.nameRow}>
-                    <span className={modalcss.avatarWrap}>
-                      <img
-                        src={
-                          student.profile_img_path
-                            ? `${MAINURL}uploads/${student.profile_img_path}`
-                            : '/profile.jpg'
-                        }
-                        alt="Profile"
-                        className={modalcss.avatarImg}
-                      />
-                    </span>
-                    <span className={modalcss.fullName}>{fullName}</span>
-                  </div>
-                </div>
-              </div>
-
-              <div className={modalcss.infoRow}>
-                <div className={modalcss.infoCol}>
-                  <span className={modalcss.labelGrey}>Endirim faizi:</span>
-                  <span className={modalcss.infoValue}>{discount}%</span>
-                </div>
-                <div className={modalcss.infoCol}>
-                  <span className={modalcss.labelGrey}>Tarix:</span>
-                  <span className={modalcss.infoValue}>{formattedDate}</span>
-                </div>
-              </div>
-            </div>
-
-            {/* QR CODE */}
-            {qrCode && (
-              <div className={modalcss.qrWrapper}>
+          {/* User block */}
+          <div className={modalcss.userCard}>
+            <div className={modalcss.labelGrey}>Ad soyad :</div>
+            <div className={modalcss.nameRow}>
+              <div className={modalcss.avatarWrap}>
                 <img
-                  src={`data:image/png;base64,${qrCode}`}
-                  alt="QR Code"
-                  className={modalcss.qrImage}
+                  src={
+                    student.profile_img_path
+                      ? `${MAINURL}uploads/${student.profile_img_path}`
+                      : "/profile.jpg"
+                  }
+                  alt="Profile"
+                  className={modalcss.avatarImg}
                 />
               </div>
-            )}
-
-            {/* ALT LOGO */}
-            <div className={modalcss.ticketBrand}>
-              <img src='/wide360logo.svg'/>
+              <div className={modalcss.fullName}>{fullName}</div>
             </div>
+
+            <div className={modalcss.infoRow}>
+              <div className={modalcss.infoCol}>
+                <div className={modalcss.labelGrey}>Endirim faizi:</div>
+                <div className={modalcss.infoValue}>{discount}%</div>
+              </div>
+
+              <div className={modalcss.infoCol}>
+                <div className={modalcss.labelGrey}>Tarix:</div>
+                {/* səndə endTime var — istəyirsən formattedDate də istifadə et */}
+                <div className={modalcss.infoValue}>{endTime || formattedDate}</div>
+              </div>
+            </div>
+          </div>
+
+          {/* QR */}
+          {qrCode && (
+            <div className={modalcss.qrWrapper}>
+              <img
+                src={`data:image/png;base64,${qrCode}`}
+                alt="QR Code"
+                className={modalcss.qrImage}
+              />
+            </div>
+          )}
+
+          {/* Bottom brand */}
+          <div className={modalcss.brandBottom}>
+            <img src="/wide360logo.svg" alt="Telebe360" />
           </div>
         </div>
       </Box>
@@ -173,4 +151,5 @@ BasicModal.propTypes = {
   discount: PropTypes.number.isRequired,
   onClose: PropTypes.func.isRequired,
   createdAt: PropTypes.oneOfType([PropTypes.string, PropTypes.instanceOf(Date)]),
+  endTime: PropTypes.string.isRequired,
 };
