@@ -1,29 +1,326 @@
+
 .main_container {
-  width: 100vw;
-  margin-top:-8vw;
-  min-height: 100vh;
+  margin-top:-8.5rem;
+   width:100%;
   display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
   background: #F5F4F5;
   overflow: hidden;
+  gap:4rem;
+}
+.section1{
+
+  width: 100%;
+  min-height: 100vh;
+   background-position: center;
+  background: url("/coin_page_section1_img.svg") center / 100% 100% no-repeat;
+     background-size: cover;
+   display: flex;
+   flex-direction: column;
+  align-items: center;
+  justify-content: center;
+
+
+}
+.section1>h2{
+  color:white;
+  font-size:50px;
+   padding:0;
+   margin:0;  
+}
+.section1_div{
+  width:65%;
+  display:flex;
+  position:relative;
+  flex-direction: column;
+}
+.section1_p{
+   font-weight: 500;
+   text-align: center;
+   font-size:1.6rem;
+  padding:1.5vw;
+  background:rgba(255, 255, 255, 0.879);
+  border-radius:1rem;
+  
+}
+.section1_coin_img{
+  width:10rem;
+  align-self: flex-end;
+  bottom:-1.5rem;
+  right:-3rem;
+  position:absolute;
+}
+.section_2{
+  display:flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+.section2>h2{
+   font-size:2rem;
+   margin-left:10%;
+}
+.section2_cards{
+ display:flex;
+ gap:3rem;
+
+}
+.section2_card{
+  background:white;
+  display: flex;
+  flex-direction: column;
+  border:0.8px solid #8F00FF;
+  align-items: center;
+  padding:1rem 1rem;
+  border-radius:0.5vw;
+  gap:1rem;
+}
+.section2_card_img{
+  width:2rem;
+}
+.section2_card_p{
+  text-align: center;
+  font-size:1rem;
+  margin:0;
+  width:70%;
+  font-weight: 500;
+}
+.section3_register{
+  display:flex;
+  align-items: center;
+  justify-content: center;
+  gap:20rem;
+  
+}
+.section3_register_left{
+
+}
+.section3_register_left>div>h2{
+  font-size:2rem;
+}
+.section3_register_left_p{
+  font-size: 1rem;
+ width:38rem;
+
+}
+.section3_register_left button{
+  background: #971DF6;
+  color:white;
+  padding:0.8rem 2rem;
+  border:0.8px solid rgba(255, 255, 255, 0);
+  border-radius:0.8rem;
+  font-size:1.1rem;
+  width:15rem;
+  transition: 0.3s ease;
+  margin-top:1rem;
+
+}
+.section3_register_left button:hover{
+  background:white;
+  color:#971DF6;
+  border:0.8px solid #971DF6;
+  transition: 0.2s;
+}
+.section3_register_right{
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding-right:8rem;
+  width:15rem;
+}
+.section3_register_right img{
+  width:25rem;
+  border-bottom:1px solid #898a8d;
+}
+.section4{
+  display:flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
 }
 
-.fullscreen_image {
-  width: 100%;
-  height: auto;          /* şəkilin tamamı görünsün */
-  object-fit: contain;   /* şəkil KƏSİLMƏSİN */
+.section4 img{
+  width:74.5rem;
+}
+.section4 h2{
+  font-size:2rem;
+}
+#img{
   display: block;
 }
-#link{
-    position:absolute;
-    left:8vw;
-    top:185%;
-    color:transparent;
-    background:transparent;
-    width:20vw;
-    height:10vw;
+.section5{
+  display:flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
 }
-#link:hover{
-    cursor:pointer;
+.section5 h2{
+  font-size:2rem;
+}
+/* =========================
+   RESPONSIVE (MOBILE/TABLET)
+========================= */
+@media (max-width: 1024px) {
+  #section3_h2{
+    text-wrap: wrap;
+    text-align: center;
+
+  }
+    #img{
+   display:none;
+  } 
+  .section3_register {
+    gap: 6rem;
+    width:100%;
+  }
+
+  .section3_register_left_p {
+    width: 32rem;
+  }
+
+  .section4 img {
+    width: 100%;
+    max-width: 74.5rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .main_container {
+    margin-top: 0;          /* mobilde -8.5rem problem yaradır */
+    gap: 2.5rem;
+  }
+
+  /* SECTION 1 */
+  .section1 {
+    min-height: 100vh;
+    padding: 5.5rem 1rem 3rem 1rem;
+    background-position: center;
+    background-size: cover;
+  }
+
+  .section1 > h2 {
+    font-size: 1.75rem;
+    text-align: center;
+    padding: 0 0.5rem;
+  }
+
+  .section1_div {
+    width: 92%;
+  }
+
+  .section1_p {
+    font-size: 1rem;
+    padding: 1rem;
+    border-radius: 1rem;
+  }
+
+  .section1_coin_img {
+    width: 5.5rem;
+    right: -0.5rem;
+    bottom: -1.25rem;
+  }
+
+  /* SECTION 2 */
+  .section2 > h2 {
+    font-size: 1.2rem;
+    margin-left: 0;
+    text-align: center;
+    padding: 0 1rem;
+  }
+
+  .section2_cards {
+    flex-direction: column;
+    gap: 1rem;
+    width: 100%;
+    padding: 0 1rem;
+    align-items: center;
+  }
+
+  .section2_card {
+    width: 100%;
+    max-width: 22rem;
+    border-radius: 0.8rem;
+    padding: 1rem;
+  }
+
+  .section2_card_p {
+    width: 100%;
+    font-size: 0.95rem;
+  }
+
+  /* REGISTER SECTIONS (2 dənə eyni classdır) */
+  .section3_register {
+    flex-direction: column;
+    gap: 1.5rem;
+    padding: 0 1rem;
+    text-align: center;
+  }
+
+  .section3_register_left > div > h2 {
+    font-size: 1.3rem;
+  }
+
+  .section3_register_left_p {
+    width: 100%;
+    max-width: 26rem;
+    margin: 0.75rem auto 0 auto;
+    font-size: 0.95rem;
+    line-height: 1.55;
+  }
+
+  .section3_register_left button {
+    width: 100%;
+    max-width: 18rem;
+    margin: 1rem auto 0 auto;
+    display: block;
+  }
+
+  .section3_register_right {
+    padding-right: 30vw;
+    width: 40%;
+  }
+
+  .section3_register_right img {
+    width: 40rem;
+  }
+
+  /* SECTION 4 */
+  .section4 h2 {
+    font-size: 1.3rem;
+    text-align: center;
+    padding: 0 1rem;
+  }
+
+  .section4 img {
+    width: 100%;
+    max-width: 24rem; /* mobil dots ölçüsü */
+  }
+
+  /* FAQ container */
+  .section5 h2 {
+    font-size: 1.3rem;
+    text-align: center;
+  }
+}
+
+@media (max-width: 420px) {
+  .section1 > h2 {
+    font-size: 1.55rem;
+  }
+
+  .section1_p {
+    font-size: 0.95rem;
+  }
+
+  .section3_register_right img {
+    width: 16.5rem;
+  }
+
+  .section4 img {
+    max-width: 22rem;
+  }
+
 }
