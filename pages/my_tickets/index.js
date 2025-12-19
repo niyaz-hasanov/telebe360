@@ -459,7 +459,7 @@ const TicketPage = () => {
     tickets={sortedHistory}
     emptyText="Hazırda tarixçəniz yoxdur."
     onQr={handleQr}
-    showHeader={false}
+    showHeader={true}
     showQr={false}
   />
 </div>
@@ -482,3 +482,4 @@ const TicketPage = () => {
 };
 
 export default TicketPage;
+
