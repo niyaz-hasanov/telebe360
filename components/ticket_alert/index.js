@@ -8,8 +8,8 @@ import { APIURL } from '../../utils/constants';
 const Index = ({ ticketId }) => {
   const handleClick = () => {
     Swal.fire({
-      title: 'Kuponu əldə etmək istəyirsiniz?',
-      text: "Hər kupondan yalnız bir dəfə istifadə etmək haqqınız var",
+      title: 'Bileti əldə etmək istəyirsiniz?',
+      text: "Hər biletdən yalnız bir dəfə istifadə etmək haqqınız var",
       showCancelButton: true,
       confirmButtonText: 'Bəli',
       cancelButtonText: 'Ləğv et',
@@ -35,31 +35,31 @@ const Index = ({ ticketId }) => {
           },
         })
           .then(response => {
-            Swal.fire('Təbriklər!', 'Kupon uğurla əldə olundu. İstifadə etmək üçün Kuponlarım səhifəsinə baxın.', 'success');
+            Swal.fire('Təbriklər!', 'Bilet uğurla əldə olundu. İstifadə etmək üçün biletlərim səhifəsinə baxın.', 'success');
           })
           .catch(error => {
             if (error.response) {
               if (error.response.status === 403) {
-                Swal.fire('Xəta!', 'Hesabınız moderatorlar tərəfindən təsdiq olunmayıb. Hesabınız təsdiq olunmadan kupon əldə edə bilməzsiniz.', 'error');
+                Swal.fire('Xəta!', 'Hesabınız moderatorlar tərəfindən təsdiq olunmayıb. Hesabınız təsdiq olunmadan bilet əldə edə bilməzsiniz.', 'error');
               } else if (error.response.status === 404) {
-                Swal.fire('Xəta!', 'Kupon tapılmadı. Zəhmət olmasa bir daha cəhd edin.', 'error');
+                Swal.fire('Xəta!', 'Bilet tapılmadı. Zəhmət olmasa bir daha cəhd edin.', 'error');
               } else if (error.response.status === 400) {
                
                 const detail = error.response.data.detail;
                 if (detail === "Ticket with this student already exists") {
-                  Swal.fire('Xəta!', 'Bu kuponu artıq əldə etmisiniz. Kuponlarım səhifəsində əldə etdiyiniz kuponları görə bilərsiniz.', 'error');
+                  Swal.fire('Xəta!', 'Bu bileti artıq əldə etmisiniz. Biletlərim səhifəsində əldə etdiyiniz biletləri görə bilərsiniz.', 'error');
                 } else if (detail === "Ticket already used") {
-                  Swal.fire('Xəta!', 'Bu kupondan artıq istifadə etmisiniz. Hər kupondan yalnız 1 dəfə istifadə etmək haqqınız var.', 'error');
+                  Swal.fire('Xəta!', 'Bu biletdən artıq istifadə etmisiniz. Hər biletdənn yalnız 1 dəfə istifadə etmək haqqınız var.', 'error');
                 } else {
-                  Swal.fire('Xəta!', 'Bu kuponu əldə etmək mümkün olmadı. Zəhmət olmasa bir daha cəhd edin.', 'error');
+                  Swal.fire('Xəta!', 'Bu bileti əldə etmək mümkün olmadı. Zəhmət olmasa bir daha cəhd edin.', 'error');
                 }
               } else if (error.response.status === 401) {
-                Swal.fire('Xəta!', 'Bu kuponu əldə etmək səlahiyyətinə sahib deyilsiniz.', 'error');
+                Swal.fire('Xəta!', 'Bu bileti əldə etmək səlahiyyətinə sahib deyilsiniz.', 'error');
               } else {
-                Swal.fire('Xəta!', 'Kuponun alınması zamanı problem. Zəhmət olmasa bir daha cəhd edin.', 'error');
+                Swal.fire('Xəta!', 'Biletin alınması zamanı problem. Zəhmət olmasa bir daha cəhd edin.', 'error');
               }
             } else {
-              Swal.fire('Xəta!', 'Kuponun alınması zamanı problem. Zəhmət olmasa bir daha cəhd edin.', 'error');
+              Swal.fire('Xəta!', 'Biletin alınması zamanı problem. Zəhmət olmasa bir daha cəhd edin.', 'error');
             }
           });
       } else {

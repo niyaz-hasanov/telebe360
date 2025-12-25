@@ -144,15 +144,15 @@ export default function Footer() {
           <div className={css.footer_middle_bottom}>
             <ul className={css.footer_middle_bottom_ul}>
               <li>
-                Terms of service<span className={css.border_line}> |</span>
+                <a href='/information_pages/terms_of_service'>Terms of service</a><span className={css.border_line}> |</span>
               </li>
               <li>
-                Privacy Policy<span className={css.border_line}> |</span>
+                <a href="/information_pages/privacy_policy">Privacy Policy</a><span className={css.border_line}> |</span>
               </li>
               <li>
-                Terms of use<span className={css.border_line}> |</span>
+                <a href="/information_pages/terms_of_use">Terms of use</a><span className={css.border_line}> |</span>
               </li>
-              <li>FAQ</li>
+              <li><a href="/information_pages/faq">FAQ</a></li>
             </ul>
           </div>
         </div>

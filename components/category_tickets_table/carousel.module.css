@@ -80,17 +80,25 @@ padding:0;
 }
 .card_text_div{
     display:flex;
+    width:10rem;
+    overflow: hidden;
     flex-direction: column;    
     
 }
 .card_text_div h2{
     margin:0;
     padding:0;
+       text-wrap: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
     font-size:1.3rem;
     margin-bottom:-0.3rem;
 }
 .card_text_div p{
    
+     text-wrap: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
 margin:0;
 padding:0;
     font-size:0.9rem;font-weight: 500;
@@ -303,6 +311,7 @@ width:100%
 }
 .card_text_div{
     display:flex;
+    width:5rem;
     flex-direction: column;    
     
 }
@@ -488,3 +497,4 @@ width:100%
     width:4vw !important;
   }
 }
+

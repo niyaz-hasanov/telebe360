@@ -31,7 +31,7 @@ const Slider = ({ tickets }) => {
   const cols = useColumns();
 
   if (!tickets || tickets.length === 0) {
-    return <div className={css.noticket}>Bu kateqoriyaya aid kupon yoxdur.</div>;
+    return <div className={css.noticket}>Bu kateqoriyaya aid bilet yoxdur.</div>;
   }
 
   const cardsBeforeBanner = cols;

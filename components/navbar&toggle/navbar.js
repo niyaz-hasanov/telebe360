@@ -377,11 +377,7 @@ export default function MiniDrawer() {
                     </Link>
                   </div>
                 ))}
-              </div>
-            )}
-          </div>
-
-          <div className={css.sidebar_bottom_div}>
+                   <div className={css.sidebar_bottom_div}>
             {authenticated ? (
               <Link href="/settings">
                 <img
@@ -412,6 +408,12 @@ export default function MiniDrawer() {
               <h1 className={css.fake}></h1>
             )} */}
           </div>
+              </div>
+              
+            )}
+          </div>
+
+       
         </Drawer>
 
         <ChevronDiv open={open} className={`${css.chevron_div} ${!open ? css.closed : ''}`}>

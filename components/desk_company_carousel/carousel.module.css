@@ -80,10 +80,17 @@
     margin:0;
     padding:0;
     font-size:1.3rem;
+    width:10rem;
+    text-wrap: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
     margin-bottom:-0.3rem;
 }
 .card_text_div p{
-   
+      width:10rem;
+    text-wrap: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
 margin:0;
 padding:0;
     font-size:0.9rem;font-weight: 500;
@@ -205,6 +212,7 @@ padding:0;
 }
 
 @media only screen and (max-width: 800px)  {
+
   .ticket_table{
     margin:0;
     padding:0;
@@ -226,6 +234,7 @@ padding:0;
 
 }
 @media only screen and (max-width: 450px){
+  
   .ticket_table{
     margin:0rem;
     padding-left:13vw;

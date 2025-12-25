@@ -58,7 +58,7 @@ export default function TicketsSection() {
   }, []);
 
   if (error) return <div>Error: {error}</div>;
-  if (tickets.length === 0) return <div>Kupon yoxdur. Daha sonra təkrar cəhd edin</div>;
+  if (tickets.length === 0) return <div>Bilet yoxdur. Daha sonra təkrar cəhd edin</div>;
 
   const cardsBeforeBanner = cols; 
 
