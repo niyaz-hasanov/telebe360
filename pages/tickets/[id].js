@@ -12,6 +12,9 @@ import Carousel from '../../components/desk_company_carousel/carousel'
 import MobileCarousel from '../../components/mobile_company_carousel/carousel'
 
 const TicketPage = () => {
+  const goBack = () => {
+  window.history.back();
+};
   const router = useRouter();
   const { id } = router.query;
   const [ticket, setTicket] = useState(null);
@@ -113,7 +116,7 @@ const TicketPage = () => {
             <div className={css.div}>
               <div className={css.top}>
                 <div className={css.top_left}>
-                  <Link href={`/categories/${ticket.category.slug}`}> <img className={css.icon} src='/Vector.svg' alt="Back" /></Link>
+               <img className={css.icon} src='/Vector.svg' onClick={goBack} alt="Back" />
                   <p className={css.paragraph}>{ticket.company.name} - {ticket.name} • {ticket.company.address}</p>
                 </div>
                 <div className={css.topleft}>
@@ -157,7 +160,7 @@ const TicketPage = () => {
         </div>
 
         <div className={css.carousel_container}>
-          <h3 className={css.company_name}>"{ticket.company.name}"-dən daha çox kuponlar</h3>
+          <h3 className={css.company_name}>"{ticket.company.name}"-dən daha çox biletlər</h3>
           <div className={css.carousel}><Carousel ticket={ticket} /></div>
           <div className={css.mobile_carousel}><MobileCarousel ticket={ticket} /></div>
         </div>

@@ -22,6 +22,9 @@
     margin-top:0.5vw;
     padding: 0;
 }
+.icon:hover {
+   cursor: pointer;
+}
 
 .kfcpp {
     width: 100%;
@@ -280,7 +283,8 @@ font-weight: 600;
     }
     .company_name{
         font-size:4.5vw;
-        margin-left:15vw;
+        margin-left:3vw;
+        width:90vw;
     }
 }
 

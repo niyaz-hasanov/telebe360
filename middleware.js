@@ -19,7 +19,7 @@ export async function middleware(req) {
 export const config = {
   matcher: [
     '/before_login',
-    
+
     '/settings',
     '/settings/my360id/',
     '/settings/membership/',

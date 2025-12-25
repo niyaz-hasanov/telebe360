@@ -431,7 +431,7 @@ const TicketPage = () => {
      
 <div className={css.container}>
   <TicketTable
-    title="Aktiv kuponlarım"
+    title="Aktiv biletlərim"
     count={activeTickets.length}
     showFilter={true}
     sortOpen={sortOpen}
@@ -440,7 +440,7 @@ const TicketPage = () => {
     setSortKey={setSortKey}
     dropdownRef={dropdownRef}
     tickets={sortedActive}
-    emptyText="Hazırda aktiv kuponunuz yoxdur."
+    emptyText="Hazırda aktiv biletiniz yoxdur."
     onQr={handleQr}
     isHistory={false}
     showHeader={true}
@@ -482,4 +482,3 @@ const TicketPage = () => {
 };
 
 export default TicketPage;
-

@@ -14,17 +14,17 @@ const TicketBurn = () => {
       axios.get(`${APIURL}tickets/burn/${id}`)
         .then((response) => {
           if (response.status === 204) {
-            setMessage('Kupon uğurla istifadə olundu');
+            setMessage('Bilet uğurla istifadə olundu');
             setIsSuccess(true); 
           }
         })
         .catch((error) => {
           if (error.response && error.response.status === 422) {
-            setMessage('Kuponun istifadəsi zamanı xəta baş verdi.');
+            setMessage('Biletin istifadəsi zamanı xəta baş verdi.');
             setIsSuccess(false); 
           }
           if (error.response && error.response.status === 404) {
-            setMessage('Kuponunuz tapılmadı');
+            setMessage('Biletiniz tapılmadı');
             setIsSuccess(false); 
           }
           else {

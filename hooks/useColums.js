@@ -11,8 +11,8 @@ export function useColumns() {
       // Breakpoint'leri kendi tasarımına göre değiştir
       if (w < 320 && w>475) {
         setCols(4);      // mobile
-      } else if (w < 800 && w>475) {
-        setCols(4);      // tablet
+      } else if (w < 1350 && w>1010) {
+        setCols(3);      // tablet
       }
       else if (w <1920 && w>1000) {
         setCols(4);      // küçük desktop

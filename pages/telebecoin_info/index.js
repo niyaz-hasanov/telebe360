@@ -35,7 +35,7 @@ export default function Coin_page() {
             <div className={css.section1_div}>
               <p className={css.section1_p}>
                 Tələbə Coin sizin üçün xüsusi hazırlanmış rəqəmsal valyutadır.
-                 Bu coin-lər vasitəsilə siz platformamızda kuponlar əldə edə, endirimlərdən 
+                 Bu coin-lər vasitəsilə siz platformamızda biletlər əldə edə, endirimlərdən 
                  yararlana və xüsusi fürsətlər qazana bilərsiniz. Onlar həm əyləncəli, həm də faydalı bir sistemdir.
               </p>
               <img className={css.section1_coin_img} src='/coin_page_section1_coins_img.svg' />
