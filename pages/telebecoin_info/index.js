@@ -101,8 +101,8 @@ export default function Coin_page() {
                 </p>
                  </div>
                   <button>
-                    <a href='/register' >
-                    Qeydiyyatdan keç</a>
+                    <Link href='/register' >
+                    Qeydiyyatdan keç</Link>
                   </button>
               </div>
               <div className={css.section3_register_right}>

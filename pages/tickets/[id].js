@@ -116,7 +116,7 @@ const TicketPage = () => {
             <div className={css.div}>
               <div className={css.top}>
                 <div className={css.top_left}>
-               <img className={css.icon} src='/Vector.svg' onClick={goBack} alt="Back" />
+               <Image width={9999} height={1} className={css.icon} src='/Vector.svg' onClick={goBack} alt="Back" />
                   <p className={css.paragraph}>{ticket.company.name} - {ticket.name} • {ticket.company.address}</p>
                 </div>
                 <div className={css.topleft}>
@@ -125,7 +125,7 @@ const TicketPage = () => {
               </div>
               <div className={css.bottom}>
                 <div className={css.bottom_left}>
-                  <span className={css.kfcppspan}><img className={css.kfcpp} src={`${MAINURL}uploads/${ticket.company.logo_path}`} alt={ticket.company.name} /></span>
+                  <span className={css.kfcppspan}><Image width={9999} height={1} className={css.kfcpp} src={`${MAINURL}uploads/${ticket.company.logo_path}`} alt={ticket.company.name} /></span>
                   <div>
                     <span id={css.wolt}>{ticket.count} ədəd</span>
                     <span id={css.day}>
@@ -150,7 +150,7 @@ const TicketPage = () => {
               </div>
             </div>
           </div>
-          <img className={css.bannerr} src='/ticket_banner.svg' alt="Banner" />
+          <Image width={9999} height={1} className={css.bannerr} src='/ticket_banner.svg' alt="Banner" />
         </div>
 
         <div className={css.textdiv}>
