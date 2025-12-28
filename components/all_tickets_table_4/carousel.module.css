@@ -1,7 +1,7 @@
 @import url('https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,100;0,9..40,200;0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;0,9..40,800;0,9..40,900;0,9..40,1000;1,9..40,100;1,9..40,200;1,9..40,300;1,9..40,400;1,9..40,500;1,9..40,600;1,9..40,700;1,9..40,800;1,9..40,900;1,9..40,1000&display=swap');
 
 .ticket_table{
-    display: flex !important;
+    display: flex;
     flex-wrap: wrap;
       overflow: none;
       white-space: nowrap;
@@ -59,7 +59,7 @@ padding:0;
     z-index:1;
     overflow:hidden;
     border-radius:50rem;
-    margin-left:1vw;
+    margin-left:0.6rem;
 }
 .card_top{
     display:flex;
@@ -291,6 +291,7 @@ width:100%
     z-index:1;
     overflow:hidden;
     border-radius:50vw;
+    margin-left:0vw;
 }
 .card_top{
     display:flex;
@@ -316,7 +317,7 @@ width:100%
 }
 .card_text_div{
     display:flex;
-    width:5rem;
+    width:25vw;
     flex-direction: column;    
     
 }

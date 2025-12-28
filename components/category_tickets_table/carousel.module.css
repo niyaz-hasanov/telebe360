@@ -29,10 +29,15 @@ padding:0;
 
 
 }
+.card_wrapper:hover{
+  transform: scale(110%);
+}
 
 .card_wrapper{
  display: inline-block;
   width: 20rem;
+    transition: filter 0.3s ease, transform 0.3s ease;
+
   height:16rem;
   background-position: center;
   background: url("/ticket_design.svg") center / 100% 100% no-repeat;
@@ -54,7 +59,7 @@ padding:0;
     z-index:1;
     overflow:hidden;
     border-radius:50rem;
-    margin-left:1vw;
+    margin-left:0.6rem;
 }
 .card_top{
     display:flex;
@@ -88,15 +93,15 @@ padding:0;
 .card_text_div h2{
     margin:0;
     padding:0;
-       text-wrap: nowrap;
+    font-size:1.3rem;
+        text-wrap: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
-    font-size:1.3rem;
     margin-bottom:-0.3rem;
+    
 }
 .card_text_div p{
-   
-     text-wrap: nowrap;
+       text-wrap: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
 margin:0;
@@ -286,6 +291,7 @@ width:100%
     z-index:1;
     overflow:hidden;
     border-radius:50vw;
+    margin-left:0vw;
 }
 .card_top{
     display:flex;
@@ -311,7 +317,7 @@ width:100%
 }
 .card_text_div{
     display:flex;
-    width:5rem;
+    width:25vw;
     flex-direction: column;    
     
 }

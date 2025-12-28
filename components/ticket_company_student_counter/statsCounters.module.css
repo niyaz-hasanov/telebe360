@@ -1,0 +1,255 @@
+.section{
+  width: 100%;
+  padding: 18px 0 8px;
+}
+
+.title{
+  text-align: center;
+  font-weight: 800;
+  font-size: 28px;
+  line-height: 1.2;
+  color: #111;
+  margin: 0 0 18px;
+}
+
+/* ======================
+   DESKTOP (default)
+====================== */
+.wrapper{
+  width: 100%;
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 22px;
+  align-items: stretch;
+}
+
+.card{
+  border: 2px solid #c34bff;
+  border-radius: 18px;
+  padding: 20px 18px 18px;
+  background: #fff;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+/* icon */
+.iconWrap{
+  height: 46px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 14px;
+}
+.icon{
+  height: 34px;
+  width: auto;
+  display: block;
+}
+
+.label{
+  margin-top: 12px;
+  font-weight: 800;
+  color: #111;
+  font-size: 22px;
+  line-height: 1.15;
+  text-align: center;
+}
+
+/* ✅ overflow yok: rakamlar kaybolmasın */
+.digitsRow{
+  display: flex;
+  gap: 12px;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: nowrap;
+}
+
+/* ======================
+   FLIP DIGIT (base)
+   - ÖLÇÜLERİ clamp ile yapıyoruz ki sığmadığında otomatik küçülsün
+====================== */
+
+/* ✅ Digit boyutları otomatik küçülsün:
+   - min: 34px, ideal: viewport'a göre, max: 44px
+*/
+.flipCounter{
+  position: relative;
+  width: clamp(34px, 4.6vw, 44px);
+  height: clamp(44px, 5.8vw, 56px);
+  perspective-origin: 50% 50%;
+  perspective: 300px;
+  flex: 0 0 auto;
+}
+
+.upperCard,
+.lowerCard{
+  display: flex;
+  position: relative;
+  justify-content: center;
+  width: 100%;
+  height: 50%;
+  overflow: hidden;
+  border-radius: 10px;
+  background: #8a1cff;
+  box-shadow: 0 6px 0 rgba(0,0,0,0.12);
+}
+
+.upperCard{
+  align-items: flex-end;
+  border-bottom-left-radius: 0;
+  border-bottom-right-radius: 0;
+  border-bottom: none; /* default çizgi yok */
+}
+
+.lowerCard{
+  align-items: flex-start;
+  border-top-left-radius: 0;
+  border-top-right-radius: 0;
+}
+
+.isFlipping .upperCard{
+  border-bottom: 1px solid rgba(255,255,255,0.25);
+}
+
+/* ✅ font da clamp ile küçülür */
+.upperCard span,
+.lowerCard span{
+  font-weight: 800;
+  font-size: clamp(18px, 2.4vw, 22px);
+  color: #fff;
+  line-height: clamp(44px, 5.8vw, 56px);
+}
+
+.upperCard span{ transform: translateY(50%); }
+.lowerCard span{ transform: translateY(-50%); }
+
+.flipCard{
+  display: flex;
+  justify-content: center;
+  position: absolute;
+  left: 0;
+  width: clamp(34px, 4.6vw, 44px);
+  height: calc(clamp(44px, 5.8vw, 56px) / 2);
+  overflow: hidden;
+  backface-visibility: hidden;
+}
+
+.flipCard span{
+  font-weight: 800;
+  font-size: clamp(18px, 2.4vw, 22px);
+  color: #fff;
+  line-height: clamp(44px, 5.8vw, 56px);
+}
+
+.unfold{
+  top: 50%;
+  align-items: flex-start;
+  transform-origin: 50% 0%;
+  transform: rotateX(180deg);
+  background: #8a1cff;
+  border-bottom-left-radius: 10px;
+  border-bottom-right-radius: 10px;
+}
+.unfold span{ transform: translateY(-50%); }
+
+.fold{
+  top: 0%;
+  align-items: flex-end;
+  transform-origin: 50% 100%;
+  transform: rotateX(0deg);
+  background: #8a1cff;
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
+}
+.fold span{ transform: translateY(50%); }
+
+.fold{
+  animation: fold 0.6s cubic-bezier(0.455, 0.03, 0.515, 0.955) forwards;
+  transform-style: preserve-3d;
+}
+.unfold{
+  animation: unfold 0.6s cubic-bezier(0.455, 0.03, 0.515, 0.955) forwards;
+  transform-style: preserve-3d;
+}
+
+@keyframes fold{
+  0%   { transform: rotateX(0deg); }
+  100% { transform: rotateX(-180deg); }
+}
+@keyframes unfold{
+  0%   { transform: rotateX(180deg); }
+  100% { transform: rotateX(0deg); }
+}
+
+/* ======================
+   TABLET (<= 1100)
+   - hâlâ 3 kolon
+   - boşluklar küçülür
+   - clamp zaten auto küçültüyor
+====================== */
+@media (max-width: 1100px){
+  .wrapper{ gap: 18px;}
+  .card{ padding: 18px 14px 14px; border-radius: 16px; }
+  .label{ font-size: 20px; }
+  .digitsRow{ gap: 2px; }
+  .iconWrap{ margin-bottom: 12px; }
+}
+
+/* ======================
+   MOBILE BREAKPOINT (<= 800)
+   - TASARIM GİBİ: 1 kolon
+   - üstte Users büyük, altta Partner + Tickets büyük kartlar
+====================== */
+@media (max-width: 800px){
+  .title{
+    font-size: 30px;
+    margin-bottom: 15px;
+  }
+
+  .wrapper{
+    grid-template-columns: 1fr;   /* ✅ tek kolon */
+    gap: 18px;
+    display:flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  /* hepsi büyük kart gibi */
+  .card{
+    width: 80%;
+    border-radius: 28px;
+    padding: 10px 10px 10px;
+  }
+
+  /* users biraz daha geniş/premium görünüm */
+  .cardUsers{
+    padding: 10px 10px 10px;
+  }
+
+  .iconWrap{
+    height: 40px;
+    margin-bottom: 14px;
+  }
+  .icon{
+    height: 35px;
+  }
+
+  .label{
+    font-size: 20px;
+    margin-top: 10px;
+  }
+
+  /* mobilde digitler biraz daha büyük ama clamp ile taşınca küçülür */
+  .digitsRow{
+    gap: 5px;
+  }
+}
+
+/* küçük telefon */
+@media (max-width: 420px){
+  .title{ font-size: 22px; }
+  .card{ padding: 1px 1px 11px; }
+  .label{ font-size: 20px; }
+  .icon{ height: 30px; }
+}
