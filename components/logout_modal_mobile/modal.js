@@ -17,7 +17,7 @@ const style = {
   transform: 'translate(-50%, -50%)',
   width: '40%',
   bgcolor: '#F4F4F4',
-  boxShadow: 24,
+  boxShadow: 24, 
   borderRadius: '1.3vw',
   padding: '5%',
   '@media (max-width: 800px)': {

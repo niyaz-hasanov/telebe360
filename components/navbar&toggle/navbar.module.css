@@ -71,6 +71,7 @@ border-right:1px solid #E2E2E3;
   -webkit-user-drag: none;
   user-select: none;
   width:1.3rem;
+  height:auto;
 }
 .bottom_div_img:hover{
   transform: scale(110%);
@@ -261,7 +262,8 @@ width:28em;
    pointer-events: auto;
   -webkit-user-drag: none;
   user-select: none;
-  width:2.1rem
+  width:2.1rem;
+  height:auto;
 }
 .noti_and_ticket a>img:hover{
   transform: scale(110%);
@@ -379,6 +381,7 @@ width:28em;
 }
 .sidebar_item_icon{
     width:1.7rem;
+    height:auto;
    
 
 }

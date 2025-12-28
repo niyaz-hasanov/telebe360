@@ -33,6 +33,7 @@
 
 .card_pp img{
    width:100%;
+   height:auto;
    pointer-events: auto;
   -webkit-user-drag: none;
   user-select: none;

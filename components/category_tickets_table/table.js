@@ -6,7 +6,7 @@ import { MAINURL } from '../../utils/constants';
 import { useColumns } from '../../hooks/useColums';
 import MobAddCarousel2 from '../mobile_carousel_2/carousel';
 import DeskAddCarousel2 from '../desk_carousel_2/carousel';
-
+import Image from 'next/image';
 // Ana sayfadaki ile aynı zaman hesaplama fonksiyonu
 const calculateTimeLeft = (end_time) => {
   const now = new Date();
@@ -53,7 +53,7 @@ const Slider = ({ tickets }) => {
             <div className={css.card_div}>
               <div className={css.card_top}>
                 <div className={css.card_pp}>
-                  <img
+                  <Image width={9999} height={1}
                     src={`${MAINURL}uploads/${ticket.company.logo_path}`}
                     alt={ticket.company.name}
                   />

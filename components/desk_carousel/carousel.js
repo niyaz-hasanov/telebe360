@@ -4,7 +4,7 @@ import { FaChevronRight, FaChevronLeft } from 'react-icons/fa';
 import css from './carousel.module.css';
 import { fetchSliderData } from '../../utils/banner/fetchSliderData';
 import { MAINURL } from '../../utils/constants';
-
+import Image from 'next/image';
 export default function DesktopSlider() {
   const [slides, setSlides] = useState([]);
 
@@ -66,7 +66,9 @@ export default function DesktopSlider() {
         <div className={css.emblaContainer}>
           {slides.map(slide => (
             <div className={css.emblaSlide} key={slide.id}>
-              <img
+              <Image
+              width={9999}
+              height={1}
                alt={slide.name}
                 className={css.deskcar}
                 src={getBannerImg(slide.desktop_img_path)}

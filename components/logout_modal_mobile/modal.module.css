@@ -1,4 +1,3 @@
-
 .dropdownp{
     font-weight: 600; font-size:14px;  width:9vw;
 }
@@ -75,11 +74,11 @@
         width:6vw;
     }
     .butdiv{
-        gap:20vw;
+        gap:10vw;
         margin-top:10vw;
     }
-    .but{
-        font-size:5vw; border-radius:2vw;
-        padding:1vw 8vw 1vw 8vw;
+    .but{ 
+        font-size:4vw; border-radius:2vw;
+        padding:3vw 6vw 3vw 6vw;
     }
 }

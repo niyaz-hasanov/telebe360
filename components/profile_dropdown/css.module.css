@@ -51,7 +51,7 @@
 
 .dropdown_li{
     width:12rem !important;
-    border-radius:0vw; height:3vw !important;
+    border-radius:0vw; height:3rem  !important;
     display:flex;align-items: center;
     gap:10px;
 }

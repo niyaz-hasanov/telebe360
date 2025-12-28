@@ -6,7 +6,7 @@ import Cookies from 'js-cookie';
 import { MAINURL } from '../../utils/constants';
 import css from './css.module.css';
 import Logout from '../logout_modal_mobile/modal';
-
+import Image  from 'next/image';
 export default function BasicMenu({ profileImgPath, isStudentVerified }) {
   const [anchorEl, setAnchorEl] = useState(null);
   const open = Boolean(anchorEl);
@@ -60,7 +60,7 @@ export default function BasicMenu({ profileImgPath, isStudentVerified }) {
           }}
           className={css.ppdiv}
         >
-          <img
+          <Image width={9999} height={1}
             className={css.ppbutton}
             src={profileImgPath ? `${MAINURL}uploads/${profileImgPath}` : '/profile.jpg'}
             alt="User Profile"

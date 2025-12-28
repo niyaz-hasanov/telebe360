@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { styled } from '@mui/material/styles';
 import Box from '@mui/material/Box';
-import MuiDrawer from '@mui/material/Drawer';
+import MuiDrawer from '@mui/material/Drawer';  
 import MuiAppBar from '@mui/material/AppBar';
 import Toolbar from '@mui/material/Toolbar';
 import CssBaseline from '@mui/material/CssBaseline';
@@ -17,7 +17,6 @@ import axios from 'axios';
 
 import css from './navbar.module.css';
 
-import Logout from '../logout_modal/modal';
 import Profile from '../profile_dropdown/dropdown';
 import { MAINURL, APIURL } from '../../utils/constants';
 
@@ -246,7 +245,7 @@ export default function MiniDrawer() {
             {authenticated && !isLoadingProfile && isStudentVerified === false ? (
               <span className={css.sidebar_middle_text}>
                 <p style={{ color: 'red' }}>
-                  <img src="/mod_alert.svg" alt="alert" />
+                  <img src="/mod_alert.svg" alt="alert"  />
                   Hesabınız moderatorlar tərəfindən təsdiq edilməmişdir
                 </p>
               </span>
@@ -256,10 +255,10 @@ export default function MiniDrawer() {
           <div className={css.nav_div_right}>
             {authenticated ? (
               <span className={css.noti_and_ticket}>
-                <a href="/telebecoin_info">
+                <Link href="/telebecoin_info">
                  <p>{coinCount}</p>
-                  <img src="/navbar_telebecoin.svg" className={css.ticket_logo} alt="coins" />
-                </a>
+                  <Image width={9999} height={1} src="/navbar_telebecoin.svg" className={css.ticket_logo} alt="coins" />
+                </Link>
                
               </span>
             ) : (
@@ -268,9 +267,9 @@ export default function MiniDrawer() {
 
             {authenticated ? (
               <span className={css.noti_and_ticket}>
-                <a href="/my_tickets">
-                  <img src="/navbar_ticket.svg" className={css.ticket_logo} alt="tickets" />
-                </a>
+                <Link href="/my_tickets">
+                  <Image width={9999} height={1} src="/navbar_ticket.svg" className={css.ticket_logo} alt="tickets" />
+                </Link>
             
               </span>
             ) : (
@@ -367,7 +366,7 @@ export default function MiniDrawer() {
                   <div key={category.id}>
                     <Link href={`/categories/${category.slug}`} passHref>
                       <div className={css.sidebar_item}>
-                        <img
+                        <Image width={9999} height={1}
                           src={`${MAINURL}uploads/${category.icon_path}`}
                           alt={category.name}
                           className={css.sidebar_item_icon}
@@ -380,7 +379,7 @@ export default function MiniDrawer() {
                    <div className={css.sidebar_bottom_div}>
             {authenticated ? (
               <Link href="/settings">
-                <img
+                <Image width={9999} height={1}
                   src="/settings.svg"
                   draggable="false"
                   className={css.bottom_div_img}
@@ -392,7 +391,7 @@ export default function MiniDrawer() {
             )}
 
             <Link href="/technical_support">
-              <img
+              <Image width={9999} height={1}
                 src="/contact.svg"
                 draggable="false"
                 className={css.bottom_div_img}
@@ -428,6 +427,6 @@ export default function MiniDrawer() {
           )}
         </ChevronDiv>
       </Box>
-    </Box>
+    </Box> 
   );
 }

@@ -5,7 +5,7 @@ import { MAINURL } from '../../utils/constants';
 import { useColumns } from '../../hooks/useColums';
 import MobAddCarousel2 from '../mobile_carousel_2/carousel';
 import DeskAddCarousel2 from '../desk_carousel_2/carousel';
-
+import Image from 'next/image';
 
 const calculateTimeLeft = (end_time) => {
   const now = new Date();

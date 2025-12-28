@@ -7,7 +7,7 @@ import Link from 'next/link';
 import { MAINURL, APIURL } from '../../utils/constants';
 import axios from 'axios';
 import PropTypes from 'prop-types';
-
+import Image from 'next/image';
 // Süre hesaplama fonksiyonu
 const calculateTimeLeft = (end_time) => {
   const now = new Date();
@@ -157,7 +157,7 @@ const Slider = ({ ticket }) => {
       <div className={css.card_div}>
         <div className={css.card_top}>
           <div className={css.card_pp}>
-            <img
+            <Image width={9999} height={1}
               src={`${MAINURL}uploads/${ticket.company.logo_path}`}
               alt={ticket.company.name}
             />
@@ -177,7 +177,7 @@ const Slider = ({ ticket }) => {
               <h2 className={css.say}>Say</h2>
               <div className={css.card_bottom_right}>
                 <p>{ticket.count}</p>
-                <img src="/ticket_ticketlogo.svg" />
+                <Image width={9999} height={1} src="/ticket_ticketlogo.svg" />
               </div>
             </button>
 
@@ -185,7 +185,7 @@ const Slider = ({ ticket }) => {
               <h2 className={css.gun}>Gün</h2>
               <div className={css.card_bottom_right}>
                 <p>{calculateTimeLeft(ticket.end_time)}</p>
-                <img src="/ticket_clocklogo.svg" />
+                <Image width={9999} height={1} src="/ticket_clocklogo.svg" />
               </div>
             </button>
 
@@ -193,7 +193,7 @@ const Slider = ({ ticket }) => {
               <h2 className={css.giymet}>Qiymət</h2>
               <div className={css.card_bottom_right}>
                 <p>{ticket.price}</p>
-                <img src="/telebecoinlogo.svg" />
+                <Image width={9999} height={1} src="/telebecoinlogo.svg" />
               </div>
             </button>
           </div>
