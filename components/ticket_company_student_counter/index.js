@@ -115,8 +115,8 @@ export default function StatsCounters() {
     const BASE_TICK_MS = 120;
 
     // students son 4: 1 dakikada 1 artsın
-    const STUDENTS_LAST4_MS = 6000;
-    const studentsSlowThreshold = Math.max(0, t.students - 4);
+    const STUDENTS_LAST4_MS = 3000;
+    const studentsSlowThreshold = Math.max(0, t.students - 3);
 
     lastTickTimeRef.current = performance.now();
     studentsAccumRef.current = 0;
