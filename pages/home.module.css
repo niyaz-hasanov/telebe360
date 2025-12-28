@@ -11,29 +11,29 @@
 .footer{
     width:100%;
     height:100%;
-    bottom:0vw;
+    bottom:0dvw;
     z-index:-1;
     position:relative;
 }
 .ppdiv{
     display:inline-block;
-    border:0.2vw solid black;
-    border-radius:50vw;
+    border:0.2dvw solid black;
+    border-radius:50dvw;
     padding:0;
-     margin-right:13vw;
-    height:3.99vw;
-    margin-left:1vw;
+     margin-right:13dvw;
+    height:3.99dvw;
+    margin-left:1dvw;
     color:black;
     text-decoration: none;
 }
 .card{
-   background:white;border-radius:2vw;
+   background:white;border-radius:2dvw;
    list-style:none;
    text-decoration: none;
    color:black;
-   width:22vw;
-   height:17vw;
-   padding:-5vw;
+   width:22dvw;
+   height:17dvw;
+   padding:-5dvw;
    display:flex;
    flex-wrap:wrap;
    
@@ -45,7 +45,7 @@
        font-family: 'DM Sans', sans-serif; 
        display:flex;
         flex-direction: column;
-        width:91vw;
+        width:91dvw;
     
   
     
@@ -58,53 +58,53 @@
   display:inline-block;
   
   padding:0;
-  margin-top:-1vw;
+  margin-top:-1dvw;
     color:black;
-  margin-left:1vw;
+  margin-left:1dvw;
 }
 .but_div{
-    margin-left:1vw;
+    margin-left:1dvw;
     display:flex;
-    padding-bottom:2vw;
-  height:1vw;
+    padding-bottom:2dvw;
+  height:1dvw;
     
 }
 .percent{
-    margin-left:4.5vw;
+    margin-left:4.5dvw;
     background:#E3E2E3;
-    padding:0.2vw;
+    padding:0.2dvw;
     display:inline-block;
-    font-size:1.4vw;text-decoration: none;
+    font-size:1.4dvw;text-decoration: none;
     color:#B179F4;  
-    border-radius:0.3vw;
-    height:2vw;
+    border-radius:0.3dvw;
+    height:2dvw;
 }
 .but_div button{
-    padding:0.5vw;
+    padding:0.5dvw;
     
-    height:2.5vw;
+    height:2.5dvw;
 }
 .woltbut{
     background:#E3E2E3;
     border:none;
-    border-radius:0.3vw;
+    border-radius:0.3dvw;
 }
 .todaybut{
     border:none;
     background:#FC6766;
     color:white;
-    border-radius:0.3vw;
+    border-radius:0.3dvw;
 }
 .but_div button{
-    margin-right:1vw;
-    padding-left:1vw;
-    font-size:1.2vw;
-    padding-right:1vw;
+    margin-right:1dvw;
+    padding-left:1dvw;
+    font-size:1.2dvw;
+    padding-right:1dvw;
 }
 .card_p p{
     
-    font-size:1.5vw;
-    margin-top:-1.5vw;
+    font-size:1.5dvw;
+    margin-top:-1.5dvw;
 }
 .cardtop{
     display:flex;
@@ -114,19 +114,19 @@
     
 }
 .card_p h3{
-    font-size:1.5vw;
+    font-size:1.5dvw;
 }
 
 .card_pp{
-    width:4vw;
-    border-radius:50vw;
-    height:4vw;
+    width:4dvw;
+    border-radius:50dvw;
+    height:4dvw;
 }
 
 .bookmarkcard{
-    width:2.5vw;
-    height:2.5vw;
-    margin-top:-2vw;
+    width:2.5dvw;
+    height:2.5dvw;
+    margin-top:-2dvw;
     margin-bottom:0;
 
 }
@@ -136,11 +136,11 @@
 .card_div{
     display:flex;
     flex-wrap: wrap;
-    gap:3vw;
+    gap:3dvw;
 }
 .banner{
-    width:91vw;
-    margin-left:7.5vw;
+    width:91dvw;
+    margin-left:7.5dvw;
 }
 
 
@@ -151,12 +151,12 @@
     display:block;
     display:flex;
     flex-direction: column;
-    align-items: center;margin-left:4vw;
-    font-size:1.9vw;
+    align-items: center;margin-left:4dvw;
+    font-size:1.9dvw;
     font-weight: 700;
    }
    .deskweekbest p{
-    margin-left:-20vw;
+    margin-left:-20dvw;
    }
    .mobfooter{
     display:none;
@@ -164,7 +164,7 @@
    .ticket_table_div{
      align-items: center;
      justify-content: center;
-     margin-left:15vw;
+     margin-left:15dvw;
    }
    .ticket_table_h2{
     font-size:2.1rem;
@@ -183,22 +183,21 @@
     .ticket_table_div{
         align-items: center;
         justify-content: center;
-    margin-left:0;
-    padding-left:9dvw;
-         
+        margin-left:9dvw;
+     
       }
       .table_div{
-        margin-left:0vw;
+        margin-left:0dvw;
       }
       .ticket_table_h2{
        font-size:2rem;
        white-space: nowrap;
-       margin-bottom:5vw;
-       margin-top:0vw;
+       margin-bottom:5dvw;
+       margin-top:0dvw;
       
       }
     .main_container{
-        margin-left:0vw;
+        margin-left:0dvw;
      
       display:flex;
 
@@ -216,61 +215,61 @@
         display:block;
         
     height:100%;
-    bottom:0vw;
+    bottom:0dvw;
     z-index:-1;
     position:relative;
     }
     .card{
-        width:53vw;
-        height:40vw; margin-left:-1vw;
-        border-radius:4vw;
+        width:53dvw;
+        height:40dvw; margin-left:-1dvw;
+        border-radius:4dvw;
     }
     .card_div{
         justify-content: center;
-        gap:7vw;
-        margin-left:-10vw;
-    margin-right:-20vw;
+        gap:7dvw;
+        margin-left:-10dvw;
+    margin-right:-20dvw;
     }
     .ppdiv{
-        width:10vw;
-        height:10vw;
+        width:10dvw;
+        height:10dvw;
         
         
-        margin-right:30vw;
+        margin-right:30dvw;
     }
     .bookmarkcard{
-        margin-top:-5vw;
-        width:7vw;
-        height:7vw;
+        margin-top:-5dvw;
+        width:7dvw;
+        height:7dvw;
     }
     .cardtop{
-        margin-top:1vw;
-        margin-left:2vw;
+        margin-top:1dvw;
+        margin-left:2dvw;
         
     }
     .categories_div{
         display:block;
-        display:flex;align-items: left;flex-direction: column;margin-left:-9vw;
+        display:flex;align-items: left;flex-direction: column;margin-left:-9dvw;
     }
     .categories_div>p{
-        font-size:6vw;
+        font-size:6dvw;
         font-family: 'DM Sans', sans-serif; 
         font-weight: 800;
     }
     .category_div{
-        width:10vw;
+        width:10dvw;
         
         
-        height:10vw;
+        height:10dvw;
      
     }
     .category_li{
         border:1px solid #969696;
-        border-radius:15vw;
+        border-radius:15dvw;
         display:flex; align-items: center;
         flex-direction: column;
         justify-content: center;
-        padding:4vw;
+        padding:4dvw;
     }
     .categories_li{
         display:flex;
@@ -281,59 +280,59 @@
     .categories_ul{
         display:flex;
         align-items: center;
-        gap:3vw;
-      margin-left:-10vw;
-      margin-top:-3vw;
+        gap:3dvw;
+      margin-left:-10dvw;
+      margin-top:-3dvw;
         list-style: none;
         flex-direction: row;
     }
     .category_p{
-        font-size:3.5vw;
-        margin-top:1vw;
+        font-size:3.5dvw;
+        margin-top:1dvw;
         font-weight:800;
     }
     .card_pp{
-        width:10vw;
-        height:10vw;
+        width:10dvw;
+        height:10dvw;
     }
     .percent{
-        font-size:3vw;
+        font-size:3dvw;
         display: flex;align-items: center;
         justify-content: center;
-        height:5vw;font-weight: 900;
-        margin-right:0.6vw;
-        border-radius: 1.1vw;
-        margin-left:12vw;
+        height:5dvw;font-weight: 900;
+        margin-right:0.6dvw;
+        border-radius: 1.1dvw;
+        margin-left:12dvw;
     }
     .but_div{
-        margin-left:3vw;
+        margin-left:3dvw;
     }
     .but_div button{
-        font-size:3vw;
-        padding:2vw;
+        font-size:3dvw;
+        padding:2dvw;
         display: flex;
         align-items: center;
-        height:5vw;
-        border-radius:1.1vw;
+        height:5dvw;
+        border-radius:1.1dvw;
     }
     .card_p h3{
-        margin-top:1vw;
-        font-size:4vw;
-        margin-bottom:2vw;
+        margin-top:1dvw;
+        font-size:4dvw;
+        margin-bottom:2dvw;
     }
     .card_p{
-        margin-left:3vw;
-        margin-top:3vw;
+        margin-left:3dvw;
+        margin-top:3dvw;
     }
     .card_p p{
-        font-size:2.5vw;
-        margin-top:-2vw;
+        font-size:2.5dvw;
+        margin-top:-2dvw;
     }
  
    .mobilebanner{
     display:block;
-     margin-left:2vw;
-     width:96vw;
+     margin-left:2dvw;
+     width:96dvw;
  
     
    }
@@ -348,8 +347,8 @@
     display:block;
     display:flex;
     flex-direction: column;
-    align-items: left;margin-left:-10vw;
-    font-size:5vw;
+    align-items: left;margin-left:-10dvw;
+    font-size:5dvw;
     font-weight: 800;
    }
    .add2desk{
