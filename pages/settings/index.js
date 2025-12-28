@@ -107,6 +107,17 @@ export default function Home() {
                 <p>Təhlükəsizlik</p>
                 <FaChevronRight className={css.chevron} />
               </Link>
+               <Link href='/settings/promo' className={css.profli}>
+                <Image
+                  src='/gift.png'
+                  width={999}
+                  height={0}
+                  className={css.id360mob}
+                  alt='Promo Kod'
+                />
+                <p>Promo Kod</p>
+                <FaChevronRight className={css.chevron} />
+              </Link>
               <Link href='/settings/membership' className={css.profli}>
                 <Image
                   src='/membermob.svg'

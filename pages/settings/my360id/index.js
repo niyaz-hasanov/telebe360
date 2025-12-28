@@ -153,6 +153,8 @@ export default function Home() {
             <ul className={css.settings_ul}>
               <Link className={css.ul_360id} href='/settings/my360id'><li>My360ID</li></Link>
               <Link className={css.ul} href='/settings/security'><li>Təhlükəsizlik</li></Link>
+              <Link className={css.ul} href="/settings/promo"><li>Promo Kod</li></Link>
+
               <Link className={css.ul} href='/settings/membership'><li>Üzvlük</li></Link>
               <Link className={css.ul} href='/settings/notifications'><li>Bildirişlər</li></Link>
               <Link className={css.ul} href='/settings/references'><li>Referanslar</li></Link>
