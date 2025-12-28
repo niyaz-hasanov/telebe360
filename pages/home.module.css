@@ -183,8 +183,9 @@
     .ticket_table_div{
         align-items: center;
         justify-content: center;
-        margin-left:2em;
-     
+    margin-left:0;
+    padding-left:9dvw;
+         
       }
       .table_div{
         margin-left:0vw;
@@ -372,5 +373,3 @@
 
 
 }
-
-
