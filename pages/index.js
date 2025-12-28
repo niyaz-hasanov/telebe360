@@ -9,7 +9,7 @@ import Table4 from '../components/all_tickets_table_4/table'
 import DeskAddCarousel2 from '../components/desk_carousel_2/carousel'
 import MobAddCarousel2 from '../components/mobile_carousel_2/carousel'
 import Footer from '../components/footer/index'
-
+import Counter from '../components/ticket_company_student_counter/index'
 import Link from 'next/link';
 export default function Home() {
   return (
@@ -45,6 +45,7 @@ export default function Home() {
         
       
         <div className={css.ticket_table_div}>
+          <Counter/>
           <h2 className={css.ticket_table_h2}>Bütün biletlər</h2>
            <div className={css.table_div}>
           <Table4 />

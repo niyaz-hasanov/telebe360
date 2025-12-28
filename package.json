@@ -15,9 +15,10 @@
     "@fortawesome/fontawesome-svg-core": "^6.5.1",
     "@fortawesome/free-solid-svg-icons": "^6.5.1",
     "@fortawesome/react-fontawesome": "^0.2.0",
+    "@leenguyen/react-flip-clock-countdown": "^1.7.2",
     "@mui/icons-material": "^5.15.13",
     "@mui/material": "^5.15.13",
-    "axios": "^1.6.8",
+    "axios": "^1.13.2",
     "cookies": "^0.9.1",
     "date-fns": "^4.1.0",
     "embla-carousel-react": "^8.6.0",
@@ -54,4 +55,3 @@
     "yup": "^1.6.1"
   }
 }
-

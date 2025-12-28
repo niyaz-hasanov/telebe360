@@ -2,6 +2,7 @@ import '../styles/globals.css';
 import Navbar from '../components/navbar&toggle/navbar';
 import { useRouter } from 'next/router';
 import { useState, useEffect } from 'react';
+import '@leenguyen/react-flip-clock-countdown/dist/index.css';
 import Image from 'next/image';
 import { Toaster } from 'react-hot-toast';
 import startTokenRefresh from '../utils/startTokenRefresh'; // Token yenileme fonksiyonunu import et
@@ -66,6 +67,8 @@ function MyApp({ Component, pageProps }) {
     '/settings',
     '/settings/my360id',
     '/settings/security',
+    '/settings/promo',
+
     '/settings/membership',
     '/settings/notifications',
     '/settings/references',
@@ -88,6 +91,8 @@ function MyApp({ Component, pageProps }) {
     '/settings/membership',
     '/settings/notifications',
     '/settings/references',
+    '/settings/promo',
+
     '/verify_email/[token]',
     '/ticket_burn/[id]',
     '/my_tickets',

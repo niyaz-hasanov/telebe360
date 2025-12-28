@@ -121,7 +121,7 @@ export default function Home() {
             </li>
             <li>
               <span className={styles.cardIcon}>✉️</span>
-              <span>telebe360@gmail.com</span>
+              <span>office.telebe360@gmail.com</span>
             </li>
           </ul>
 
