@@ -200,11 +200,13 @@
 @media (max-width: 840px) {
   
     .footer{
-      height:130vh;
+    height:115vh;
    
   }
   .footer_container{
     position:relative;
+  max-height: 100vh;
+    
   }
   .logo_block{
     position:absolute;
@@ -293,6 +295,15 @@
   }
 }
 @media (max-width: 350px) {
+      .footer{
+    height:100vh;
+   
+  }
+  .footer_container{
+    position:relative;
+    max-height: 100vh;
+    
+  }
  .footer_middle_bottom_ul{
   bottom:-38vw;
   left:5vw;
