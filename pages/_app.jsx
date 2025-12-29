@@ -5,22 +5,20 @@ import { useState, useEffect } from 'react';
 import '@leenguyen/react-flip-clock-countdown/dist/index.css';
 import Image from 'next/image';
 import { Toaster } from 'react-hot-toast';
-import startTokenRefresh from '../utils/startTokenRefresh'; // Token yenileme fonksiyonunu import et
+import startTokenRefresh from '../utils/startTokenRefresh';
 import Footer from '../components/footer/index';
 import { ThemeProvider } from '@mui/material/styles';
-import theme from '../components/theme';  // theme.js dosyasını import edin
+import theme from '../components/theme';
+import Head from 'next/head'; // ✅ EKLE
 
 function MyApp({ Component, pageProps }) {
   const router = useRouter();
   const [loading, setLoading] = useState(false);
 
   useEffect(() => {
-    // Service Worker kaydını yap
     if ('serviceWorker' in navigator) {
       navigator.serviceWorker
         .register('/service-worker.js')
-        .then((registration) => {
-        })
         .catch((error) => {
           console.error('Service Worker registration failed:', error);
         });
@@ -31,7 +29,7 @@ function MyApp({ Component, pageProps }) {
 
     const tokenRefreshStartTime = localStorage.getItem('tokenRefreshStartTime');
     const currentTime = new Date().getTime();
-    const oneHour = 30 * 60 * 1000; 
+    const oneHour = 30 * 60 * 1000;
 
     if (!tokenRefreshStartTime || currentTime - tokenRefreshStartTime > oneHour) {
       startTokenRefresh();
@@ -68,15 +66,13 @@ function MyApp({ Component, pageProps }) {
     '/settings/my360id',
     '/settings/security',
     '/settings/promo',
-
     '/settings/membership',
     '/settings/notifications',
     '/settings/references',
     '/verify_email/[token]',
     '/ticket_burn/[id]',
     '/forgot_password',
-     '/forgot_password/change_password/[token]'
-     
+    '/forgot_password/change_password/[token]'
   ];
 
   const noFooterRoutes = [
@@ -92,17 +88,24 @@ function MyApp({ Component, pageProps }) {
     '/settings/notifications',
     '/settings/references',
     '/settings/promo',
-
     '/verify_email/[token]',
     '/ticket_burn/[id]',
     '/my_tickets',
     '/coming_soon',
     '/forgot_password',
-     '/forgot_password/change_password/[token]'
+    '/forgot_password/change_password/[token]'
   ];
 
   return (
     <>
+      <Head>
+        {/* ✅ iPhone scaling / vw sorunlarını çok sık çözen meta */}
+        <meta
+          name="viewport"
+          content="width=device-width, initial-scale=1, viewport-fit=cover"
+        />
+      </Head>
+
       {loading ? (
         <div className="loading-spinner">
           <p className='loading-text'> Səhifə yüklənir. Gözlədiyinizə görə təşəkkür edirik</p>
@@ -116,19 +119,15 @@ function MyApp({ Component, pageProps }) {
           </div>
         </div>
       ) : (
-        <>
-          <ThemeProvider theme={theme}>
-            {!noNavbarRoutes.includes(router.pathname) && <Navbar />}
-            <Component {...pageProps} />
-            <Toaster 
-              toastOptions={{
-                duration: 5000,
-              }}
-              limit={2} // Aynı anda en fazla 2 toast mesajı göster
-            />
-            {!noFooterRoutes.includes(router.pathname) && <Footer />}
-          </ThemeProvider>
-        </>
+        <ThemeProvider theme={theme}>
+          {!noNavbarRoutes.includes(router.pathname) && <Navbar />}
+          <Component {...pageProps} />
+          <Toaster
+            toastOptions={{ duration: 5000 }}
+            limit={2}
+          />
+          {!noFooterRoutes.includes(router.pathname) && <Footer />}
+        </ThemeProvider>
       )}
     </>
   );
