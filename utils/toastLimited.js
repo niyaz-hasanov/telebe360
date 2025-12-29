@@ -1,28 +1,16 @@
 import toast from "react-hot-toast";
 
 const MAX = 2;
-let active = [];
-let inited = false;
+let queue = []; // toast id'leri
 
-function init() {
-  if (inited) return;
-  inited = true;
+function push(id) {
+  // aynı id varsa çıkarıp sona ekle
+  queue = queue.filter((x) => x !== id);
+  queue.push(id);
 
-  toast.onChange((t) => {
-    if (!t.visible) {
-      active = active.filter((id) => id !== t.id);
-    }
-  });
-}
-
-function cap(id) {
-  init();
-
-  active = active.filter((x) => x !== id);
-  active.push(id);
-
-  while (active.length > MAX) {
-    const oldest = active.shift();
+  // limit aşılırsa en eskisini kapat
+  while (queue.length > MAX) {
+    const oldest = queue.shift();
     if (oldest) toast.dismiss(oldest);
   }
 
@@ -30,14 +18,20 @@ function cap(id) {
 }
 
 export default {
-  success: (msg, opts) => cap(toast.success(msg, opts)),
-  error: (msg, opts) => cap(toast.error(msg, opts)),
-  loading: (msg, opts) => cap(toast.loading(msg, opts)),
-  custom: (renderer, opts) => cap(toast.custom(renderer, opts)),
-  promise: (p, msgs, opts) => cap(toast.promise(p, msgs, opts)),
+  success: (msg, opts) => push(toast.success(msg, opts)),
+  error: (msg, opts) => push(toast.error(msg, opts)),
+  loading: (msg, opts) => push(toast.loading(msg, opts)),
+  custom: (renderer, opts) => push(toast.custom(renderer, opts)),
+  promise: (p, msgs, opts) => push(toast.promise(p, msgs, opts)),
+
   dismiss: (id) => {
-    if (id) active = active.filter((x) => x !== id);
-    else active = [];
+    if (id) queue = queue.filter((x) => x !== id);
+    else queue = [];
     return toast.dismiss(id);
+  },
+  remove: (id) => {
+    if (id) queue = queue.filter((x) => x !== id);
+    else queue = [];
+    return toast.remove(id);
   },
 };

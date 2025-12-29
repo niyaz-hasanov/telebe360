@@ -67,12 +67,4 @@ body::-webkit-scrollbar {
       transform: rotate(360deg);
     }
   }
-  html, body {
-  -webkit-text-size-adjust: 100%;
-  text-size-adjust: 100%;
-  overflow-x: hidden;
-}
-
-*, *::before, *::after {
-  box-sizing: border-box;
-}
+  
