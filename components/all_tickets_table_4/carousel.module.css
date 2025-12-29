@@ -229,7 +229,7 @@ width:100%
   .ticket_table{
     margin:0;
     padding:0;
-    width:98vw;
+    width:98dvw;
     
   }
   .add2desk{
@@ -238,8 +238,8 @@ width:100%
   .add2mob{
       display:block;
     
-  width:96vw;
-  margin-left:1.5vw;
+  width:96dvw;
+  margin-left:1.5dvw;
     
   }
    .card_div{
@@ -247,11 +247,11 @@ width:100%
 }
 @media only screen and (max-width: 685px){
     .ticket_table{
-        gap:1vw;
+        gap:1dvw;
     }
    .card_wrapper{
     position:relative;
-    width:45vw;
+    width:45dvw;
     background-image: url("/ticket_design_mobil.svg");
     background-size: 100% 100%;
     background-position: center;
@@ -285,17 +285,17 @@ width:100%
  
 }
 .card_pp{
-    width:10vw;    height:10vw;
+    width:10dvw;    height:10dvw;
     align-items: center;
     justify-content: center;
     z-index:1;
     overflow:hidden;
-    border-radius:50vw;
-    margin-left:0vw;
+    border-radius:50dvw;
+    margin-left:0dvw;
 }
 .card_top{
     display:flex;
-   gap:1vw;
+   gap:1dvw;
     align-items: center;
     color:#2F0D4A;
 }
@@ -304,8 +304,8 @@ width:100%
     margin:0px;
     align-items: center;
     justify-self: center;
-    font-size:11vw;
-    height:10vw;
+    font-size:11dvw;
+    height:10dvw;
     color:#2F0D4A;
     font-weight:800;
 }
@@ -317,28 +317,28 @@ width:100%
 }
 .card_text_div{
     display:flex;
-    width:25vw;
+    width:25dvw;
     flex-direction: column;    
     
 }
 .card_text_div h2{
     margin:0;
     padding:0;
-    font-size:3vw;
-    margin-bottom:-0.3vw;
+    font-size:3dvw;
+    margin-bottom:-0.3dvw;
 }
 .card_text_div p{
    
 margin:0;
 padding:0;
-    font-size:2vw;font-weight: 500;
+    font-size:2dvw;font-weight: 500;
     
 
 }
 .card_button_div{
     display:flex;
      width:100%;
-     gap:1vw;
+     gap:1dvw;
     }
     
 .card_button_div button{
@@ -352,7 +352,7 @@ padding:0;
 }
 .card_button_div div{
     display:flex;
-    font-size:1vw;
+    font-size:1dvw;
 }
 .card_button_section_div{
     position:absolute;
@@ -360,11 +360,11 @@ padding:0;
 
 .card_button_div h2{
     font-weight: 300;   
-    margin-bottom:5vw; 
-    font-size:2vw;
+    margin-bottom:5dvw; 
+    font-size:2dvw;
     font-style: italic;
     position:absolute;
-    bottom:3vw;
+    bottom:3dvw;
     color:#B5B5AF;
 }
 
@@ -379,13 +379,13 @@ padding:0;
     
  margin-left:0;
  
-  height:2.5vw;
+  height:2.5dvw;
 }
     
 #but2{
     display:flex;
     flex-direction:column;
-   display:flex;height:2.5vw;
+   display:flex;height:2.5dvw;
 width:100%
 
 
@@ -393,15 +393,15 @@ width:100%
   
 }
 #but1 div>p{
-     font-size:2vw;
+     font-size:2dvw;
      
   
 }
 #but2 div>p{
      border-left:1px solid  #B5B5AF;
-     padding-left:1.5vw;
+     padding-left:1.5dvw;
   white-space: nowrap;
-     font-size:2vw;
+     font-size:2dvw;
 
 
      
@@ -409,24 +409,24 @@ width:100%
 }
 #but3 div>p{
      border-left:1px solid #B5B5AF;
-     padding-left:1.5vw;
-     font-size:2vw;
+     padding-left:1.5dvw;
+     font-size:2dvw;
 
   
 }
 .say{
-    padding-left:1vw;
+    padding-left:1dvw;
 }
 .gun{
-    padding-left:1.5vw;
+    padding-left:1.5dvw;
 }
 .giymet{
-    padding-left:1.5vw;
+    padding-left:1.5dvw;
 }
 #but3{
  display:flex;
     flex-direction:column;
-   display:flex;height:2.5vw;
+   display:flex;height:2.5dvw;
 
 
    
@@ -437,8 +437,8 @@ width:100%
 .card_bottom_right{
     display:flex;
   flex-direction: row;
-  font-size:2vw;
-  gap:0.3vw;
+  font-size:2dvw;
+  gap:0.3dvw;
   
 
 }
@@ -454,7 +454,7 @@ width:100%
 }
 @media only screen and (max-width: 685px){
   .card_wrapper{
-    width:45vw;
+    width:45dvw;
     aspect-ratio: 21 / 16;             /* desktop oranına benzer; istersen svg oranına göre değiştir */
     height: auto;                       /* yükseklik sabitlenmesin */
     background: url("/ticket_design_mobil.svg") center / 100% 100% no-repeat;
@@ -464,10 +464,10 @@ width:100%
     position: relative;                 /* 🔥 absolute child'lar için referans */
     width: 100%;
     height: 100%;
-    padding:3vw;       /* 🔥 kartın iç boşluğu */
+    padding:3dvw;       /* 🔥 kartın iç boşluğu */
     display: grid;                      /* 🔥 kaymayı bitirir */
     grid-template-rows: auto 1fr auto;  /* top / middle / bottom */
-    row-gap: 1.5vw;
+    row-gap: 1.5dvw;
   }
 
   .card_top{
@@ -478,7 +478,7 @@ width:100%
     align-self: center;                 /* ortada sabit */
     justify-self: center;
    margin:0;
-   margin-top:-15vw;
+   margin-top:-15dvw;
   }
 
   .card_bottom{
@@ -488,19 +488,19 @@ width:100%
   
   .card_button_div{
     width: 100%;
-    margin-top:-4.5vw;
+    margin-top:-4.5dvw;
     justify-content: space-between;
-    gap: 1vw;
+    gap: 1dvw;
   }
   
   #but1 .card_bottom_right img{
-    width:4vw !important;
+    width:4dvw !important;
   }
   #but2 .card_bottom_right img{
-    width:4vw !important;
+    width:4dvw !important;
   }
   #but3 .card_bottom_right img{
-    width:4vw !important;
+    width:4dvw !important;
   }
 }
 
