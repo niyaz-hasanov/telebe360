@@ -3,7 +3,9 @@ import styles from './css.module.css';
 import Head from 'next/head';
 import Link from 'next/link';
 import { APIURL } from '../../utils/constants';
-import toast, { Toaster } from 'react-hot-toast';
+import toast from "../../utils/toastLimited";
+
+import  { Toaster } from 'react-hot-toast';
 
 export default function Home() {
   const [formData, setFormData] = useState({

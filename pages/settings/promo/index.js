@@ -5,7 +5,8 @@ import Head from 'next/head';
 import Link from 'next/link';
 import Cookies from 'js-cookie';
 import axios from 'axios';
-import toast from 'react-hot-toast';
+import toast from "../../../utils/toastLimited";
+
 import { APIURL } from '../../../utils/constants';
 
 export default function Home() {

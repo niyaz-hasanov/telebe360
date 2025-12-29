@@ -1,16 +1,12 @@
 import React, { useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
 import axios from 'axios';
-import Slider from '../../components/desk_weekly_bests/carousel'; // Karusel bileşeninizin yolu
-import MobileSlider from '../../components/mobile_weekly_bests_carousel/carousel';
 import Table from '../../components/category_tickets_table/table'
 import css from './css.module.css'; // CSS dosyanızın yolu
 import { APIURL } from '../../utils/constants';
 import Head from 'next/head';
 import BannerUp from '../../components/desk_carousel/carousel'
 import BannerUPMobile from '../../components/mobile_carousel/carousel'
-import BannerDown from '../../components/desk_carousel_2/carousel'
-import BannerDownMobile from '../../components/mobile_carousel_2/carousel'
 const CategoryPage = () => {
   const router = useRouter();
   const { slug } = router.query;

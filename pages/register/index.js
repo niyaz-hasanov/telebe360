@@ -5,7 +5,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import css from './register.module.css';
 import { FaEye } from 'react-icons/fa';
 import { APIURL, MAINURL } from '../../utils/constants';
-import toast from 'react-hot-toast';
+import toast from "../../utils/toastLimited";
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
 import Select from 'react-select';

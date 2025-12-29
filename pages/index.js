@@ -45,7 +45,7 @@ export default function Home() {
         
       
         <div className={css.ticket_table_div}>
-          <Counter/>
+          <div className={css.counter}><Counter/></div>
           <h2 className={css.ticket_table_h2}>Bütün biletlər</h2>
            <div className={css.table_div}>
           <Table4 />

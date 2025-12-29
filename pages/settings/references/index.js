@@ -6,7 +6,7 @@ import Link from 'next/link';
 import Cookies from 'js-cookie';
 import axios from 'axios';
 import { APIURL } from '../../../utils/constants';
-import toast from 'react-hot-toast';
+import toast from "../../../utils/toastLimited";
 
 export default function Home() {
   const [referralCode, setReferralCode] = useState('');

@@ -4,7 +4,8 @@ import axios from "axios";
 import Image from "next/image";
 import Head from "next/head";
 import Link from "next/link";
-import { toast } from "react-hot-toast";
+import toast from "../../../utils/toastLimited";
+
 import Switch from "../../../components/switch_button/index";  // Switch bileşeni import edildi.
 import { APIURL } from "../../../utils/constants";
 import Cookies from "js-cookie";

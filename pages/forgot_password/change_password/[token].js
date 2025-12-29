@@ -3,7 +3,8 @@ import React, { useState, useEffect } from "react";
 import { useRouter } from "next/router";
 import { motion, AnimatePresence } from "framer-motion";
 import Head from "next/head";
-import { toast } from "react-hot-toast";
+import toast from "../../../utils/toastLimited";
+
 import css from "./css.module.css";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
 

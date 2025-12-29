@@ -7,7 +7,7 @@ import { useState, useEffect } from 'react';
 import Cookies from 'js-cookie';
 import axios from 'axios';
 import { MAINURL ,APIURL} from '../../../utils/constants';
-import toast from 'react-hot-toast';
+import toast from "../../../utils/toastLimited";
 
 export default function Home() {
   const [fname, setFname] = useState('');

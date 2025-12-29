@@ -5,7 +5,7 @@ import Cookies from 'js-cookie';
 import Image from 'next/image';
 import Head from 'next/head';
 import Link from 'next/link';
-import { toast } from 'react-hot-toast';
+import toast from "../../../utils/toastLimited";
 import { FaChevronRight, FaChevronLeft } from 'react-icons/fa';
 import css from './css.module.css';
 import { MAINURL } from '../../../utils/constants';
