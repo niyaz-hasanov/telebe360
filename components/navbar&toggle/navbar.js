@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { styled } from '@mui/material/styles';
 import Box from '@mui/material/Box';
-import MuiDrawer from '@mui/material/Drawer';  
+import MuiDrawer from '@mui/material/Drawer';
 import MuiAppBar from '@mui/material/AppBar';
 import Toolbar from '@mui/material/Toolbar';
 import CssBaseline from '@mui/material/CssBaseline';
@@ -16,7 +16,6 @@ import Cookies from 'js-cookie';
 import axios from 'axios';
 
 import css from './navbar.module.css';
-
 import Profile from '../profile_dropdown/dropdown';
 import { MAINURL, APIURL } from '../../utils/constants';
 
@@ -31,13 +30,12 @@ const openedMixin = (theme) => ({
   overflowX: 'hidden',
   display: 'flex',
   borderRight: 'none',
-  
   boxShadow: 'none',
   paddingLeft: '0.6vw',
   justifyContent: 'space-around',
   borderTopRightRadius: '20px',
   borderBottomRightRadius: '20px',
-      scrollbarWidth:'none',
+  scrollbarWidth: 'none',
   msOverflowStyle: 'none',
 });
 
@@ -47,10 +45,9 @@ const closedMixin = (theme) => ({
     duration: theme.transitions.duration.leavingScreen,
   }),
   overflowX: 'hidden',
-    scrollbarWidth:'none',
+  scrollbarWidth: 'none',
   msOverflowStyle: 'none',
   display: 'flex',
-
   width: `calc(${theme.spacing(7)} + 1px)`,
   [theme.breakpoints.up('sm')]: {
     width: `calc(${theme.spacing(8)} + 1px)`,
@@ -78,7 +75,6 @@ const AppBar = styled(MuiAppBar, {
   position: 'relative',
   border: 'none',
   boxShadow: 'none',
-
   ...(open && {
     transition: theme.transitions.create(['width', 'margin'], {
       easing: theme.transitions.easing.sharp,
@@ -87,7 +83,6 @@ const AppBar = styled(MuiAppBar, {
   }),
   [theme.breakpoints.down('sm')]: {
     marginLeft: 0,
-   
   },
 }));
 
@@ -96,7 +91,7 @@ const Drawer = styled(MuiDrawer, { shouldForwardProp: (prop) => prop !== 'open' 
     width: drawerWidth,
     flexShrink: 0,
     whiteSpace: 'nowrap',
-    position:'sticky',
+    position: 'sticky',
     boxSizing: 'border-box',
     ...(open && {
       ...openedMixin(theme),
@@ -116,13 +111,11 @@ const ChevronDiv = styled(Box, {
   top: 0,
   left: open ? `${drawerWidth}px` : `calc(${theme.spacing(7)} + 1px)`,
   background: 'white',
-
-  zIndex: '999',
+  zIndex: 999,
   borderRadius: '50%',
   display: 'flex',
   alignItems: 'center',
   justifyContent: 'center',
-
   transition: theme.transitions.create(['left'], {
     easing: theme.transitions.easing.sharp,
     duration: theme.transitions.duration.enteringScreen,
@@ -144,9 +137,36 @@ export default function MiniDrawer() {
   const [isLoadingProfile, setIsLoadingProfile] = useState(true);
   const [coinCount, setCoinCount] = useState(0);
 
-  // ⬇ Kategoriler için state
   const [categories, setCategories] = useState([]);
   const [categoriesLoading, setCategoriesLoading] = useState(true);
+
+  // ✅ Mobilde backdrop açıkken scroll kilidi (Drawer üstte kalır)
+  useEffect(() => {
+    // SSR guard
+    if (typeof window === 'undefined') return;
+
+    const isMobile = window.matchMedia('(max-width:600px)').matches;
+    if (!isMobile) return;
+
+    if (backdropOpen) {
+      // Sayfa scroll'unu kilitle (backdrop açıkken arkası kaymasın)
+      document.documentElement.style.overflow = 'hidden';
+      document.body.style.overflow = 'hidden';
+
+      // iOS fix: swipe ile scroll'u da kes
+      document.body.style.touchAction = 'none';
+    } else {
+      document.documentElement.style.overflow = '';
+      document.body.style.overflow = '';
+      document.body.style.touchAction = '';
+    }
+
+    return () => {
+      document.documentElement.style.overflow = '';
+      document.body.style.overflow = '';
+      document.body.style.touchAction = '';
+    };
+  }, [backdropOpen]);
 
   // Profil & auth
   useEffect(() => {
@@ -164,13 +184,9 @@ export default function MiniDrawer() {
       try {
         setIsLoadingProfile(true);
         const response = await fetch(`${APIURL}students/me`, {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
+          headers: { Authorization: `Bearer ${token}` },
           signal: controller.signal,
         });
-
-        if (!response.ok) console.log('Bad response');
 
         const data = await response.json();
         setIsStudentVerified(!!data.is_student_verified);
@@ -185,11 +201,10 @@ export default function MiniDrawer() {
     };
 
     fetchProfile();
-
     return () => controller.abort();
   }, []);
 
-  // ⬇ Kategoriler için useEffect
+  // Kategoriler
   useEffect(() => {
     const fetchCategories = async () => {
       try {
@@ -201,7 +216,6 @@ export default function MiniDrawer() {
         setCategoriesLoading(false);
       }
     };
-
     fetchCategories();
   }, []);
 
@@ -218,37 +232,28 @@ export default function MiniDrawer() {
   const handleLoginClick = () => {
     window.location.href = '/login';
   };
-    const handleRegisterClick = () => {
+
+  const handleRegisterClick = () => {
     window.location.href = '/register';
   };
 
   return (
     <Box sx={{ marginBottom: '50px' }}>
       <CssBaseline />
+
       <AppBar open={open} className={css.appbar}>
         <Toolbar className={css.navbar}>
           <span className={css.nav_div_left}></span>
 
-          <IconButton
-            color="inherit"
-            aria-label="open drawer"
-            onClick={handleDrawerOpen}
-            edge="start"
-          >
+          <IconButton color="inherit" aria-label="open drawer" onClick={handleDrawerOpen} edge="start">
             <Image src="/Burger.svg" className={css.hamburger} width="0" height="0" alt="menu" />
           </IconButton>
 
-          {/* <span className={css.nav_div_left2}>
-            <Link href="/">
-              <img className={css.sidebar_360img} src="/wide360logo.svg" alt="Tələbə360" />
-            </Link>
-          </span> */}
-     
           <span>
             {authenticated && !isLoadingProfile && isStudentVerified === false ? (
               <span className={css.sidebar_middle_text}>
                 <p style={{ color: 'red' }}>
-                  <img src="/mod_alert.svg" alt="alert"  />
+                  <img src="/mod_alert.svg" alt="alert" />
                   Hesabınız moderatorlar tərəfindən təsdiq edilməmişdir
                 </p>
               </span>
@@ -259,10 +264,9 @@ export default function MiniDrawer() {
             {authenticated ? (
               <span className={css.noti_and_ticket}>
                 <Link href="/telebecoin_info">
-                 <p>{coinCount}</p>
+                  <p>{coinCount}</p>
                   <Image width={9999} height={1} src="/navbar_telebecoin.svg" className={css.ticket_logo} alt="coins" />
                 </Link>
-               
               </span>
             ) : (
               <h1></h1>
@@ -273,7 +277,6 @@ export default function MiniDrawer() {
                 <Link href="/my_tickets">
                   <Image width={9999} height={1} src="/navbar_ticket.svg" className={css.ticket_logo} alt="tickets" />
                 </Link>
-            
               </span>
             ) : (
               <h1></h1>
@@ -282,21 +285,12 @@ export default function MiniDrawer() {
             <span>
               {authenticated ? (
                 <span className={css.profile}>
-                  <Profile
-                    isStudentVerified={isStudentVerified}
-                    profileImgPath={profileImgPath}
-                  />
-               
+                  <Profile isStudentVerified={isStudentVerified} profileImgPath={profileImgPath} />
                 </span>
               ) : (
-                 <span className={css.log_reg_button_div}>
-                     <button onClick={handleLoginClick} className={css.loginButton}>
-                  Daxil Ol
-                </button>
-                <button onClick={handleRegisterClick} className={css.loginButton}>
-                  Qeydiyyat
-                </button>
-               
+                <span className={css.log_reg_button_div}>
+                  <button onClick={handleLoginClick} className={css.loginButton}>Daxil Ol</button>
+                  <button onClick={handleRegisterClick} className={css.loginButton}>Qeydiyyat</button>
                 </span>
               )}
             </span>
@@ -304,14 +298,21 @@ export default function MiniDrawer() {
         </Toolbar>
       </AppBar>
 
-      {/* Backdrop (mobilde drawer arkasında karartma) */}
+      {/* ✅ Backdrop: Drawer’ın ALTINDA, diğerlerinin ÜSTÜNDE */}
       <Backdrop
         sx={{
+          // Drawer üstte kalsın:
           zIndex: (theme) => theme.zIndex.drawer - 1,
           display: { xs: 'block', sm: 'none' },
+
+          // iOS/Android "rubber band" efektlerini azaltır:
+          overscrollBehavior: 'none',
+          touchAction: 'none',
         }}
         open={backdropOpen}
         onClick={handleDrawerClose}
+        onTouchMove={(e) => e.preventDefault()}
+        onWheel={(e) => e.preventDefault()}
       />
 
       <Box>
@@ -326,56 +327,40 @@ export default function MiniDrawer() {
             </Link>
           </div>
 
-          {/* ⬇ Categories Component yerine inline kategori listesi */}
           <div className={css.category}>
             {categoriesLoading ? (
               <CircularProgress size={24} />
             ) : (
               <div className={css.sidebar_list}>
-                {/* Tələbə360+ */}
                 <div>
                   <Link href="/coming_soon" passHref>
                     <div className={css.sidebar_item}>
                       <div className={css.sidebar_item_image_div}>
-                        <img
-                          src="/home/crown.svg"
-                          alt="360+"
-                          className={css.sidebar_item_icon}
-                          id={css.crownimg}
-                        />
+                        <img src="/home/crown.svg" alt="360+" className={css.sidebar_item_icon} id={css.crownimg} />
                       </div>
-                      <p
-                        className={`${css.sidebar_item_text} ${css.telebe360text}`}
-                      >
-                        Tələbə360+
-                      </p>
+                      <p className={`${css.sidebar_item_text} ${css.telebe360text}`}>Tələbə360+</p>
                     </div>
                   </Link>
                 </div>
 
-                {/* Ana səhifə */}
                 <div>
                   <Link href="/" passHref>
                     <div className={css.sidebar_item}>
                       <div className={css.sidebar_item_image_div}>
-                        <img
-                          src="/home/offers.svg"
-                          alt="Ana səhifə"
-                          className={css.sidebar_item_icon}
-                          id={css.alloffersimg}
-                        />
+                        <img src="/home/offers.svg" alt="Ana səhifə" className={css.sidebar_item_icon} id={css.alloffersimg} />
                       </div>
                       <p className={css.sidebar_item_text}>Ana səhifə</p>
                     </div>
                   </Link>
                 </div>
 
-                {/* API'den gelen kategoriler */}
                 {categories.map((category) => (
                   <div key={category.id}>
                     <Link href={`/categories/${category.slug}`} passHref>
                       <div className={css.sidebar_item}>
-                        <Image width={9999} height={1}
+                        <Image
+                          width={9999}
+                          height={1}
                           src={`${MAINURL}uploads/${category.icon_path}`}
                           alt={category.name}
                           className={css.sidebar_item_icon}
@@ -385,43 +370,23 @@ export default function MiniDrawer() {
                     </Link>
                   </div>
                 ))}
-                   <div className={css.sidebar_bottom_div}>
-            {authenticated ? (
-              <Link href="/settings">
-                <Image width={9999} height={1}
-                  src="/settings.svg"
-                  draggable="false"
-                  className={css.bottom_div_img}
-                  alt="Ayarlar"
-                />
-              </Link>
-            ) : (
-              <h1 className={css.fake}></h1>
-            )}
 
-            <Link href="/technical_support">
-              <Image width={9999} height={1}
-                src="/contact.svg"
-                draggable="false"
-                className={css.bottom_div_img}
-                alt="Dəstək"
-              />
-            </Link>
+                <div className={css.sidebar_bottom_div}>
+                  {authenticated ? (
+                    <Link href="/settings">
+                      <Image width={9999} height={1} src="/settings.svg" draggable="false" className={css.bottom_div_img} alt="Ayarlar" />
+                    </Link>
+                  ) : (
+                    <h1 className={css.fake}></h1>
+                  )}
 
-            {/* {authenticated ? (
-              <span className={css.logout}>
-                <Logout />
-              </span>
-            ) : (
-              <h1 className={css.fake}></h1>
-            )} */}
-          </div>
+                  <Link href="/technical_support">
+                    <Image width={9999} height={1} src="/contact.svg" draggable="false" className={css.bottom_div_img} alt="Dəstək" />
+                  </Link>
+                </div>
               </div>
-              
             )}
           </div>
-
-       
         </Drawer>
 
         <ChevronDiv open={open} className={`${css.chevron_div} ${!open ? css.closed : ''}`}>
@@ -436,6 +401,6 @@ export default function MiniDrawer() {
           )}
         </ChevronDiv>
       </Box>
-    </Box> 
+    </Box>
   );
 }
