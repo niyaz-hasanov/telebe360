@@ -1,7 +1,10 @@
 .hamburger {
   display: none;
 }
-
+.log_reg_button_div{
+  display:flex;
+  gap:1rem;
+}
 .chevron_div {
    margin-left:0px;
   background: white;

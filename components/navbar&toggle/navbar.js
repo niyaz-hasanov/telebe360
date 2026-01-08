@@ -218,6 +218,9 @@ export default function MiniDrawer() {
   const handleLoginClick = () => {
     window.location.href = '/login';
   };
+    const handleRegisterClick = () => {
+    window.location.href = '/register';
+  };
 
   return (
     <Box sx={{ marginBottom: '50px' }}>
@@ -286,9 +289,15 @@ export default function MiniDrawer() {
                
                 </span>
               ) : (
-                <button onClick={handleLoginClick} className={css.loginButton}>
+                 <span className={css.log_reg_button_div}>
+                     <button onClick={handleLoginClick} className={css.loginButton}>
                   Daxil Ol
                 </button>
+                <button onClick={handleRegisterClick} className={css.loginButton}>
+                  Qeydiyyat
+                </button>
+               
+                </span>
               )}
             </span>
           </div>

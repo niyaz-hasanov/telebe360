@@ -1,18 +1,21 @@
-import React, { useState, useEffect, useCallback } from 'react';
+import React, { useState, useEffect, useCallback, useRef } from 'react';
 import useEmblaCarousel from 'embla-carousel-react';
 import { FaChevronRight, FaChevronLeft } from 'react-icons/fa';
 import css from './carousel.module.css';
 import { fetchSliderData } from '../../utils/banner/fetchSliderData';
 import { MAINURL } from '../../utils/constants';
 import Image from 'next/image';
+
 export default function DesktopSlider() {
   const [slides, setSlides] = useState([]);
+  const autoplayRef = useRef(null);
 
   const [emblaRef, emblaApi] = useEmblaCarousel({
     loop: true,
     align: 'start',
     skipSnaps: false,
   });
+
   function getBannerImg(path) {
     return path ? `${MAINURL}uploads/${path}` : '/noaddbanner.png';
   }
@@ -36,43 +39,56 @@ export default function DesktopSlider() {
     emblaApi.scrollNext();
   }, [emblaApi]);
 
-  return (
-    <div className={css.embla}>
+  const stopAutoplay = useCallback(() => {
+    if (autoplayRef.current) {
+      clearInterval(autoplayRef.current);
+      autoplayRef.current = null;
+    }
+  }, []);
 
-      {/* Sol ok – sadece 1’den fazla slide varsa */}
+  const startAutoplay = useCallback(() => {
+    stopAutoplay();
+
+    if (!emblaApi || slides.length <= 1) return;
+
+    autoplayRef.current = setInterval(() => {
+      emblaApi.scrollNext();
+    }, 5000);
+  }, [emblaApi, slides.length, stopAutoplay]);
+
+  useEffect(() => {
+    startAutoplay();
+    return () => stopAutoplay();
+  }, [startAutoplay, stopAutoplay]);
+
+  return (
+    <div
+      className={css.embla}
+      onMouseEnter={stopAutoplay}
+      onMouseLeave={startAutoplay}
+    >
       {slides.length > 1 && (
-        <button
-          type="button"
-          onClick={scrollPrev}
-          className={css.arrowLeft}
-        >
+        <button type="button" onClick={scrollPrev} className={css.arrowLeft}>
           <FaChevronLeft />
         </button>
       )}
 
-      {/* Sağ ok – sadece 1’den fazla slide varsa */}
       {slides.length > 1 && (
-        <button
-          type="button"
-          onClick={scrollNext}
-          className={css.arrowRight}
-        >
+        <button type="button" onClick={scrollNext} className={css.arrowRight}>
           <FaChevronRight />
         </button>
       )}
 
-      {/* Embla viewport */}
       <div className={css.emblaViewport} ref={emblaRef}>
         <div className={css.emblaContainer}>
           {slides.map(slide => (
             <div className={css.emblaSlide} key={slide.id}>
               <Image
-              width={9999}
-              height={1}
-               alt={slide.name}
+                width={9999}
+                height={1}
+                alt={slide.name}
                 className={css.deskcar}
                 src={getBannerImg(slide.desktop_img_path)}
-               
                 onError={(e) => {
                   e.currentTarget.onerror = null;
                   e.currentTarget.src = '/noaddbanner.png';

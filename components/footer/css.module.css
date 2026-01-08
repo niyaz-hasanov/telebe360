@@ -12,7 +12,7 @@
   max-width: 80rem;
   
   margin: 0 auto;
-  padding: 22px 14px 30px;
+  padding: 1.5rem 1rem 1rem 5rem;
   display: flex;
   align-items: flex-start;
   justify-content: space-between;
@@ -197,7 +197,7 @@
 
 /* RESPONSIVE */
 
-@media (max-width: 840px) {
+@media (max-width: 800px) {
   
     .footer{
     height:115vh;
@@ -206,6 +206,7 @@
   .footer_container{
     position:relative;
   max-height: 100vh;
+  padding: 0rem 0rem 0rem 1rem;
     
   }
   .logo_block{
@@ -234,6 +235,7 @@
   .footer_container {
     flex-direction: column;
     align-items: flex-start;
+      padding: 0rem 0rem 10rem 1rem;
     gap: 24px;
   }
 
@@ -302,6 +304,7 @@
   .footer_container{
     position:relative;
     max-height: 100vh;
+  padding: 0rem 0rem 5rem 0.5rem;
     
   }
  .footer_middle_bottom_ul{
