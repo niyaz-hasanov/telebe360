@@ -24,10 +24,12 @@ export default function Recovery() {
   });
 
   useEffect(() => {
-    if (!token) {
+    // Next router query ilk render-da boş ola bilər
+    if (router.isReady && !token) {
       toast.error("Token səhvdir");
+      router.push("/login");
     }
-  }, [token]);
+  }, [router.isReady, token, router]);
 
   const validatePassword = (password) => {
     if (!passwordRequirements.length) {
@@ -72,6 +74,13 @@ export default function Recovery() {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
+    // Token yoxdursa request atma
+    if (!token) {
+      toast.error("Token səhvdir");
+      router.push("/login");
+      return;
+    }
+
     // Öncelik: Şifrelerin uyumluluğunu kontrol et
     if (password !== confirmPassword) {
       toast.error("Şifrələr uyğunlaşmır!");
@@ -101,6 +110,11 @@ export default function Recovery() {
 
       if (response.ok) {
         toast.success("Şifrə uğurla dəyişdirildi!");
+
+        // Toast görünsün deyə qısa gecikmə və sonra login-ə yönləndir
+        setTimeout(() => {
+          router.push("/login");
+        }, 1500);
       } else {
         toast.error(data.message || "Şifrə dəyişdirilərkən xəta baş verdi.");
       }
@@ -153,6 +167,7 @@ export default function Recovery() {
               <h2 className={css.daxiltxt}>Şifrəni Dəyişdir</h2>
               <p className={css.login_top_txt}>Yeni şifrə seçin</p>
             </div>
+
             <div className={css.passwordField}>
               <input
                 type={isPasswordVisible ? "text" : "password"}
@@ -174,6 +189,7 @@ export default function Recovery() {
                 )}
               </span>
             </div>
+
             <div>
               <input
                 type={isPasswordVisible ? "text" : "password"}

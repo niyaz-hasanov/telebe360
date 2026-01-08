@@ -7,7 +7,7 @@ import Link from 'next/link';
 import { motion, AnimatePresence } from 'framer-motion';
 import css from './css.module.css';
 import Slider from '../../components/login_slider/index';
-import toast from 'react-hot-toast';
+import toast from "../../utils/toastLimited";
  
 
 import Cookies from 'js-cookie'; 
