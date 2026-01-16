@@ -170,7 +170,7 @@ export default function Register() {
         return false;
       }
       if (formData.fname.length < 3 || formData.lname.length < 3) {
-        toast.error("Adınız ən azı 3 hərf olmalıdır.");
+        toast.error("Adınız və soyadınız ən azı 3 hərf olmalıdır.");
         return false;
       }
 
@@ -841,3 +841,4 @@ const handleSubmit = async (e) => {
     </div>
   );
 }
+
