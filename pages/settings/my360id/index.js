@@ -20,6 +20,8 @@ export default function Home() {
 
   const [showTooltip, setShowTooltip] = useState(false);
   const [showTooltip2, setShowTooltip2] = useState(false);
+  const [showTooltip3, setShowTooltip3] = useState(false);
+
   const [isVerified, setIsVerified] = useState(true);
   useEffect(() => {
     const fetchStudentData = async () => {
@@ -180,24 +182,36 @@ export default function Home() {
                   </div>
                 </li>
                 <li className={css.my360id_li} id={css.my360id_li}>
-                  <div className={css.li1_left}>
+                  <div className={css.li1_left}
+                  >
                     <h2>Ad Soyad</h2>
                   </div>
-                  <div className={css.li1_right}>
+                  <div className={css.li1_right}
+                  id={css.special}
+                    onMouseEnter={() => setShowTooltip3(true)} 
+                    onMouseLeave={() => setShowTooltip3(false)}
+                    >
                     <input
                       className={css.li2_right_input}
                       type="text"
                       value={fname}
                       onChange={(e) => setFname(e.target.value)}
                       placeholder="Ad"
+                      readOnly
                     />
                     <input
                       className={css.li2_right_input}
                       type="text"
                       value={lname}
                       onChange={(e) => setLname(e.target.value)}
-                      placeholder="Həsənov"
+                      placeholder="Soyad"
+                      readOnly
                     />
+                         {showTooltip3 && (
+                      <div className={css.tooltip}>
+                        Ad və soyadınızı dəyişdirə bilməzsiniz
+                      </div>
+                    )}
                   </div>
                 </li>
                 <li className={css.my360id_li} id={css.my360id_li}>
