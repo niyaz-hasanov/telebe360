@@ -15,42 +15,13 @@ const calculateTimeLeft = (end_time) => {
   const endTime = new Date(end_time);
   const difference = endTime - now;
 
-  if (difference <= 0) {
-    return "Bitib";
-  }
+  if (difference <= 0) return 'Bitib';
 
-  const oneDayInMs = 1000 * 60 * 60 * 24; // 1 gün
-  const oneMonthInMs = 30 * oneDayInMs; // 30 gün = 1 ay
-  const oneYearInMs = 365 * oneDayInMs; // 365 gün = 1 yıl
+  const days = Math.floor(difference / (1000 * 60 * 60 * 24));
 
-  // Yıl hesaplama
-  if (difference >= oneYearInMs) {
-    const years = Math.floor(difference / oneYearInMs);
-    return `${years} il`;
-  }
+  if (days >= 1) return `${days}`;
 
-  // Ay hesaplama
-  if (difference >= oneMonthInMs) {
-    const months = Math.floor(difference / oneMonthInMs);
-    return `${months} ay`;
-  }
-
-  // Gün hesaplama
-  const days = Math.floor(difference / oneDayInMs);
-  if (days > 0) {
-    return `${days} gün`;
-  }
-
-  // Saat, dakika ve saniye hesaplama
-  const hours = Math.floor((difference / (1000 * 60 * 60)) % 24);
-  const minutes = Math.floor((difference / 1000 / 60) % 60);
-  const seconds = Math.floor((difference / 1000) % 60);
-
-  if (hours > 0 || minutes > 0 || seconds > 0) {
-    return `${hours} : ${minutes} : ${seconds}`;
-  }
-
-  return "Bitib";
+  return 'Bitir';
 };
 
 const Slider = ({ ticket }) => {

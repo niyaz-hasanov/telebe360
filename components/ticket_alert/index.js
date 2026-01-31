@@ -9,7 +9,7 @@ const Index = ({ ticketId }) => {
   const handleClick = () => {
     Swal.fire({
       title: 'Bileti əldə etmək istəyirsiniz?',
-      text: "Hər biletdən yalnız bir dəfə istifadə etmək haqqınız var",
+      text: "Uyğun məbləğdə coin balansınızdan silinəcək!",
       showCancelButton: true,
       confirmButtonText: 'Bəli',
       cancelButtonText: 'Ləğv et',

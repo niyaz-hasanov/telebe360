@@ -11,26 +11,16 @@ import PropTypes from 'prop-types';
 const calculateTimeLeft = (end_time) => {
   const now = new Date();
   const endTime = new Date(end_time);
-  const difference = endTime - now; // Kalan süreyi milisaniye cinsinden hesapla
+  const difference = endTime - now;
 
-  if (difference <= 0) {
-    return "Bitib"; // Eğer süre geçmişse
-  }
+  if (difference <= 0) return 'Bitib';
 
   const days = Math.floor(difference / (1000 * 60 * 60 * 24));
-  const hours = Math.floor((difference / (1000 * 60 * 60)) % 24);
-  const minutes = Math.floor((difference / 1000 / 60) % 60);
-  const seconds = Math.floor((difference / 1000) % 60);
 
-  if (days > 0) {
-    return `${days} gün`;
-  } else if (hours > 0 || minutes > 0 || seconds > 0) {
-    return `${hours} : ${minutes} : ${seconds} `;
-  }
+  if (days >= 1) return `${days}`;
 
-  return "Bitib"; 
+  return 'Bitir';
 };
-
 const Slider = ({ ticket }) => {
   if (ticket.length === 0) {
     return <div>No tickets available.</div>;
@@ -122,7 +112,7 @@ const Slider = ({ ticket }) => {
               </div>
               <Image
                 src={'/home/bookmark.svg'}
-                width={20} // Örnek boyut, gerekli boyutu ayarlayın
+                width={20} 
                 height={20}
                 className={css.bookmark}
               />

@@ -14,6 +14,11 @@
   height: 16rem;
   background: url("/ticket_design.svg") center / 100% 100% no-repeat;
   text-decoration: none;
+  transition:0.5s ease-in-out
+}
+.card_wrapper:hover{
+  transform:scale(105%);
+  transition:0.5s ease-in-out;
 }
 
 /* 🔥 iç içerik transparan */
@@ -39,6 +44,7 @@
   user-select: none;
  
 }
+
 #but2 .card_bottom_right img{
   width:1.5rem;
 }
@@ -101,7 +107,6 @@ padding:0;
 .card_button_div{
     display:flex;
      width:100%;
-     gap:1rem;
     }
     
 .card_button_div button{
@@ -154,13 +159,13 @@ padding:0;
   
 }
 #but1 div>p{
-     padding-left:1rem;
+     padding-left:1.5rem;
      
   
 }
 #but2 div>p{
      border-left:1px solid  #B5B5AF;
-     padding-left:1rem;
+     padding-left:1.5rem;
   white-space: nowrap;
 
      
@@ -168,18 +173,18 @@ padding:0;
 }
 #but3 div>p{
      border-left:1px solid #B5B5AF;
-     padding-left:1rem;
+     padding-left:1.5rem;
 
   
 }
 .say{
-    padding-left:1rem;
+    padding-left:1.5rem;
 }
 .gun{
-    padding-left:1rem;
+    padding-left:1.5rem;
 }
 .giymet{
-    padding-left:1rem;
+    padding-left:1.5rem;
 }
 #but3{
  display:flex;
@@ -211,8 +216,12 @@ padding:0;
 .add2mob{
     display:none;
 }
-
+.ticket_icon{
+  align-self: center;
+  
+}
 @media only screen and (max-width: 800px)  {
+  
 
   .ticket_table{
     margin:0;
@@ -232,6 +241,7 @@ padding:0;
     width:98vw;
     
   }
+  
 
 }
 @media only screen and (max-width: 450px){

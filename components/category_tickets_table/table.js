@@ -7,7 +7,6 @@ import { useColumns } from '../../hooks/useColums';
 import MobAddCarousel2 from '../mobile_carousel_2/carousel';
 import DeskAddCarousel2 from '../desk_carousel_2/carousel';
 import Image from 'next/image';
-// Ana sayfadaki ile aynı zaman hesaplama fonksiyonu
 const calculateTimeLeft = (end_time) => {
   const now = new Date();
   const endTime = new Date(end_time);
@@ -16,15 +15,10 @@ const calculateTimeLeft = (end_time) => {
   if (difference <= 0) return 'Bitib';
 
   const days = Math.floor(difference / (1000 * 60 * 60 * 24));
-  const hours = Math.floor((difference / (1000 * 60 * 60)) % 24);
-  const minutes = Math.floor((difference / 1000 / 60) % 60);
-  const seconds = Math.floor((difference / 1000) % 60);
 
-  if (days > 0) return `${days} `;
-  if (hours > 0 || minutes > 0 || seconds > 0) {
-    return `${hours}s : ${minutes}d`;
-  }
-  return 'Bitib';
+  if (days >= 1) return `${days}`;
+
+  return 'Bitir';
 };
 
 const Slider = ({ tickets }) => {
